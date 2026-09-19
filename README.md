@@ -1,32 +1,51 @@
 # Sistema de monitoreo de presencia y alerta local en camilla hospitalaria
 
-Sistema de monitoreo desarrollado durante una residencia profesional de seis meses en el **Hospital General Dr. Desiderio G. Rosado Carbajal**, utilizando **ESP32-C6**, comunicación **ESP-NOW**, identificación RFID y telemetría mediante **Arduino IoT Cloud**.
+Sistema desarrollado durante una residencia profesional de seis meses en el **Hospital General Dr. Desiderio G. Rosado Carbajal**, Comalcalco, Tabasco.
 
-El proyecto combina procesamiento local, comunicación inalámbrica y dispositivos electrónicos para detectar cambios de proximidad y generar alertas locales ante condiciones configuradas.
+El proyecto utiliza **ESP32-C6**, comunicación **ESP-NOW**, identificación RFID, procesamiento de RSSI y telemetría mediante **Arduino IoT Cloud** para implementar un sistema distribuido de monitoreo de presencia y generación de alertas locales.
 
-> **Nota de seguridad:** las credenciales de Wi-Fi y Arduino IoT Cloud se mantienen fuera del repositorio. Consulta la sección de instalación para configurar el firmware.
+La detección y las alertas principales se ejecutan directamente en los nodos. La conexión a la plataforma IoT funciona como canal secundario de monitoreo.
+
+> **Nota de seguridad:** las credenciales de Wi-Fi y Arduino IoT Cloud se mantienen fuera del repositorio mediante archivos locales `secrets.h`.
+
+## Objetivo
+
+Desarrollar e integrar un sistema electrónico inalámbrico capaz de monitorear la proximidad de un transmisor móvil respecto a diferentes zonas, identificar accesos autorizados mediante RFID y generar indicaciones y alertas locales.
 
 ## Funciones principales
 
-- Comunicación inalámbrica entre nodos mediante ESP-NOW.
-- Estimación de proximidad mediante RSSI.
+- Comunicación inalámbrica entre nodos mediante **ESP-NOW**.
+- Estimación de proximidad mediante **RSSI**.
 - Filtrado EMA para suavizar las lecturas.
-- Lógica de confirmación e histéresis para reducir activaciones por fluctuaciones.
+- Confirmación mediante lecturas consecutivas e histéresis para reducir cambios de estado por fluctuaciones.
 - Identificación RFID para gestionar un traslado autorizado.
-- Nodo de salida con lector PN532.
+- Monitoreo de una zona de salida mediante **PN532**.
 - Indicadores locales mediante OLED, LED y buzzer.
-- Telemetría secundaria mediante Arduino IoT Cloud.
+- Telemetría secundaria mediante **Arduino IoT Cloud**.
 - Firmware separado por función: transmisor, nodo de área y nodo de salida.
 
 ## Arquitectura
 
 El sistema está compuesto por tres nodos principales:
 
-1. **Transmisor móvil:** envía tramas ESP-NOW a los receptores.
-2. **Nodo de área / camilla:** procesa RSSI y RFID de 125 kHz, y genera alertas locales.
+1. **Transmisor móvil:** envía tramas ESP-NOW a los receptores y cambia de canal para realizar la comunicación con los nodos.
+2. **Nodo de área / camilla:** procesa RSSI y RFID de 125 kHz, determina el estado de proximidad y genera alertas locales.
 3. **Nodo de salida:** procesa RSSI y RFID de 13.56 MHz para gestionar una condición de alarma en la zona de salida.
 
-La detección y las alertas principales se ejecutan localmente en los nodos; la conexión a la plataforma IoT se utiliza como canal de monitoreo secundario.
+La arquitectura prioriza el procesamiento local para las funciones de detección y alerta. La plataforma IoT se utiliza para visualización y telemetría, no como dependencia principal de la lógica de alarma.
+
+## Participación en el proyecto
+
+Durante la residencia profesional participé en el desarrollo e integración del sistema, incluyendo:
+
+- Programación de microcontroladores ESP32-C6.
+- Implementación de comunicación inalámbrica mediante ESP-NOW.
+- Procesamiento de RSSI y lógica de detección.
+- Integración de lectores RFID.
+- Integración de indicadores y dispositivos electrónicos.
+- Diseño e integración de PCB.
+- Implementación de telemetría mediante Arduino IoT Cloud.
+- Pruebas y validación funcional del prototipo.
 
 ## Tecnologías
 
@@ -41,7 +60,7 @@ La detección y las alertas principales se ejecutan localmente en los nodos; la 
 | Programación | C/C++ para Arduino |
 | Alimentación | LiPo 3.7 V, TP4056, MT3608 |
 
-## Hardware documentado
+## Hardware
 
 ### Nodo de área / camilla
 
@@ -69,9 +88,9 @@ Las lecturas RSSI se suavizan mediante un filtro de media móvil exponencial (EM
 
 En el firmware actual se utiliza **alpha = 0.20**.
 
-La decisión de estado no depende de una sola lectura: se utilizan lecturas consecutivas para confirmar determinadas condiciones y evitar cambios de estado por fluctuaciones momentáneas.
+La decisión de estado no depende de una sola lectura. Se utilizan lecturas consecutivas para confirmar determinadas condiciones y evitar cambios de estado provocados por fluctuaciones momentáneas de la señal.
 
-## RFID
+## Identificación RFID
 
 Se utilizan dos tecnologías RFID según el nodo:
 
@@ -101,8 +120,6 @@ Monitoreo-Camilla-IoT/
     └── images/
 ```
 
-Las carpetas de documentación e imágenes se irán completando con material real del proyecto.
-
 ## Instalación
 
 ### 1. Preparar las credenciales
@@ -130,14 +147,17 @@ Las librerías de ESP-NOW, Wi-Fi y Wire forman parte del entorno ESP32.
 
 Abre cada sketch de forma independiente y selecciona la placa ESP32-C6 correspondiente.
 
-## Documentación pendiente
+## Documentación
 
-- Diagrama de arquitectura del sistema.
+La documentación se ampliará progresivamente con material real del proyecto:
+
+- Diagrama de arquitectura.
+- Diagrama de comunicación.
 - Fotografías del prototipo y de los nodos.
 - Fotografías de PCB y montaje.
 - Evidencia de pruebas.
+- Diagrama de conexiones.
 - Video de demostración, si se dispone de uno.
-- Diagrama de conexiones detallado.
 
 ## Limitaciones
 
