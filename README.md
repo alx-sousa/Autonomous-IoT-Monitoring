@@ -1,103 +1,97 @@
 # Sistema de monitoreo de presencia y alerta local en camilla hospitalaria
 
-Sistema desarrollado durante una residencia profesional de seis meses en el **Hospital General Dr. Desiderio G. Rosado Carbajal**, Comalcalco, Tabasco.
+Proyecto de **sistemas embebidos e IoT** desarrollado durante una residencia profesional de seis meses en el **Hospital General Dr. Desiderio G. Rosado Carbajal**, Comalcalco, Tabasco.
 
-El proyecto utiliza **ESP32-C6**, comunicación **ESP-NOW**, identificación RFID, procesamiento de RSSI y telemetría mediante **Arduino IoT Cloud** para implementar un sistema distribuido de monitoreo de presencia y generación de alertas locales.
+El prototipo integra **ESP32-C6, ESP-NOW, RFID, procesamiento de RSSI, PCB y Arduino IoT Cloud** en una arquitectura distribuida de tres nodos. La detección y las alertas se procesan localmente; la nube funciona como una capa secundaria de telemetría.
 
-La detección y las alertas principales se ejecutan directamente en los nodos. La conexión a la plataforma IoT funciona como canal secundario de monitoreo.
+> **Seguridad:** las credenciales Wi-Fi y de Arduino IoT Cloud no se almacenan en el repositorio. Los receptores utilizan archivos locales `secrets.h`, excluidos mediante `.gitignore`.
 
-> **Nota de seguridad:** las credenciales de Wi-Fi y Arduino IoT Cloud se mantienen fuera del repositorio mediante archivos locales `secrets.h`.
+## Qué hace el sistema
 
-## Objetivo
-
-Desarrollar e integrar un sistema electrónico inalámbrico capaz de monitorear la proximidad de un transmisor móvil respecto a diferentes zonas, identificar accesos autorizados mediante RFID y generar indicaciones y alertas locales.
-
-## Funciones principales
-
-- Comunicación inalámbrica entre nodos mediante **ESP-NOW**.
-- Estimación de proximidad mediante **RSSI**.
-- Filtrado EMA para suavizar las lecturas.
-- Confirmación mediante lecturas consecutivas e histéresis para reducir cambios de estado por fluctuaciones.
-- Identificación RFID para gestionar un traslado autorizado.
-- Monitoreo de una zona de salida mediante **PN532**.
-- Indicadores locales mediante OLED, LED y buzzer.
-- Telemetría secundaria mediante **Arduino IoT Cloud**.
-- Firmware separado por función: transmisor, nodo de área y nodo de salida.
+- Comunica un transmisor móvil con dos receptores mediante **ESP-NOW**.
+- Utiliza **RSSI** como referencia de proximidad.
+- Aplica filtro **EMA**, confirmación por lecturas consecutivas e histéresis.
+- Integra identificación **RFID de 125 kHz y 13.56 MHz**.
+- Ejecuta máquinas de estado y alertas directamente en los ESP32-C6.
+- Proporciona indicación local mediante OLED, LED y buzzer.
+- Publica variables de monitoreo mediante **Arduino IoT Cloud**.
+- Funciona con alimentación portátil basada en LiPo.
 
 ## Arquitectura
 
-El sistema está compuesto por tres nodos principales:
+```mermaid
+flowchart LR
+    T["Transmisor móvil<br/>ESP32-C6"] -->|"ESP-NOW / RSSI"| A["Nodo de área<br/>ESP32-C6"]
+    T -->|"ESP-NOW / RSSI"| S["Nodo de salida<br/>ESP32-C6"]
+    A --> R1["RDM6300<br/>125 kHz"]
+    S --> R2["PN532<br/>13.56 MHz"]
+    A -. "Telemetría" .-> C["Arduino IoT Cloud"]
+    S -. "Telemetría" .-> C
+```
 
-1. **Transmisor móvil:** envía tramas ESP-NOW a los receptores y cambia de canal para realizar la comunicación con los nodos.
-2. **Nodo de área / camilla:** procesa RSSI y RFID de 125 kHz, determina el estado de proximidad y genera alertas locales.
-3. **Nodo de salida:** procesa RSSI y RFID de 13.56 MHz para gestionar una condición de alarma en la zona de salida.
+La arquitectura completa y el flujo funcional están documentados en [docs/architecture.md](docs/architecture.md).
 
-La arquitectura prioriza el procesamiento local para las funciones de detección y alerta. La plataforma IoT se utiliza para visualización y telemetría, no como dependencia principal de la lógica de alarma.
+## Resultados del prototipo
 
-## Participación en el proyecto
+Durante la evaluación experimental documentada en la residencia se obtuvieron los siguientes resultados:
 
-Durante la residencia profesional participé en el desarrollo e integración del sistema, incluyendo:
+| Prueba | Resultado reportado |
+|---|---:|
+| Tiempo promedio de detección | 2 s |
+| Tiempo promedio de activación de alarma | 2.2 s |
+| Distancia máxima con RSSI estable | 11–17 m |
+| Falsas alarmas | 1 de 20 pruebas |
+| Autonomía con batería | 4.9 h |
 
-- Programación de microcontroladores ESP32-C6.
-- Implementación de comunicación inalámbrica mediante ESP-NOW.
-- Procesamiento de RSSI y lógica de detección.
-- Integración de lectores RFID.
-- Integración de indicadores y dispositivos electrónicos.
-- Diseño e integración de PCB.
-- Implementación de telemetría mediante Arduino IoT Cloud.
-- Pruebas y validación funcional del prototipo.
+Estos valores corresponden a las condiciones experimentales del prototipo y no representan especificaciones universales. El comportamiento de RSSI depende del entorno, obstáculos y orientación de los dispositivos.
+
+Detalles de metodología y validación: [docs/testing.md](docs/testing.md).
 
 ## Tecnologías
 
 | Área | Tecnologías |
 |---|---|
-| Microcontroladores | ESP32-C6 |
+| Microcontrolador | ESP32-C6 |
+| Firmware | C/C++ / Arduino |
 | Comunicación | ESP-NOW, Wi-Fi |
 | IoT | Arduino IoT Cloud |
-| Identificación | RDM6300, PN532 |
-| Interfaz | OLED 128x64, LED RGB, buzzer |
-| Procesamiento | RSSI, filtro EMA, máquina de estados, histéresis |
-| Programación | C/C++ para Arduino |
+| RFID | RDM6300, PN532 |
+| Interfaz | OLED 128×64, LED RGB, buzzer |
+| Procesamiento | RSSI, EMA, histéresis, máquina de estados |
+| Diseño electrónico | PCB, EasyEDA |
 | Alimentación | LiPo 3.7 V, TP4056, MT3608 |
 
 ## Hardware
 
-### Nodo de área / camilla
+### Nodo de área
 
-| Componente | Interfaz / pin | Función |
-|---|---|---|
-| RDM6300 | UART RX GPIO17 | Lectura RFID de baja frecuencia |
-| OLED | I²C SDA GPIO7 / SCL GPIO6 | Estado local |
-| Buzzer | GPIO19 | Alerta acústica |
-| LED RGB | GPIO14, GPIO15, GPIO18 | Indicadores de estado |
+| Componente | Interfaz / GPIO |
+|---|---|
+| RDM6300 | UART RX — GPIO17 |
+| OLED | I²C — SDA GPIO7 / SCL GPIO6 |
+| Buzzer | GPIO19 |
+| LED RGB | GPIO14 / GPIO15 / GPIO18 |
 
 ### Nodo de salida
 
-| Componente | Interfaz / pin | Función |
-|---|---|---|
-| PN532 | I²C SDA GPIO7 / SCL GPIO6 | Identificación RFID |
-| OLED | I²C SDA GPIO7 / SCL GPIO6 | Estado local |
-| LED de alarma | GPIO20 | Indicador de alarma |
-| Buzzer | GPIO19 | Alerta acústica |
+| Componente | Interfaz / GPIO |
+|---|---|
+| PN532 | I²C — SDA GPIO7 / SCL GPIO6 |
+| OLED | I²C — SDA GPIO7 / SCL GPIO6 |
+| LED de alarma | GPIO20 |
+| Buzzer | GPIO19 |
 
-## Procesamiento de RSSI
+BOM, alimentación e interfaces: [hardware/README.md](hardware/README.md).
 
-Las lecturas RSSI se suavizan mediante un filtro de media móvil exponencial (EMA):
+## Firmware
 
-`RSSI_filtrado = alpha × RSSI_actual + (1 - alpha) × RSSI_anterior`
+El proyecto mantiene firmware independiente para cada responsabilidad:
 
-En el firmware actual se utiliza **alpha = 0.20**.
+- **Transmisor:** envío ESP-NOW y recorrido de canales.
+- **Nodo de área:** RSSI, EMA, estados CERCA/LEJOS, RDM6300, OLED y alertas.
+- **Nodo de salida:** RSSI, PN532, control de alarma y exclusión temporal tras autorización RFID.
 
-La decisión de estado no depende de una sola lectura. Se utilizan lecturas consecutivas para confirmar determinadas condiciones y evitar cambios de estado provocados por fluctuaciones momentáneas de la señal.
-
-## Identificación RFID
-
-Se utilizan dos tecnologías RFID según el nodo:
-
-- **RDM6300:** 125 kHz en el nodo de área.
-- **PN532:** 13.56 MHz mediante I²C en el nodo de salida.
-
-El nodo de salida incorpora una ventana temporal de exclusión de **6 segundos** después de una lectura RFID válida para evitar que la misma autorización provoque una nueva alarma inmediatamente.
+La revisión técnica y las mejoras futuras identificadas están en [docs/firmware-review.md](docs/firmware-review.md).
 
 ## Estructura del repositorio
 
@@ -114,26 +108,37 @@ Monitoreo-Camilla-IoT/
 │   └── exit_node/
 │       ├── exit_node.ino
 │       └── secrets.example.h
+├── hardware/
+│   └── README.md
 └── docs/
     ├── architecture.md
-    ├── testing.md
-    └── images/
+    ├── communication.md
+    ├── firmware-review.md
+    └── testing.md
 ```
+
+## Documentación técnica
+
+| Documento | Contenido |
+|---|---|
+| [Arquitectura](docs/architecture.md) | Nodos, flujo funcional y diseño general |
+| [Comunicación y lógica](docs/communication.md) | ESP-NOW, RSSI, EMA, histéresis y RFID |
+| [Pruebas y validación](docs/testing.md) | Metodología y resultados experimentales |
+| [Hardware / BOM](hardware/README.md) | Componentes, alimentación, interfaces y GPIO |
+| [Revisión del firmware](docs/firmware-review.md) | Implementación actual y mejoras futuras |
 
 ## Instalación
 
-### 1. Preparar las credenciales
+### Credenciales
 
-En los directorios `firmware/area_node/` y `firmware/exit_node/`:
+En `firmware/area_node/` y `firmware/exit_node/`:
 
 1. Copia `secrets.example.h`.
 2. Renombra la copia a `secrets.h`.
-3. Introduce las credenciales correspondientes a cada dispositivo.
-4. No subas `secrets.h` al repositorio.
+3. Introduce las credenciales del dispositivo correspondiente.
+4. Mantén `secrets.h` únicamente en el entorno local.
 
-### 2. Librerías
-
-Instala las librerías requeridas desde el entorno de Arduino:
+### Librerías
 
 - ArduinoIoTCloud
 - Arduino_ConnectionHandler
@@ -141,30 +146,22 @@ Instala las librerías requeridas desde el entorno de Arduino:
 - Adafruit SSD1306
 - Adafruit PN532
 
-Las librerías de ESP-NOW, Wi-Fi y Wire forman parte del entorno ESP32.
+ESP-NOW, Wi-Fi y Wire forman parte del entorno ESP32.
 
-### 3. Cargar el firmware
+### Carga
 
-Abre cada sketch de forma independiente y selecciona la placa ESP32-C6 correspondiente.
+Cada sketch se compila y carga de forma independiente en el ESP32-C6 correspondiente.
 
-## Documentación
+## Participación en el proyecto
 
-La documentación se ampliará progresivamente con material real del proyecto:
-
-- Diagrama de arquitectura.
-- Diagrama de comunicación.
-- Fotografías del prototipo y de los nodos.
-- Fotografías de PCB y montaje.
-- Evidencia de pruebas.
-- Diagrama de conexiones.
-- Video de demostración, si se dispone de uno.
+Durante la residencia profesional participé en el desarrollo e integración del sistema, incluyendo programación de ESP32-C6, comunicación ESP-NOW, procesamiento RSSI, integración RFID, diseño e integración de PCB, telemetría IoT y pruebas funcionales del prototipo.
 
 ## Limitaciones
 
-- La estimación mediante RSSI depende del entorno físico, orientación y obstáculos.
-- Los umbrales deben calibrarse para la instalación concreta.
-- La telemetría depende de la disponibilidad de la red Wi-Fi y del servicio IoT.
-- Este repositorio documenta un prototipo académico/profesional y no representa un dispositivo médico certificado.
+- RSSI proporciona una referencia de proximidad, no una medición directa de distancia.
+- Los umbrales requieren calibración según el entorno de instalación.
+- La telemetría depende de la disponibilidad de Wi-Fi y del servicio IoT, mientras que la lógica principal se ejecuta localmente.
+- El repositorio documenta un prototipo académico/profesional y no un dispositivo médico certificado.
 
 ## Autor
 
