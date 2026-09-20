@@ -6,6 +6,22 @@ El prototipo integra **ESP32-C6, ESP-NOW, RFID, procesamiento de RSSI, PCB y Ard
 
 > **Seguridad:** las credenciales Wi-Fi y de Arduino IoT Cloud no se almacenan en el repositorio. Los receptores utilizan archivos locales `secrets.h`, excluidos mediante `.gitignore`.
 
+## Prototipo integrado
+
+El sistema físico está compuesto por un transmisor móvil y dos nodos receptores. Las siguientes fotografías muestran la integración final en carcasa de los dispositivos utilizados durante el proyecto.
+
+<p align="center">
+  <img src="docs/images/20260716_211125.jpg" width="31%" alt="Prototipo integrado - vista 1">
+  <img src="docs/images/20260716_211140.jpg" width="31%" alt="Prototipo integrado - vista 2">
+  <img src="docs/images/20260716_211158.jpg" width="31%" alt="Prototipo integrado - vista 3">
+</p>
+
+<p align="center">
+  <img src="docs/images/20260717_100755~2.jpg" width="50%" alt="Transmisor móvil integrado en formato brazalete">
+</p>
+
+> El transmisor móvil se integró en formato de reloj/brazalete. Su función dentro de la arquitectura es emitir las tramas ESP-NOW utilizadas por los nodos receptores para procesar el RSSI.
+
 ## Qué hace el sistema
 
 - Comunica un transmisor móvil con dos receptores mediante **ESP-NOW**.
@@ -111,6 +127,7 @@ Monitoreo-Camilla-IoT/
 ├── hardware/
 │   └── README.md
 └── docs/
+    ├── images/
     ├── architecture.md
     ├── communication.md
     ├── firmware-review.md
