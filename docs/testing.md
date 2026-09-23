@@ -1,89 +1,46 @@
-# Pruebas y validación
+# Evaluación experimental y resultados
 
-Las pruebas documentadas en esta sección corresponden a la evaluación experimental reportada durante la residencia profesional. Se realizaron pruebas de proximidad, comunicación, alertas, RFID, alimentación y telemetría sobre el prototipo integrado.
+Fuente: informe final de residencia de Luis Alejandro Pérez Sousa, capítulo 4. Los resultados siguientes fueron reportados por el autor durante la residencia; esta actualización del repositorio no constituye una nueva campaña experimental.
 
-## Metodología de prueba
+## Métricas publicadas
 
-Para evaluar el comportamiento de los nodos se realizaron desplazamientos controlados del transmisor en un rango aproximado de **3 m a 20 m**.
+| Métrica | Resultado | Fuente |
+|---|---:|---|
+| Tiempo promedio de detección | 2 s | Tabla 24, p. 72 |
+| Tiempo promedio de activación de alarmas | 2.2 s | Tabla 24, p. 72 |
+| Distancia máxima con RSSI estable | 11–17 m | Tabla 24, p. 72 |
+| Falsas alarmas | 1 en 20 pruebas | Tabla 24, p. 72 |
+| Autonomía con batería | 4.9 h | Tabla 24, p. 72 |
 
-En el nodo de área se observaron las transiciones entre los estados de proximidad configurados. En el nodo de salida se evaluó la detección del transmisor al aproximarse a la zona definida, considerando también obstáculos e infraestructura del entorno.
+La tabla no desglosa tiempos y autonomía por nodo ni especifica la relación temporal entre detección y activación. No se suman ambos promedios. Una falsa alarma en veinte ensayos no equivale a una exactitud global del 95 %: faltan la definición completa de eventos y una matriz de clasificación.
 
-Durante la calibración del RSSI se evaluó inicialmente un factor EMA de 0.10. Debido al retardo observado, el firmware final utilizó **alpha = 0.20** como compromiso entre suavizado y velocidad de respuesta.
+## Método descrito
 
-## Resultados generales
+- §3.7, pp. 61–62: desplazamientos controlados del transmisor entre aproximadamente 3 y 20 m, con trayectorias de alejamiento y aproximación y consideración de obstáculos.
+- §3.7.2, p. 62: ajuste del EMA desde α = 0.10 a 0.20 por el retardo observado.
+- §4.4, p. 77: asociación aproximada de −84 dBm con 6 m en el entorno de prueba. No es una conversión universal de RSSI a distancia.
+- Tablas 25–26, pp. 72–73: funcionamiento con batería y fuente externa; transición sin reinicio reportada, sin oscilogramas ni procedimiento detallado de conmutación publicados.
+- §4.4, p. 77: alarmas locales durante simulaciones de caída de Wi-Fi.
+- §4.3, pp. 74–76: visualización de RSSI y estado de alarma en Arduino IoT Cloud.
 
-| Prueba | Resultado reportado |
-|---|---:|
-| Tiempo promedio de detección | 2 s |
-| Tiempo promedio de activación de alarmas | 2.2 s |
-| Distancia máxima con RSSI estable | 11–17 m |
-| Falsas alarmas | 1 de 20 pruebas |
-| Autonomía con batería | 4.9 h |
+El informe menciona evaluación en entorno operativo simulado y pruebas relacionadas con el entorno hospitalario. No aporta un protocolo clínico ni permite atribuir todas las mediciones a una ubicación y configuración únicas. La página 78 menciona una LiPo de 1200 mAh; no basta para reconstruir consumo por nodo y perfil de carga.
 
-Estos valores corresponden a las condiciones experimentales del prototipo y **no deben interpretarse como especificaciones universales**. El RSSI y el alcance dependen del entorno, obstáculos, orientación y condiciones radioeléctricas.
+## Lectura crítica de resultados
 
-## Nodo de área / camilla
+La discusión habla de eliminación de falsos positivos, pero la tabla 24 registra uno. Se conserva el dato cuantitativo y se describe reducción de falsas activaciones, sin afirmar eliminación total. No se dispone aquí de muestras RSSI crudas, tiempos individuales, repeticiones de autonomía ni intervalos de confianza.
 
-El nodo de área utilizó RSSI filtrado mediante EMA y lógica de histéresis.
+Los objetivos de autenticación RFID, filtrado MAC y estados adicionales descritos en el informe no están íntegramente implementados en los sketches publicados. Véase [revisión técnica](firmware-review.md). Los resultados históricos no validan automáticamente cada afirmación sobre el código actual.
 
-Parámetros documentados durante las pruebas:
+## Guía para una repetición verificable
 
-| Parámetro | Valor |
-|---|---:|
-| Umbral de advertencia por alejamiento | -66 dBm |
-| Umbral de retorno a zona segura | -59 dBm |
-| Umbral crítico | -84 dBm |
-| Confirmación para transición a LEJOS | 5 lecturas |
-| Factor EMA | 0.20 |
+Esta lista es un protocolo propuesto, no pruebas ya ejecutadas:
 
-La separación entre los umbrales de activación y recuperación permite introducir histéresis y reducir cambios repetitivos de estado alrededor de un único límite.
+1. Registrar placa, revisión de hardware, bibliotecas, alimentación y firmware exactos.
+2. Anotar geometría, distancias, obstáculos, orientación y canal del punto de acceso.
+3. Registrar timestamp, RSSI crudo/filtrado, trama nueva, estado lógico y salidas físicas.
+4. Repetir alejamiento, retorno, aproximación a salida y restablecimiento RFID.
+5. Probar ausencia del transmisor, pérdida Wi-Fi, tarjetas distintas y arranque sin tramas.
+6. Verificar apagado físico de alarmas en todas las transiciones y medir autonomía por nodo.
+7. Publicar número de ensayos, tiempos individuales y criterio para clasificar falsas alarmas.
 
-## Nodo de salida
-
-El nodo de salida combina la evaluación de RSSI con identificación mediante **PN532**. Una lectura RFID válida permite desactivar la alerta y habilita una ventana temporal de exclusión de **6 segundos** para el cruce autorizado.
-
-## Comunicación ESP-NOW
-
-La evaluación se realizó con una arquitectura formada por **tres ESP32-C6**:
-
-- un transmisor móvil;
-- un nodo receptor de área;
-- un nodo receptor de salida.
-
-La comunicación se implementó mediante ESP-NOW y direcciones MAC registradas. Los nodos receptores utilizan el RSSI asociado a las tramas recibidas como entrada para la lógica de proximidad.
-
-> Las direcciones MAC concretas del prototipo no se reproducen en esta documentación pública.
-
-## RFID
-
-Durante la validación se realizaron pruebas independientes con:
-
-- **RDM6300 (125 kHz)** en el nodo de área;
-- **PN532 (13.56 MHz / ISO14443A)** en el nodo de salida.
-
-Las pruebas verificaron la lectura de las credenciales utilizadas por el prototipo y su interacción con la lógica local de los nodos.
-
-## Alimentación
-
-El prototipo fue evaluado utilizando batería LiPo y alimentación externa.
-
-La etapa de energía documentada incluye:
-
-- batería LiPo;
-- módulo TP4056 para carga/protección;
-- regulador elevador MT3608 ajustado a 5 V;
-- alimentación externa de 5 V.
-
-Durante las pruebas se reportó operación estable con ambas fuentes y transición de alimentación sin reinicio del sistema.
-
-## Telemetría
-
-Los nodos receptores fueron vinculados a la capa de supervisión para visualizar variables y eventos. También se realizaron pruebas con **Arduino IoT Cloud**, incluyendo la representación del comportamiento RSSI y los estados de alerta de los nodos.
-
-La telemetría es complementaria: la evaluación de RSSI, la máquina de estados y la activación de alertas se ejecutan localmente.
-
-## Alcance de los resultados
-
-Los resultados documentan el comportamiento de un **prototipo desarrollado y evaluado durante la residencia profesional**. No constituyen certificación de dispositivo médico ni validación clínica.
-
-Para reproducir las pruebas en otra instalación es necesario recalibrar los umbrales de RSSI y considerar las características físicas y radioeléctricas del entorno.
+Las [figuras de telemetría](evidence.md) ilustran la interfaz; no sustituyen un dataset experimental.

@@ -1,75 +1,47 @@
-# Comunicación y lógica del sistema
+# Comunicación y lógica implementada
 
-## Comunicación inalámbrica
+Esta descripción corresponde a los sketches de `firmware/`. Las cifras de evaluación histórica están en [pruebas](testing.md).
 
-La comunicación entre el transmisor móvil y los nodos receptores se realiza mediante **ESP-NOW**, un protocolo de comunicación inalámbrica entre dispositivos ESP32 que permite el intercambio directo de datos sin utilizar un servidor como intermediario.
+## ESP-NOW y filtrado
 
-El transmisor envía tramas a los nodos configurados y realiza un recorrido por los canales Wi-Fi utilizados por el sistema. Los receptores utilizan la información recibida, incluyendo el **RSSI**, como referencia para estimar la proximidad del transmisor.
+El transmisor registra dos peers con MAC fija y `encrypt = false`. En cada canal envía dos veces a cada destino, con retardos de 15 y 65 ms, y avanza del canal 1 al 11. Este recorrido no implica confirmación de entrega ni sincronización garantizada.
 
-## Estimación mediante RSSI
+Los receptores extraen el RSSI en el callback y aplican:
 
-El **Received Signal Strength Indicator (RSSI)** representa la intensidad de la señal recibida. En este proyecto se utiliza como una referencia de proximidad, no como una medición directa de distancia.
+`filtrado = 0.20 * muestra + 0.80 * filtrado_anterior`
 
-La señal puede variar debido a obstáculos, orientación de las antenas, interferencias y características del entorno. Por esta razón, el firmware no toma decisiones basándose en una lectura aislada.
+Los callbacks no comparan la MAC de origen con una lista ni validan el contenido del paquete. Tampoco registran un timeout de recepción. Si dejan de llegar tramas, permanece el último RSSI filtrado; una pérdida de enlace no produce por sí sola una alarma específica.
 
-## Filtrado EMA
+## Nodo de área
 
-Para suavizar las variaciones de RSSI se utiliza un filtro de media móvil exponencial (EMA):
+| Elemento | Comportamiento del código |
+|---|---|
+| Inicio | Estado CERCA; RSSI filtrado −40 dBm |
+| Entrada a LEJOS | RSSI ≤ −66 dBm durante cinco evaluaciones de `loop()` |
+| Regreso a CERCA | RSSI ≥ −59 dBm; desactiva modo paseo |
+| Condición crítica | LEJOS, sin modo paseo y RSSI ≤ −84 dBm |
+| RDM6300 | UART 9600 baud, trama de 12 caracteres y checksum XOR entre delimitadores |
+| Interacción RFID | Conmuta modo paseo tras intervalo mínimo de 1500 ms |
 
-`RSSI_filtrado = alpha × RSSI_actual + (1 - alpha) × RSSI_anterior`
+Solo CERCA y LEJOS pertenecen al `enum`. CRÍTICO es una condición lógica; modo paseo es un booleano. No existe comparación del identificador leído contra una lista autorizada. Las cinco evaluaciones pueden reutilizar una misma muestra RSSI.
 
-El firmware utiliza:
+La condición crítica acciona LED rojo y buzzer, pero el bloque actual no restablece explícitamente ambas salidas en todos los caminos al volver a CERCA o activar modo paseo. Este comportamiento requiere comprobación en banco antes de atribuir silencio físico garantizado a esas transiciones.
 
-`alpha = 0.20`
+## Nodo de salida
 
-Un valor menor de alpha da mayor peso al historial de lecturas, ayudando a reducir cambios bruscos en la señal.
+| Elemento | Comportamiento del código |
+|---|---|
+| Inicio | RSSI filtrado −84 dBm; alarma desactivada |
+| Activación | RSSI ≥ −65 dBm durante diez evaluaciones, sin bloqueo ni alarma previa |
+| Alarma | Permanece activa hasta restablecimiento RFID; salidas alternan cada 150 ms |
+| Lectura PN532 | Detecta tarjeta ISO14443A; no compara UID autorizado |
+| Restablecimiento | Con alarma activa y cumplido el intervalo RFID, apaga alarma, reinicia contador y RSSI |
+| Exclusión | Inhibe disparo RSSI durante 6000 ms después del restablecimiento; rearme automático |
 
-## Confirmación de estados e histéresis
-
-La lógica de detección utiliza estados y lecturas consecutivas para evitar que una fluctuación momentánea del RSSI provoque un cambio inmediato de estado.
-
-En el nodo de área se manejan estados de proximidad como **CERCA** y **LEJOS**, utilizando umbrales diferentes para la activación y recuperación. Esta separación constituye una forma de histéresis.
-
-La confirmación mediante varias lecturas consecutivas proporciona una segunda capa de estabilidad antes de modificar el estado del sistema.
-
-## Identificación RFID
-
-El sistema utiliza RFID en dos puntos con diferentes tecnologías:
-
-- **RDM6300:** lector de 125 kHz utilizado en el nodo de área.
-- **PN532:** lector de 13.56 MHz utilizado en el nodo de salida mediante I²C.
-
-La identificación RFID permite distinguir una interacción autorizada dentro de la lógica definida por el firmware.
-
-En el nodo de salida, una lectura RFID válida activa una ventana temporal de exclusión para evitar que la misma autorización provoque inmediatamente una nueva condición de alarma.
-
-## Gestión de alarmas
-
-Las alertas se generan localmente mediante indicadores visuales y acústicos:
-
-- OLED para información de estado.
-- LED para indicación visual.
-- Buzzer para alerta acústica.
-
-La gestión temporal de las alarmas utiliza `millis()` en lugar de depender exclusivamente de esperas bloqueantes, permitiendo que el firmware continúe atendiendo otras tareas durante la operación.
+La exclusión no se activa por toda lectura: depende de que exista una alarma activa. Los diez conteos corresponden a ciclos, no necesariamente a diez tramas independientes. No existe en este sketch una segunda etapa de alarma a −50 dBm.
 
 ## Telemetría
 
-Los nodos receptores pueden conectarse a **Arduino IoT Cloud** mediante Wi-Fi para publicar variables de monitoreo.
+Área publica `rssiArea`, `estadoPaciente`, `alarmaCritica`, `modoPaseoCloud` y `pacienteLejos`. Salida publica `rssiPuerta`, `alarmaPuerta` y `estadoPuerta`. Se registran como propiedades de lectura con intervalo de un segundo. El código no demuestra Wi-Fi activado exclusivamente por eventos ni una estrategia explícita de suspensión de la radio.
 
-Esta comunicación se considera secundaria respecto a la lógica local. La pérdida de conexión con la plataforma IoT no sustituye ni representa por sí misma la lógica de detección implementada en los nodos.
-
-## Separación de responsabilidades
-
-| Nodo | Responsabilidad principal |
-|---|---|
-| Transmisor móvil | Emitir tramas ESP-NOW |
-| Nodo de área | Proximidad mediante RSSI + identificación RFID + alertas locales |
-| Nodo de salida | Proximidad mediante RSSI + identificación RFID + alertas locales |
-| Arduino IoT Cloud | Telemetría y visualización secundaria |
-
-## Consideraciones
-
-El RSSI depende de las condiciones físicas y radioeléctricas del entorno. Por ello, los umbrales utilizados en el firmware corresponden a una configuración concreta del prototipo y deben validarse y calibrarse cuando cambien las condiciones de instalación.
-
-Este documento describe el funcionamiento implementado en el firmware actual; los resultados cuantitativos del sistema se documentarán por separado utilizando evidencia de pruebas reales.
+Los umbrales son parámetros de la V1. El RSSI cambia con orientación, obstáculos y entorno; no se convierte en distancia ni se usa Bluetooth para la detección en estos sketches.

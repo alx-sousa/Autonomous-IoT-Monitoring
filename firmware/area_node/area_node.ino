@@ -12,6 +12,8 @@
 
 #include "secrets.h"
 
+WiFiConnectionHandler ArduinoIoTPreferredConnection(SSID_WIFI, PASS_WIFI);
+
 // VARIABLES CLOUD
 float rssiArea;
 String estadoPaciente;
