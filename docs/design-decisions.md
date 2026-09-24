@@ -1,6 +1,12 @@
-# V1 engineering decisions
+# Engineering decisions
 
-The objective was to build and evaluate a prototype under limited resources. Low cost is presented as a design constraint, not as a measured economic reduction. The final report introduces this approach on page 3 and describes component selection on pages 35–38.
+## Project delivery context
+
+V1 was developed as a team-funded engineering prototype under a constrained budget. **Luis Alejandro Pérez Sousa led the project team**, coordinating technical integration, task execution, testing and documentation across the residency effort. The team completed the V1 prototype, experimental evaluation and final residency deliverables.
+
+The available documentation does not provide a complete audited cost ledger, so the repository does not invent savings percentages, ROI or procurement claims. Team funding is documented here as project context, not as proof of a quantified economic advantage.
+
+## V1 design decisions
 
 | Need | Implemented decision | Trade-off and evidence |
 |---|---|---|
@@ -16,12 +22,19 @@ The objective was to build and evaluate a prototype under limited resources. Low
 
 ## What the project demonstrates
 
-The project combines firmware, communication buses, signal processing, electronics, enclosure manufacturing and experimental evaluation in one embedded-system prototype. The reported results describe observed prototype behavior; they do not demonstrate a reduction in clinical incidents or superiority over a commercial medical product.
+The project combines project leadership, firmware, communication buses, signal processing, electronics, enclosure development and experimental evaluation in one embedded-system prototype. The reported results describe observed prototype behavior; they do not demonstrate a reduction in clinical incidents or superiority over a commercial medical product.
 
-## Economic scope
+## REV 2.0 improvement request
 
-The available documentation is not sufficient to reconstruct a fully quoted BOM by node with suppliers, quantities and purchase dates. The repository therefore documents accessibility as a design criterion and records component choices without inventing prices, ROI or savings percentages.
+After V1, a follow-up **request for improvement** initiated REV 2.0. The redesign targets cleaner electrical integration and easier maintenance rather than simply repeating the original prototype.
 
-## REV 2.0 evolution
+Current design goals are:
 
-The receiver moves to a carrier PCB with removable sockets and a battery interface. This revision is intended to reduce wiring and improve maintainability. Available files and unresolved checks are listed in [hardware REV 2.0](hardware-rev2.md). No new reliability, power-consumption or total-cost measurements are available yet for comparison with V1.
+- reduce point-to-point wiring inside the receiver;
+- move receiver integration to a dedicated two-layer carrier PCB;
+- use a removable XIAO ESP32-S3 controller;
+- preserve access to USB-C and serviceable modules;
+- improve battery/interface integration;
+- publish schematic, PCB, Gerber and component-selection artifacts for traceability.
+
+REV 2.0 remains pre-fabrication / pre-bring-up. No new reliability, power-consumption or total-cost measurements are available yet for comparison with V1. Available files and unresolved checks are listed in [hardware REV 2.0](hardware-rev2.md).

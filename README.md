@@ -4,21 +4,30 @@
 
 [Español](README.es.md) · [Hardware REV 2.0](docs/hardware-rev2.md) · [Firmware](firmware/README.md) · [Validation](docs/validation.md)
 
-Wireless proximity monitoring and local alarm system developed by **Luis Alejandro Pérez Sousa** during an engineering residency at Hospital General Dr. Desiderio G. Rosado Carbajal in Comalcalco, Mexico. A wearable transmitter and two receivers combine ESP-NOW, RSSI processing, RFID interaction and local embedded control.
+Wireless proximity monitoring and local alarm system developed during an engineering residency at Hospital General Dr. Desiderio G. Rosado Carbajal in Comalcalco, Mexico.
 
-**V1:** prototype built and evaluated during the residency. **REV 2.0:** receiver redesign using a removable XIAO ESP32-S3 and a custom two-layer PCB; fabrication outputs are available, while assembly and physical validation remain pending.
+**Project lead and embedded/hardware contributor:** **Luis Alejandro Pérez Sousa**.
+
+**V1:** team-funded prototype built and evaluated during the residency. **REV 2.0:** follow-up receiver redesign initiated after a request for improvement, using a removable XIAO ESP32-S3 and a custom two-layer PCB. Fabrication outputs are available; assembly, bring-up and physical validation remain pending.
 
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="MONITOR IoT REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
 
 *REV 2.0 EasyEDA render. The XIAO and external PN532 module are not shown installed. This is not a photograph of manufactured hardware.*
 
-## Engineering contribution
+## Project evolution and leadership
 
-- C++ firmware for three ESP32-C6 nodes, ESP-NOW communication and RSSI processing with EMA filtering and hysteresis.
-- RFID integration over UART/I²C, OLED interfaces, indicators and local alarms; Arduino IoT Cloud telemetry in V1.
-- Electronic design in EasyEDA and V1 enclosure development in SolidWorks.
-- Evolution toward a compact two-layer receiver PCB with removable controller, battery interface and fabrication documentation.
-- Technical review separating measured V1 results, source-code behavior and pending REV 2.0 verification.
+V1 was developed under a constrained budget and the project team covered the prototype expenses. I led the team through task coordination, embedded-system integration, testing and technical documentation. The team completed the V1 prototype, experimental evaluation and residency deliverables.
+
+REV 2.0 is a response to a **follow-up improvement request** after V1. The redesign focuses on reducing point-to-point wiring, improving maintainability, making the receiver more compact and producing a cleaner fabrication package. It is an engineering evolution of the evaluated V1 prototype, not a claim that the new hardware has already been fabricated or validated.
+
+## My engineering contribution
+
+- Led project coordination and technical integration across firmware, electronics, enclosure work and validation activities.
+- Developed C++ firmware for three ESP32-C6 nodes, ESP-NOW communication and RSSI processing with EMA filtering and hysteresis.
+- Integrated RFID over UART/I²C, OLED interfaces, indicators and local alarms; Arduino IoT Cloud telemetry was used in V1.
+- Designed electronics in EasyEDA and contributed to V1 enclosure development in SolidWorks.
+- Evolved the receiver toward a compact two-layer PCB with removable controller, battery interface and fabrication documentation.
+- Reviewed the published implementation to separate measured V1 results, source-code behavior and pending REV 2.0 verification.
 
 **Technologies:** C++/Arduino, ESP32-C6, XIAO ESP32-S3, ESP-NOW, I²C, UART, GPIO, EasyEDA Pro, SolidWorks and Arduino IoT Cloud. [Requirements and evidence](docs/requirements.md).
 
@@ -50,16 +59,16 @@ The JLCPCB component-matching export still contains unresolved selections. The d
 | [Area receiver](firmware/area_node/area_node.ino) | EMA α = 0.20, −66/−59 dBm hysteresis, UART RFID and critical alarm logic |
 | [Exit receiver](firmware/exit_node/exit_node.ino) | Approach detection from −65 dBm, latched alarm and PN532 reset |
 
-These sketches target **V1**. A tested XIAO ESP32-S3 port is not included yet. [Environment setup](docs/getting-started.md) · [Static firmware review](docs/firmware-review.md).
+These sketches target **V1**. Their comments are written for engineering readability, while the historical control logic and operator-facing messages remain unchanged. A tested XIAO ESP32-S3 port is not included yet. [Environment setup](docs/getting-started.md) · [Static firmware review](docs/firmware-review.md).
 
 ## Engineering decisions
 
 | Constraint | Decision and trade-off |
 |---|---|
-| Limited budget | Commercial modules and integrated radio; no unmeasured cost-saving claim |
+| Team-funded V1 budget | Commercial modules and integrated radio kept the prototype achievable; no unmeasured savings or ROI claim is made |
 | RSSI variation | EMA and hysteresis; improved stability at the cost of response delay |
 | Local alerting | Receiver-side decisions; cloud telemetry remains secondary |
-| REV 2.0 integration | Custom PCB and removable sockets; assembly, pin mapping and firmware port still require verification |
+| REV 2.0 improvement request | Custom PCB and removable sockets target cleaner integration and maintainability; assembly, pin mapping and firmware port still require verification |
 
 [Engineering decisions and evidence](docs/design-decisions.md).
 
@@ -75,9 +84,7 @@ These sketches target **V1**. A tested XIAO ESP32-S3 port is not included yet. [
 
 Source: final residency report, table 24, printed page 72. These are historical aggregate results from V1; they do not validate REV 2.0 and do not constitute medical certification. [Methods and limitations](docs/testing.md).
 
-![V1 physical prototype integration](docs/images/report/prototype-integration.jpeg)
-
-*Assembly documented during the residency. [Original photographs and evidence gallery](docs/evidence.md).*
+Historical V1 photographs and report figures remain available in the [evidence gallery](docs/evidence.md) for traceability. Internal prototyping-board photographs are intentionally not used as the main portfolio image; this landing page emphasizes the current REV 2.0 engineering work.
 
 ## Repository map
 
@@ -95,4 +102,4 @@ docs/              Architecture, decisions, testing, validation and evidence
 
 ## Author
 
-**Luis Alejandro Pérez Sousa** — Mechatronics Engineering, ITSC, Mexico. Embedded firmware, electronics, PCB design and hardware–software integration. [GitHub profile](https://github.com/alx-sousa).
+**Luis Alejandro Pérez Sousa** — Mechatronics Engineering, ITSC, Mexico. Project leadership, embedded firmware, electronics, PCB design and hardware–software integration. [GitHub profile](https://github.com/alx-sousa).
