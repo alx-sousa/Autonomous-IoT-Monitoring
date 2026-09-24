@@ -6,7 +6,7 @@
 
 Sistema inalámbrico de monitoreo de proximidad y alarmas locales desarrollado durante una residencia profesional en el Hospital General Dr. Desiderio G. Rosado Carbajal, Comalcalco, México.
 
-**Líder del proyecto y principal colaborador en sistemas embebidos/hardware:** **Luis Alejandro Pérez Sousa**.
+**Líder del proyecto y colaborador en sistemas embebidos/hardware:** **Luis Alejandro Pérez Sousa**.
 
 **V1:** prototipo financiado por el equipo, construido y evaluado durante la residencia. **REV 2.0:** rediseño posterior del receptor iniciado a partir de una solicitud de mejora, con XIAO ESP32-S3 removible y PCB propia de dos capas. Los archivos de fabricación están disponibles; el ensamble, bring-up y validación física siguen pendientes.
 
