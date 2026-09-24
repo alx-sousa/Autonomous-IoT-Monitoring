@@ -6,7 +6,7 @@
 
 Wireless proximity monitoring and local alarm system developed during an engineering residency at Hospital General Dr. Desiderio G. Rosado Carbajal in Comalcalco, Mexico.
 
-**Project lead and primary embedded/hardware contributor:** **Luis Alejandro Pérez Sousa**.
+**Project lead and embedded/hardware contributor:** **Luis Alejandro Pérez Sousa**.
 
 **V1:** team-funded prototype built and evaluated during the residency. **REV 2.0:** follow-up receiver redesign initiated after a request for improvement, using a removable XIAO ESP32-S3 and a custom two-layer PCB. Fabrication outputs are available; assembly, bring-up and physical validation remain pending.
 
@@ -18,7 +18,7 @@ Wireless proximity monitoring and local alarm system developed during an enginee
 
 V1 was developed under a constrained budget and the project team covered the prototype expenses. I led the team through task coordination, embedded-system integration, testing and technical documentation. The team completed the V1 prototype, experimental evaluation and residency deliverables.
 
-REV 2.0 is a response to a **follow-up improvement request** after V1. The redesign focuses on reducing point-to-point wiring, improving maintainability, making the receiver more compact and producing a cleaner fabrication package. It is an engineering evolution of the validated V1 concept, not a claim that the new hardware has already been fabricated or validated.
+REV 2.0 is a response to a **follow-up improvement request** after V1. The redesign focuses on reducing point-to-point wiring, improving maintainability, making the receiver more compact and producing a cleaner fabrication package. It is an engineering evolution of the evaluated V1 prototype, not a claim that the new hardware has already been fabricated or validated.
 
 ## My engineering contribution
 
