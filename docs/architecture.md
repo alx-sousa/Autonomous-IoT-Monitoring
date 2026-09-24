@@ -37,3 +37,7 @@ El informe también describe un servidor del área de TI (§4.2.2). No se incluy
 - [Interfaces y hardware](../hardware/README.md).
 - [Lógica exacta y parámetros](communication.md).
 - [Integración física y telemetría](evidence.md).
+
+## Evolución del receptor
+
+La arquitectura anterior corresponde a V1. [REV 2.0](hardware-rev2.md) rediseña el hardware del receptor alrededor de una XIAO ESP32-S3. No se afirma que la conectividad Cloud ni el firmware V1 estén portados o validados en esa revisión.

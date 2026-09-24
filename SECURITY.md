@@ -1,17 +1,21 @@
-# Credenciales y alcance de seguridad
+# Seguridad y configuración
 
-## Configuración local
+## Credenciales locales
 
-Los receptores leen credenciales desde `secrets.h`. Crear ese archivo a partir de la plantilla correspondiente y mantenerlo fuera de Git. No incluir contraseñas, claves de dispositivo ni datos identificables de pacientes en código, capturas, registros o incidencias públicas.
+Los receptores V1 leen sus credenciales desde `secrets.h`, creado a partir de `secrets.example.h` y excluido de Git. No publicar contraseñas, claves Cloud, datos de pacientes ni información de infraestructura interna en código, imágenes, PDFs o incidencias.
 
 ## Exposición histórica
 
-Las copias antiguas de los receptores ubicadas en la raíz contenían credenciales Wi-Fi y de Arduino IoT Cloud. Se retiraron de la versión actual del repositorio al consolidar el firmware. **La retirada no elimina los valores de commits anteriores ni revoca su acceso.** El propietario debe cambiar las credenciales Wi-Fi afectadas y revocar o regenerar las claves de dispositivo Cloud expuestas.
+Versiones anteriores incluían credenciales Wi-Fi y Arduino IoT Cloud incrustadas. Fueron retiradas de los archivos actuales, pero continúan en commits antiguos. La renovación del portafolio no elimina ese historial ni revoca las credenciales. Su propietario debe cambiar las contraseñas afectadas y regenerar o revocar las claves Cloud. No se ha confirmado su rotación.
 
-El informe original también contiene configuración sensible en anexos y por ese motivo no se distribuye íntegro. Una limpieza del historial requeriría una operación separada; no se ha reescrito el historial en esta revisión.
+La reescritura del historial se prepara por separado de este Pull Request. Debe coordinarse con ramas, tags y copias existentes, y puede requerir asistencia de GitHub para referencias o vistas almacenadas. No se publican los valores históricos en esta documentación.
 
-## Límites del prototipo
+## Alcance del prototipo
 
-El firmware no implementa una lista de tarjetas autorizadas, filtrado de MAC de origen en los callbacks ni cifrado ESP-NOW. La interacción RFID del prototipo no debe presentarse como autenticación robusta o control de acceso certificado. Tampoco existe un timeout explícito de pérdida del transmisor.
+V1 es experimental. El firmware publicado no incluye validación de UID autorizado, filtrado de MAC de origen en recepción, cifrado ESP-NOW ni timeout explícito de pérdida de tramas. [Revisión técnica](docs/firmware-review.md). REV 2.0 está en desarrollo: [estado de validación](docs/validation.md).
 
-El repositorio documenta una V1 experimental. Su propósito preventivo no equivale a validación clínica o disponibilidad garantizada. Los límites observados en el código están en [docs/firmware-review.md](docs/firmware-review.md).
+Este documento trata de credenciales y límites de seguridad informática. No acredita seguridad funcional, certificación médica ni validación clínica.
+
+## Reportar un problema
+
+Para errores sin datos sensibles, abrir una incidencia indicando revisión, pasos de reproducción y comportamiento observado. No incluir secretos en incidencias públicas. No hay un canal privado de reporte documentado en este repositorio.

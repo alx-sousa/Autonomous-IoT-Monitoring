@@ -33,7 +33,7 @@ En el transmisor, reemplazar `receptor1` y `receptor2` por las MAC de estación 
 
 ## 4. Verificar hardware y compilar
 
-Revisar [hardware/README.md](../hardware/README.md): placa exacta, GPIO expuestos, tensiones, configuración PN532 y etapa de alimentación. Las figuras del informe no son esquemas de fabricación verificados.
+Revisar [hardware V1](../hardware/rev1/README.md): placa exacta, GPIO expuestos, tensiones, configuración PN532 y etapa de alimentación. Las figuras del informe no son esquemas de fabricación verificados.
 
 Compilar los tres sketches y registrar core, bibliotecas, modelo de placa y resultados. No se incluye una afirmación de compilación exitosa en esta revisión porque no se ejecutó el toolchain ni se dispone de los dispositivos.
 

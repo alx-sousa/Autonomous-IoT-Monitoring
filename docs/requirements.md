@@ -1,4 +1,4 @@
-# Objetivos, implementación y evidencia
+# Objetivos, implementación y evidencia — V1
 
 Fuente de objetivos: informe final de residencia, §1.3, páginas 12–13. Las referencias de página usan la numeración impresa, no el contador del visor PDF. La evidencia visual procede del mismo informe; la evidencia de implementación se encuentra en `firmware/`.
 
@@ -20,3 +20,5 @@ Se desarrolló un prototipo de tres nodos que relaciona proximidad inalámbrica 
 Luis Alejandro Pérez Sousa, *Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, informe de residencia profesional, Ingeniería Mecatrónica, Instituto Tecnológico Superior de Comalcalco, portada junio de 2026.
 
 El informe se utilizó para esta síntesis y la selección de figuras. No se distribuye íntegro: sus anexos incluyen configuración sensible. Las discrepancias con el código se detallan en [revisión del firmware](firmware-review.md).
+
+Los nuevos entregables REV 2.0 se documentan por separado en [hardware-rev2.md](hardware-rev2.md). No sustituyen archivos o pruebas faltantes de V1.
