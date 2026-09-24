@@ -1,5 +1,9 @@
 # Visual evidence and provenance
 
+This repository separates **portfolio-facing visuals** from **historical development evidence**.
+
+The main README intentionally uses the REV 2.0 PCB render rather than the internal V1 prototyping-board photograph. This keeps the landing page aligned with the current engineering revision while preserving older evidence here for traceability.
+
 The four original photographs under `docs/images/` are preserved with their original names and bytes. The six images under `docs/images/report/` were extracted from the author's final residency report without redrawing them. Page references use the printed page numbering.
 
 ## Mechanical design
@@ -10,11 +14,18 @@ The four original photographs under `docs/images/` are preserved with their orig
 
 Figures 17 and 18, p. 44. These images document mechanical layout and SolidWorks work. They do not replace editable CAD, dimensioned drawings or tolerance validation.
 
-## Electronic integration
+## Historical internal integration
 
-![Modules assembled inside the enclosures](images/report/prototype-integration.jpeg)
+The following image is retained as **development evidence only**. It is not used as the portfolio landing image because it shows the internal V1 prototyping stage rather than the current REV 2.0 design direction.
 
-Figure 28, p. 51. This image shows the internal assembly, prototyping boards, modules and wiring. It is evidence of physical integration; it does not prove fabrication of the PCB shown in historical design views.
+<details>
+<summary>Show V1 internal assembly photograph</summary>
+
+![Modules assembled inside the V1 enclosures](images/report/prototype-integration.jpeg)
+
+Figure 28, p. 51. This image shows prototyping boards, modules and wiring. It demonstrates that physical integration work took place; it does not prove fabrication of the PCB shown in historical design views.
+
+</details>
 
 ## PCB design
 
@@ -29,6 +40,15 @@ Figure 12, p. 40. The visible footprint is labeled ESP32-C3 Super Mini, while th
 | ![Area RSSI and state dashboard](images/report/cloud-area.png) | ![Exit RSSI and alarm dashboard](images/report/cloud-exit.png) |
 
 Figures 41 and 42, pp. 75–76. These screenshots illustrate RSSI and alarm-state visualization in Arduino IoT Cloud. They do not provide enough information to reconstruct response time, trial count or accuracy.
+
+## Original V1 photographs
+
+The original camera files are preserved under `docs/images/` for provenance. They are intentionally not promoted as REV 2.0 evidence and are not used to imply that the new PCB has already been fabricated.
+
+- `20260716_211125.jpg`
+- `20260716_211140.jpg`
+- `20260716_211158.jpg`
+- `20260717_100755~2.jpg`
 
 ## Source and selection
 
