@@ -1,15 +1,15 @@
-## Motivo
+## Purpose
 
-¿Qué problema resuelve este cambio?
+What problem does this change solve?
 
-## Cambios
+## Changes
 
-Indicar revisión de hardware/firmware afectada y archivos modificados.
+State the affected hardware/firmware revision and the files changed.
 
-## Verificación
+## Verification
 
-Describir comprobaciones ejecutadas y evidencia. Separar pruebas realizadas de pendientes.
+Describe the checks that were actually performed and the available evidence. Separate completed tests from pending work.
 
-## Compatibilidad y documentación
+## Compatibility and documentation
 
-Indicar cambios de pines, dependencias, rutas, configuración o instrucciones de fabricación.
+Document changes to pin mappings, dependencies, paths, configuration, fabrication outputs or setup instructions.

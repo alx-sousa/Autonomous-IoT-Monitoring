@@ -1,24 +1,24 @@
-# Objetivos, implementación y evidencia — V1
+# V1 objectives, implementation and evidence
 
-Fuente de objetivos: informe final de residencia, §1.3, páginas 12–13. Las referencias de página usan la numeración impresa, no el contador del visor PDF. La evidencia visual procede del mismo informe; la evidencia de implementación se encuentra en `firmware/`.
+Objective source: final residency report, §1.3, printed pages 12–13. Page references use the report's printed numbering rather than PDF viewer index. Visual evidence comes from the same report; implementation evidence is in `firmware/`.
 
-| Objetivo | Evidencia disponible | Alcance confirmado |
+| Objective | Available evidence | Confirmed scope |
 |---|---|---|
-| Diseñar estaciones de área y salida | Informe §§3.3–3.5; fotografías; sketches de receptores | Integración de dos receptores y diseño electrónico/mecánico documentados; no hay fuentes CAD/PCB ni Gerbers publicados |
-| Desarrollar transmisor con barrido de canales | `transmitter.ino`, `canalActual`, dos peers | Recorre canales 1–11 y realiza dos envíos por destino en cada canal; no garantiza entrega de todos los paquetes |
-| Integrar RFID 125 kHz y 13.56 MHz | `leerRFID()` y `readPassiveTargetID()` | Lectura e interacción implementadas; checksum en área. Autorización por identidad no implementada |
-| Temporizar actuadores sin bloquear | `millis()` en alarma del nodo de salida | Alterna salidas cada 150 ms. El transmisor y el nodo de área conservan `delay()`; no es un sistema completamente no bloqueante |
-| Habilitar supervisión remota | `initProperties()`, variables Cloud y figuras 41–42 | Telemetría Arduino IoT Cloud implementada; credenciales propias necesarias |
-| Evaluar rendimiento integral | Informe §3.7, tabla 24 y discusión §4.4 | Métricas agregadas reportadas; sin dataset crudo ni repetición de pruebas en esta revisión |
+| Design area and exit stations | Report §§3.3–3.5; photographs; receiver sketches | Two-receiver integration and electronic/mechanical design documented; V1 native CAD/PCB fabrication sources are not published |
+| Develop a transmitter with channel sweep | `transmitter.ino`, `canalActual`, two peers | Sweeps channels 1–11 and sends twice per destination/channel; does not guarantee delivery of every packet |
+| Integrate 125 kHz and 13.56 MHz RFID | `leerRFID()` and `readPassiveTargetID()` | Read/interaction implemented; checksum on area node. Identity authorization is not implemented |
+| Time actuators without blocking | `millis()` in exit-node alarm | Toggles outputs every 150 ms. Transmitter and area node still use `delay()`; the full system is not completely non-blocking |
+| Enable remote supervision | `initProperties()`, Cloud variables and figures 41–42 | Arduino IoT Cloud telemetry implemented; user-owned credentials are required |
+| Evaluate overall performance | Report §3.7, table 24 and §4.4 discussion | Aggregate metrics reported; no raw dataset or repeated campaign in this portfolio revision |
 
-## Resultado del objetivo general
+## General-objective outcome
 
-Se desarrolló un prototipo de tres nodos que relaciona proximidad inalámbrica e interacción RFID con alertamiento local. El informe aporta evaluación funcional y métricas de respuesta. El objetivo preventivo hospitalario es la motivación del proyecto: no equivale a demostrar eficacia clínica, detectar caídas o disponer de control de acceso autenticado.
+A three-node prototype was developed to connect wireless proximity and RFID interaction with local alerts. The report contains functional evaluation and response metrics. The hospital-safety objective is the project motivation; it does not equal demonstrated clinical efficacy, fall detection or authenticated access control.
 
-## Documentación de referencia
+## Reference documentation
 
-Luis Alejandro Pérez Sousa, *Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, informe de residencia profesional, Ingeniería Mecatrónica, Instituto Tecnológico Superior de Comalcalco, portada junio de 2026.
+Luis Alejandro Pérez Sousa, *Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, professional residency report, Mechatronics Engineering, Instituto Tecnológico Superior de Comalcalco, cover dated June 2026.
 
-El informe se utilizó para esta síntesis y la selección de figuras. No se distribuye íntegro: sus anexos incluyen configuración sensible. Las discrepancias con el código se detallan en [revisión del firmware](firmware-review.md).
+The report was used for this technical summary and figure selection. It is not distributed in full because appendices include sensitive configuration. Differences between report claims and published source are documented in the [firmware review](firmware-review.md).
 
-Los nuevos entregables REV 2.0 se documentan por separado en [hardware-rev2.md](hardware-rev2.md). No sustituyen archivos o pruebas faltantes de V1.
+New REV 2.0 deliverables are documented separately in [hardware-rev2.md](hardware-rev2.md). They do not replace missing V1 source files or validation evidence.

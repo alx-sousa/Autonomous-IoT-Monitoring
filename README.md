@@ -1,98 +1,98 @@
 # MONITOR IoT
 
-**Embedded Systems · IoT · PCB · Hardware/Firmware Integration**
+**Embedded Systems · IoT · PCB Design · Hardware/Firmware Integration**
 
-[English](README.en.md) · [Hardware REV 2.0](docs/hardware-rev2.md) · [Firmware](firmware/README.md) · [Resultados y validación](docs/validation.md)
+[Español](README.es.md) · [Hardware REV 2.0](docs/hardware-rev2.md) · [Firmware](firmware/README.md) · [Validation](docs/validation.md)
 
-Sistema de proximidad inalámbrica y alarmas locales desarrollado por **Luis Alejandro Pérez Sousa** durante su residencia profesional en el Hospital General Dr. Desiderio G. Rosado Carbajal, Comalcalco, México. Un transmisor portátil y dos receptores combinan ESP-NOW, procesamiento RSSI e interacción RFID.
+Wireless proximity monitoring and local alarm system developed by **Luis Alejandro Pérez Sousa** during an engineering residency at Hospital General Dr. Desiderio G. Rosado Carbajal in Comalcalco, Mexico. A wearable transmitter and two receivers combine ESP-NOW, RSSI processing, RFID interaction and local embedded control.
 
-**V1:** prototipo construido y evaluado durante la residencia. **REV 2.0:** rediseño del receptor con XIAO ESP32-S3 y PCB propia; archivos de fabricación exportados, ensamble y pruebas pendientes de evidencia.
+**V1:** prototype built and evaluated during the residency. **REV 2.0:** receiver redesign using a removable XIAO ESP32-S3 and a custom two-layer PCB; fabrication outputs are available, while assembly and physical validation remain pending.
 
-<p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Render de la PCB MONITOR IoT REV 2.0, con OLED, buzzer, RGB y sockets removibles"></p>
+<p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="MONITOR IoT REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
 
-*Diseño de PCB REV 2.0. Render de EasyEDA; la XIAO y el módulo PN532 externo no aparecen montados. No es una fotografía de una placa fabricada.*
+*REV 2.0 EasyEDA render. The XIAO and external PN532 module are not shown installed. This is not a photograph of manufactured hardware.*
 
-## Aportación de ingeniería
+## Engineering contribution
 
-- Firmware C++ para tres nodos ESP32-C6, comunicación ESP-NOW y procesamiento RSSI mediante EMA e histéresis.
-- Integración de RFID por UART/I²C, OLED, indicadores y alarmas locales; telemetría con Arduino IoT Cloud en V1.
-- Diseño electrónico en EasyEDA y carcasas de V1 en SolidWorks.
-- Evolución a una PCB de dos capas con controlador removible, interfaz de batería y documentación para preparar fabricación.
+- C++ firmware for three ESP32-C6 nodes, ESP-NOW communication and RSSI processing with EMA filtering and hysteresis.
+- RFID integration over UART/I²C, OLED interfaces, indicators and local alarms; Arduino IoT Cloud telemetry in V1.
+- Electronic design in EasyEDA and V1 enclosure development in SolidWorks.
+- Evolution toward a compact two-layer receiver PCB with removable controller, battery interface and fabrication documentation.
+- Technical review separating measured V1 results, source-code behavior and pending REV 2.0 verification.
 
-**Tecnologías:** C++/Arduino, ESP32-C6, XIAO ESP32-S3, ESP-NOW, I²C, UART, GPIO, EasyEDA Pro y SolidWorks. [Objetivos y evidencia](docs/requirements.md).
+**Technologies:** C++/Arduino, ESP32-C6, XIAO ESP32-S3, ESP-NOW, I²C, UART, GPIO, EasyEDA Pro, SolidWorks and Arduino IoT Cloud. [Requirements and evidence](docs/requirements.md).
 
-## Arquitectura del sistema — V1
+## System architecture — V1
 
 ```mermaid
 flowchart TD
-    T["Transmisor portátil · ESP32-C6"] -->|ESP-NOW| A["Receptor de área"]
-    T -->|ESP-NOW| S["Receptor de salida"]
-    A --> L["Alertas locales e interacción RFID"]
+    T["Wearable transmitter · ESP32-C6"] -->|ESP-NOW| A["Area receiver"]
+    T -->|ESP-NOW| S["Exit receiver"]
+    A --> L["Local alarms and RFID interaction"]
     S --> L
-    A -. Telemetría Wi-Fi .-> C["Arduino IoT Cloud"]
-    S -. Telemetría Wi-Fi .-> C
+    A -. Wi-Fi telemetry .-> C["Arduino IoT Cloud"]
+    S -. Wi-Fi telemetry .-> C
 ```
 
-El receptor de área detecta alejamiento e integra RDM6300; el de salida detecta aproximación e integra PN532. La decisión se ejecuta localmente. El sistema evalúa proximidad del transmisor: no mide ocupación del colchón, caídas ni distancia exacta. [Arquitectura](docs/architecture.md) · [Comunicaciones](docs/communication.md).
+The area receiver detects departure and uses an RDM6300 reader. The exit receiver detects approach and uses a PN532. Decisions are executed locally on the receivers. The system monitors transmitter proximity; it does **not** measure mattress occupancy, detect falls or estimate exact distance. [Architecture](docs/architecture.md) · [Communications](docs/communication.md).
 
 ## Hardware REV 2.0
 
-Carrier PCB para **XIAO ESP32-S3 removible**, OLED I²C, LED RGB, buzzer con BC547, pulsador e interfaz de batería. Un header de cuatro contactos conecta el PN532 externo. Incluye Gerbers de cobre superior/inferior, máscaras y taladros; los renders muestran zonas de cobre y vías.
+Carrier PCB for a **removable XIAO ESP32-S3**, I²C OLED, RGB LED, BC547-driven buzzer, pushbutton and battery interface. A four-contact header connects the external PN532. Available fabrication outputs include copper, solder mask and drill files.
 
-La exportación para JLCPCB aún tiene selecciones de componentes pendientes. La PCB no se presenta como validada ni como pedido de fabricación confirmado. [Diseño y pendientes](docs/hardware-rev2.md) · [Archivos de hardware](hardware/rev2/README.md).
+The JLCPCB component-matching export still contains unresolved selections. The design is therefore documented as **pre-fabrication / pre-bring-up**, not as electrically validated hardware or a confirmed production order. [Design and pending checks](docs/hardware-rev2.md) · [Hardware files](hardware/rev2/README.md).
 
 ## Firmware
 
-| Nodo V1 | Implementación publicada |
+| V1 node | Published implementation |
 |---|---|
-| [Transmisor](firmware/transmitter/transmitter.ino) | Dos destinos ESP-NOW y barrido de canales 1–11 |
-| [Área](firmware/area_node/area_node.ino) | EMA α = 0.20, histéresis −66/−59 dBm, RFID UART y alarma crítica |
-| [Salida](firmware/exit_node/exit_node.ino) | Detección desde −65 dBm, alarma enclavada y restablecimiento PN532 |
+| [Transmitter](firmware/transmitter/transmitter.ino) | Two ESP-NOW destinations and channel sweep 1–11 |
+| [Area receiver](firmware/area_node/area_node.ino) | EMA α = 0.20, −66/−59 dBm hysteresis, UART RFID and critical alarm logic |
+| [Exit receiver](firmware/exit_node/exit_node.ino) | Approach detection from −65 dBm, latched alarm and PN532 reset |
 
-Los sketches corresponden a **V1**, no a un port ya validado en XIAO. [Preparación del entorno](docs/getting-started.md) · [Revisión estática y límites](docs/firmware-review.md).
+These sketches target **V1**. A tested XIAO ESP32-S3 port is not included yet. [Environment setup](docs/getting-started.md) · [Static firmware review](docs/firmware-review.md).
 
-## Decisiones de ingeniería
+## Engineering decisions
 
-| Restricción | Decisión y compromiso |
+| Constraint | Decision and trade-off |
 |---|---|
-| Presupuesto limitado | Módulos comerciales y radio integrada; sin afirmar ahorros no medidos |
-| Variación de RSSI | EMA e histéresis; compromiso entre estabilidad y tiempo de respuesta |
-| Alertamiento local | Procesamiento en receptores; la telemetría es una función secundaria |
-| Integración del receptor REV 2.0 | PCB y sockets removibles; requiere comprobar montaje y correspondencia de pines |
+| Limited budget | Commercial modules and integrated radio; no unmeasured cost-saving claim |
+| RSSI variation | EMA and hysteresis; improved stability at the cost of response delay |
+| Local alerting | Receiver-side decisions; cloud telemetry remains secondary |
+| REV 2.0 integration | Custom PCB and removable sockets; assembly, pin mapping and firmware port still require verification |
 
-[Decisiones y evidencia](docs/design-decisions.md).
+[Engineering decisions and evidence](docs/design-decisions.md).
 
-## Resultados históricos — V1
+## Historical results — V1
 
-| Indicador | Reportado en la residencia |
+| Metric | Residency report result |
 |---|---:|
-| Detección promedio | 2 s |
-| Activación de alarma promedio | 2.2 s |
-| Rango reportado de máxima distancia con RSSI estable | 11–17 m |
-| Falsas alarmas | 1 en 20 pruebas |
-| Autonomía | 4.9 h |
+| Mean detection time | 2 s |
+| Mean alarm activation time | 2.2 s |
+| Reported maximum stable-RSSI distance range | 11–17 m |
+| False alarms | 1 in 20 trials |
+| Battery runtime | 4.9 h |
 
-Fuente: informe final, tabla 24, página impresa 72. Son resultados agregados históricos; no validan REV 2.0 ni equivalen a certificación médica. [Método y límites](docs/testing.md).
+Source: final residency report, table 24, printed page 72. These are historical aggregate results from V1; they do not validate REV 2.0 and do not constitute medical certification. [Methods and limitations](docs/testing.md).
 
-![Integración física del prototipo V1](docs/images/report/prototype-integration.jpeg)
+![V1 physical prototype integration](docs/images/report/prototype-integration.jpeg)
 
-*Ensamble documentado durante la residencia. [Fotografías originales y galería](docs/evidence.md).*
+*Assembly documented during the residency. [Original photographs and evidence gallery](docs/evidence.md).*
 
-## Documentación y estado
-
-- [Validación por revisión](docs/validation.md): evidencia disponible y pruebas pendientes.
-- [Hardware](hardware/README.md): V1 histórica y paquete REV 2.0.
-- [Firmware](firmware/README.md): nodos, compatibilidad y reproducción.
-- [Evidencia](docs/evidence.md): fotografías, CAD y renders con procedencia.
-- [Seguridad](SECURITY.md): configuración local y exposición histórica de credenciales.
+## Repository map
 
 ```text
-firmware/          Sketches V1 por nodo y configuración de ejemplo
-hardware/rev1/     Integración histórica y conexiones documentadas
-hardware/rev2/     Esquema, PCB, Gerbers y selección de componentes
-docs/              Arquitectura, decisiones, pruebas y evidencia
+firmware/          V1 sketches by node and example secret configuration
+hardware/rev1/     Historical V1 integration and documented interfaces
+hardware/rev2/     REV 2.0 schematic, PCB, Gerbers and component matching
+docs/              Architecture, decisions, testing, validation and evidence
 ```
 
-## Autor
+- [Validation by revision](docs/validation.md): evidence available and tests still pending.
+- [Hardware overview](hardware/README.md): V1 history and REV 2.0 deliverables.
+- [Firmware overview](firmware/README.md): node responsibilities and reproduction notes.
+- [Security](SECURITY.md): local secret handling and historical credential exposure.
 
-**Luis Alejandro Pérez Sousa** — Ingeniería Mecatrónica, ITSC, México. Desarrollo de firmware, electrónica e integración hardware–software. [GitHub](https://github.com/alx-sousa).
+## Author
+
+**Luis Alejandro Pérez Sousa** — Mechatronics Engineering, ITSC, Mexico. Embedded firmware, electronics, PCB design and hardware–software integration. [GitHub profile](https://github.com/alx-sousa).

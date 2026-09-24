@@ -1,41 +1,41 @@
-# Evidencia visual y procedencia
+# Visual evidence and provenance
 
-Las cuatro fotografías originales en `docs/images/` se conservan con sus nombres y archivos intactos. Las seis imágenes de `docs/images/report/` se extrajeron del informe final del autor sin redibujarlas. Las páginas indicadas corresponden a la numeración impresa.
+The four original photographs under `docs/images/` are preserved with their original names and bytes. The six images under `docs/images/report/` were extracted from the author's final residency report without redrawing them. Page references use the printed page numbering.
 
-## Diseño mecánico
+## Mechanical design
 
-| Base del nodo de salida | Sección intermedia del nodo de área |
+| Exit-node base | Area-node middle section |
 |---|---|
-| ![Base CAD de salida](images/report/cad-exit-base.jpeg) | ![Sección CAD de área](images/report/cad-area-middle.jpeg) |
+| ![Exit-node CAD base](images/report/cad-exit-base.jpeg) | ![Area-node CAD middle section](images/report/cad-area-middle.jpeg) |
 
-Figuras 17 y 18, p. 44. Documentan distribución mecánica y trabajo CAD en SolidWorks. No sustituyen archivos editables, planos acotados ni validación de tolerancias.
+Figures 17 and 18, p. 44. These images document mechanical layout and SolidWorks work. They do not replace editable CAD, dimensioned drawings or tolerance validation.
 
-## Integración electrónica
+## Electronic integration
 
-![Ensamble de módulos en las carcasas](images/report/prototype-integration.jpeg)
+![Modules assembled inside the enclosures](images/report/prototype-integration.jpeg)
 
-Figura 28, p. 51. Muestra el ensamble interno, placas perforadas, módulos y cableado. Es evidencia de integración física; no demuestra fabricación de la PCB mostrada en las vistas de diseño.
+Figure 28, p. 51. This image shows the internal assembly, prototyping boards, modules and wiring. It is evidence of physical integration; it does not prove fabrication of the PCB shown in historical design views.
 
-## Diseño de PCB
+## PCB design
 
-![Vista histórica del diseño PCB de área](images/report/pcb-area-design.png)
+![Historical area-node PCB design](images/report/pcb-area-design.png)
 
-Figura 12, p. 40. La huella visible está rotulada ESP32-C3 Super Mini. La documentación del sistema identifica ESP32-C6; se mantiene explícita esta diferencia. Esta vista es una referencia histórica del diseño, **no un archivo listo para fabricar**.
+Figure 12, p. 40. The visible footprint is labeled ESP32-C3 Super Mini, while the system documentation identifies ESP32-C6. This discrepancy is intentionally retained. The image is historical design evidence, **not a fabrication-ready source**.
 
-## Telemetría
+## Telemetry
 
-| Área | Salida |
+| Area receiver | Exit receiver |
 |---|---|
-| ![RSSI y estado en el dashboard de área](images/report/cloud-area.png) | ![RSSI y alerta en el dashboard de salida](images/report/cloud-exit.png) |
+| ![Area RSSI and state dashboard](images/report/cloud-area.png) | ![Exit RSSI and alarm dashboard](images/report/cloud-exit.png) |
 
-Figuras 41 y 42, pp. 75 y 76. Ilustran visualización de RSSI y estado de alarma en Arduino IoT Cloud. Son capturas de interfaz; no permiten reconstruir tiempos de respuesta, número de pruebas o precisión.
+Figures 41 and 42, pp. 75–76. These screenshots illustrate RSSI and alarm-state visualization in Arduino IoT Cloud. They do not provide enough information to reconstruct response time, trial count or accuracy.
 
-## Fuente y selección
+## Source and selection
 
-*Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, informe de residencia profesional, Luis Alejandro Pérez Sousa, ITSC, portada junio de 2026. Se seleccionaron figuras técnicas del desarrollo y los resultados. No se publican los anexos completos, credenciales, documentos personales ni capturas de infraestructura interna.
+*Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, professional residency report, Luis Alejandro Pérez Sousa, ITSC, cover dated June 2026. Technical figures related to development and results were selected for this portfolio. Full appendices, credentials, personal documents and internal-infrastructure screenshots are not published.
 
-## Renders REV 2.0
+## REV 2.0 renders
 
-[Perspectiva](images/rev2/pcb-perspective.png) · [Superior](images/rev2/pcb-top.png) · [Inferior](images/rev2/pcb-bottom.png).
+[Perspective](images/rev2/pcb-perspective.png) · [Top](images/rev2/pcb-top.png) · [Bottom](images/rev2/pcb-bottom.png).
 
-Exportaciones EasyEDA suministradas por el autor, conservadas sin alterar su contenido. Muestran diseño CAD; no acreditan fabricación ni ensamble. XIAO y PN532 no aparecen montados. [Procedencia y hashes](../hardware/rev2/artifacts.json).
+EasyEDA exports supplied by the author and preserved without altering their content. They show CAD design only; they do not establish fabrication or assembly. The XIAO and PN532 are not shown mounted. See [artifact provenance and SHA-256 hashes](../hardware/rev2/artifacts.json).

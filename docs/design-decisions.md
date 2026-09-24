@@ -1,27 +1,27 @@
-# Decisiones de ingeniería de la V1
+# V1 engineering decisions
 
-El objetivo fue construir y evaluar un prototipo con recursos limitados. El bajo costo se presenta como restricción de diseño, sin atribuir una reducción económica medida. El informe introduce este enfoque en la página 3 y describe la selección de componentes en las páginas 35–38; el presupuesto limitado fue confirmado por el autor.
+The objective was to build and evaluate a prototype under limited resources. Low cost is presented as a design constraint, not as a measured economic reduction. The final report introduces this approach on page 3 and describes component selection on pages 35–38.
 
-| Necesidad | Decisión implementada | Compromiso y evidencia |
+| Need | Implemented decision | Trade-off and evidence |
 |---|---|---|
-| Alertamiento local | Ejecutar lógica en ESP32-C6 y transmitir mediante ESP-NOW | Evita delegar la decisión al servidor. La coexistencia con Wi-Fi y la pérdida de paquetes requieren evaluación; informe §3.6 y firmware |
-| Aprovechar hardware disponible | Usar RSSI de la radio integrada | Reduce sensores adicionales; exige calibración y no produce distancia exacta |
-| Atenuar fluctuaciones | EMA con α = 0.20 | Mayor suavizado implica respuesta más lenta; el informe §3.7.2 describe el ajuste desde 0.10 |
-| Evitar oscilaciones de estado | Umbrales separados −66/−59 dBm en área | Histéresis verificada en el código; los contadores adicionales avanzan por ciclos |
-| Atender dos situaciones | Área detecta alejamiento; salida detecta aproximación | Firmware y periféricos diferentes por función |
-| Interacción con tarjetas | RDM6300/UART y PN532/I²C | Lectura y control local implementados; no existe lista de UID autorizados |
-| Facilitar integración física | Carcasas modulares diseñadas en SolidWorks y fabricadas en PLA | El informe documenta ajustes en la zona de lectura RFID; no aporta ensayos mecánicos normalizados |
-| Operación portátil | LiPo, módulo de carga y elevador | Autonomía reportada de 4.9 h; requiere identificar el circuito de protección y la revisión real del módulo |
-| Observar estados a distancia | Arduino IoT Cloud | Añade dependencia de conectividad solo a la telemetría; no hay implementación de servidor local en este repositorio |
+| Local alerting | Run logic on ESP32-C6 receivers and communicate through ESP-NOW | Avoids delegating the alert decision to a server; Wi-Fi coexistence and packet loss still require evaluation |
+| Reuse available hardware | Use RSSI from the integrated radio | Avoids an additional distance sensor; requires calibration and does not provide exact distance |
+| Reduce fluctuations | EMA with α = 0.20 | More smoothing improves stability but increases response delay; report §3.7.2 describes tuning from 0.10 |
+| Prevent state oscillation | Separate −66/−59 dBm area thresholds | Hysteresis is present in code; additional counters advance per loop cycle |
+| Address two situations | Area detects departure; exit detects approach | Different firmware and peripherals are used for each function |
+| Card interaction | RDM6300/UART and PN532/I²C | Local read/control is implemented; no authorized UID list is present |
+| Simplify physical integration | Modular SolidWorks enclosures printed in PLA | Report documents RFID-zone geometry adjustments; no standardized mechanical testing is available |
+| Portable operation | LiPo, charger module and boost converter | 4.9 h runtime was reported; protection circuit and exact module revision still require identification |
+| Remote state visibility | Arduino IoT Cloud | Adds connectivity dependency to telemetry only; no reproducible local-server implementation is included |
 
-## Lo que demuestra el proyecto
+## What the project demonstrates
 
-Integración de firmware, buses de comunicación, procesamiento de señal, electrónica, manufactura de carcasas y evaluación experimental en un mismo prototipo. Los resultados describen su comportamiento observado; no prueban reducción de incidentes clínicos ni superioridad frente a un producto comercial.
+The project combines firmware, communication buses, signal processing, electronics, enclosure manufacturing and experimental evaluation in one embedded-system prototype. The reported results describe observed prototype behavior; they do not demonstrate a reduction in clinical incidents or superiority over a commercial medical product.
 
-## Alcance económico
+## Economic scope
 
-La documentación disponible no permite reconstruir una BOM cotizada por nodo con proveedores, cantidades y fechas. Por ello, el repositorio documenta el criterio de accesibilidad y la selección de componentes, sin inventar precios, retorno de inversión ni porcentajes de ahorro.
+The available documentation is not sufficient to reconstruct a fully quoted BOM by node with suppliers, quantities and purchase dates. The repository therefore documents accessibility as a design criterion and records component choices without inventing prices, ROI or savings percentages.
 
-## Evolución REV 2.0
+## REV 2.0 evolution
 
-El receptor pasa a una carrier PCB con sockets removibles e interfaz de batería. Esta revisión busca compactar la integración y facilitar sustitución del controlador. Los archivos disponibles y compromisos pendientes están en [hardware REV 2.0](hardware-rev2.md); no hay mediciones nuevas de fiabilidad, consumo o costo total que permitan comparar ambas revisiones.
+The receiver moves to a carrier PCB with removable sockets and a battery interface. This revision is intended to reduce wiring and improve maintainability. Available files and unresolved checks are listed in [hardware REV 2.0](hardware-rev2.md). No new reliability, power-consumption or total-cost measurements are available yet for comparison with V1.

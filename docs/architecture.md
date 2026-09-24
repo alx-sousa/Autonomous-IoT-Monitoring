@@ -1,43 +1,43 @@
-# Arquitectura de la V1
+# V1 architecture
 
-Tres ESP32-C6 distribuyen las tareas de transmisión, monitoreo de área y monitoreo de salida. La señal RSSI de las tramas recibidas alimenta las decisiones locales. RFID es una entrada de interacción, no el sensor que mide la proximidad del brazalete.
+Three ESP32-C6 devices split the transmitter, area-monitoring and exit-monitoring responsibilities. RSSI from received ESP-NOW frames feeds local decisions. RFID is an interaction input; it is not the sensor used to estimate wearable proximity.
 
 ```mermaid
 flowchart TD
-    T["Transmisor portátil"] -->|ESP-NOW| A["Receptor de área"]
-    T -->|ESP-NOW| S["Receptor de salida"]
-    R["RDM6300 por UART"] --> A
-    P["PN532 por I²C"] --> S
-    A --> O["OLED, LED RGB y buzzer"]
-    S --> E["OLED, LED y buzzer"]
+    T["Wearable transmitter"] -->|ESP-NOW| A["Area receiver"]
+    T -->|ESP-NOW| S["Exit receiver"]
+    R["RDM6300 over UART"] --> A
+    P["PN532 over I²C"] --> S
+    A --> O["OLED, RGB LED and buzzer"]
+    S --> E["OLED, LED and buzzer"]
     A -. Wi-Fi .-> C["Arduino IoT Cloud"]
     S -. Wi-Fi .-> C
 ```
 
-## Distribución de responsabilidades
+## Responsibility split
 
-| Capa | Implementación |
+| Layer | Implementation |
 |---|---|
-| Emisión | Un byte enviado a dos direcciones MAC configuradas, barrido de canales 1–11 |
-| Recepción | Callback ESP-NOW obtiene RSSI de `info->rx_ctrl` |
-| Procesamiento | EMA por trama; evaluación del último valor filtrado en `loop()` |
-| Control | Histéresis CERCA/LEJOS y condición crítica en área; alarma enclavada y temporizador de exclusión en salida |
-| Interacción | RFID, mensajes OLED y salidas digitales |
-| Supervisión | Propiedades de solo lectura publicadas en Arduino IoT Cloud |
+| Transmission | One byte sent to two configured MAC destinations while sweeping channels 1–11 |
+| Reception | ESP-NOW callback reads RSSI from `info->rx_ctrl` |
+| Processing | Per-frame EMA; the latest filtered value is evaluated in `loop()` |
+| Control | NEAR/FAR hysteresis and a critical condition on the area node; latched alarm and exclusion timer on the exit node |
+| Interaction | RFID, OLED messages and digital outputs |
+| Supervision | Read-only properties published to Arduino IoT Cloud |
 
-## Operación local y nube
+## Local operation and cloud telemetry
 
-La lógica de proximidad y alerta reside en los receptores. El informe, página 77, reporta operación local durante simulaciones de caída Wi-Fi. Esto no demuestra disponibilidad garantizada: el firmware sigue ejecutando `ArduinoCloud.update()`, comparte la radio entre funciones y no implementa detección explícita de ausencia de tramas.
+The proximity and alert logic runs on the receivers. The final report, page 77, describes local alarm operation during simulated Wi-Fi loss. This should not be interpreted as guaranteed availability: the firmware still executes `ArduinoCloud.update()`, shares the radio between functions and does not implement an explicit no-packet timeout.
 
-El informe también describe un servidor del área de TI (§4.2.2). No se incluye su aplicación ni una interfaz específica hacia ese servidor en el firmware publicado; por ello no se presenta como componente reproducible del repositorio.
+The report also describes a local IT-area server (§4.2.2). Its application and a specific interface to that server are not included in the published firmware, so it is not presented as a reproducible repository component.
 
-## Artefactos
+## Artifacts
 
-- [Firmware por nodo](../firmware/).
-- [Interfaces y hardware](../hardware/README.md).
-- [Lógica exacta y parámetros](communication.md).
-- [Integración física y telemetría](evidence.md).
+- [Firmware by node](../firmware/).
+- [Hardware and interfaces](../hardware/README.md).
+- [Communication logic and parameters](communication.md).
+- [Physical integration and telemetry evidence](evidence.md).
 
-## Evolución del receptor
+## Receiver evolution
 
-La arquitectura anterior corresponde a V1. [REV 2.0](hardware-rev2.md) rediseña el hardware del receptor alrededor de una XIAO ESP32-S3. No se afirma que la conectividad Cloud ni el firmware V1 estén portados o validados en esa revisión.
+The architecture above corresponds to V1. [REV 2.0](hardware-rev2.md) redesigns the receiver around a XIAO ESP32-S3. Cloud connectivity and the V1 firmware are not claimed to be ported or validated on that revision.
