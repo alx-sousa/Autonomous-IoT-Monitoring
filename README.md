@@ -1,89 +1,98 @@
-# Monitoreo de proximidad y alarma local hospitalaria | V1
+# MONITOR IoT
 
-**ESP32-C6 · C++/Arduino · ESP-NOW · RSSI/EMA · RFID · Integración electrónica y CAD**
+**Embedded Systems · IoT · PCB · Hardware/Firmware Integration**
 
-[English](README.en.md) · [Arquitectura](docs/architecture.md) · [Resultados](docs/testing.md) · [Puesta en marcha](docs/getting-started.md) · [Evidencia visual](docs/evidence.md)
+[English](README.en.md) · [Hardware REV 2.0](docs/hardware-rev2.md) · [Firmware](firmware/README.md) · [Resultados y validación](docs/validation.md)
 
-Prototipo de sistemas embebidos e IoT desarrollado por **Luis Alejandro Pérez Sousa** durante su residencia profesional en el **Hospital General Dr. Desiderio G. Rosado Carbajal**, Comalcalco, Tabasco. Integra un transmisor portátil y dos receptores para evaluar proximidad y generar alertas locales ante alejamiento del área de camilla o aproximación a una salida.
+Sistema de proximidad inalámbrica y alarmas locales desarrollado por **Luis Alejandro Pérez Sousa** durante su residencia profesional en el Hospital General Dr. Desiderio G. Rosado Carbajal, Comalcalco, México. Un transmisor portátil y dos receptores combinan ESP-NOW, procesamiento RSSI e interacción RFID.
 
-La V1 reúne firmware de tres nodos, integración electrónica, diseño de carcasas y evaluación experimental. La lógica de detección se ejecuta en los microcontroladores; Arduino IoT Cloud aporta telemetría secundaria. Es un **prototipo de residencia**, sin certificación médica ni validación clínica.
+**V1:** prototipo construido y evaluado durante la residencia. **REV 2.0:** rediseño del receptor con XIAO ESP32-S3 y PCB propia; archivos de fabricación exportados, ensamble y pruebas pendientes de evidencia.
 
-## Prototipo construido
+<p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Render de la PCB MONITOR IoT REV 2.0, con OLED, buzzer, RGB y sockets removibles"></p>
 
-<p align="center">
-  <img src="docs/images/20260716_211125.jpg" width="31%" alt="Prototipo integrado - vista 1">
-  <img src="docs/images/20260716_211140.jpg" width="31%" alt="Prototipo integrado - vista 2">
-  <img src="docs/images/20260716_211158.jpg" width="31%" alt="Prototipo integrado - vista 3">
-</p>
+*Diseño de PCB REV 2.0. Render de EasyEDA; la XIAO y el módulo PN532 externo no aparecen montados. No es una fotografía de una placa fabricada.*
 
-<p align="center">
-  <img src="docs/images/20260717_100755~2.jpg" width="50%" alt="Transmisor móvil integrado en formato brazalete">
-</p>
+## Aportación de ingeniería
 
-## Problema y alcance
+- Firmware C++ para tres nodos ESP32-C6, comunicación ESP-NOW y procesamiento RSSI mediante EMA e histéresis.
+- Integración de RFID por UART/I²C, OLED, indicadores y alarmas locales; telemetría con Arduino IoT Cloud en V1.
+- Diseño electrónico en EasyEDA y carcasas de V1 en SolidWorks.
+- Evolución a una PCB de dos capas con controlador removible, interfaz de batería y documentación para preparar fabricación.
 
-El proyecto aborda la necesidad de complementar la supervisión de movilidad en el entorno hospitalario mediante avisos visuales y sonoros. El transmisor se lleva en formato brazalete; los receptores evalúan su señal inalámbrica para identificar condiciones de proximidad configuradas.
+**Tecnologías:** C++/Arduino, ESP32-C6, XIAO ESP32-S3, ESP-NOW, I²C, UART, GPIO, EasyEDA Pro y SolidWorks. [Objetivos y evidencia](docs/requirements.md).
 
-El **bajo costo y el presupuesto limitado** fueron criterios de diseño: se aprovecharon módulos comerciales, la radio integrada del ESP32 y carcasas fabricadas mediante impresión 3D. El valor de ingeniería está en integrar estos recursos y evaluar sus compromisos. No se publica un ahorro porcentual ni un costo total sin una relación de compras verificable.
+## Arquitectura del sistema — V1
 
-El sistema supervisa la proximidad del transmisor: no mide ocupación del colchón, no identifica una caída y no entrega distancia exacta en metros.
+```mermaid
+flowchart TD
+    T["Transmisor portátil · ESP32-C6"] -->|ESP-NOW| A["Receptor de área"]
+    T -->|ESP-NOW| S["Receptor de salida"]
+    A --> L["Alertas locales e interacción RFID"]
+    S --> L
+    A -. Telemetría Wi-Fi .-> C["Arduino IoT Cloud"]
+    S -. Telemetría Wi-Fi .-> C
+```
 
-## Mi contribución técnica
+El receptor de área detecta alejamiento e integra RDM6300; el de salida detecta aproximación e integra PN532. La decisión se ejecuta localmente. El sistema evalúa proximidad del transmisor: no mide ocupación del colchón, caídas ni distancia exacta. [Arquitectura](docs/architecture.md) · [Comunicaciones](docs/communication.md).
 
-- Desarrollo de firmware C++ para transmisión ESP-NOW, procesamiento RSSI e interacción local.
-- Implementación de EMA, histéresis en el nodo de área y lógica de alarma diferenciada por nodo.
-- Integración de lectores RFID mediante UART e I²C, pantallas OLED, LED y buzzer.
-- Diseño electrónico en EasyEDA, ensamble de módulos y desarrollo de carcasas en SolidWorks.
-- Integración de telemetría con Arduino IoT Cloud y evaluación funcional del prototipo.
+## Hardware REV 2.0
 
-La [matriz de objetivos y evidencia](docs/requirements.md) relaciona estas actividades con el informe y los archivos publicados.
+Carrier PCB para **XIAO ESP32-S3 removible**, OLED I²C, LED RGB, buzzer con BC547, pulsador e interfaz de batería. Un header de cuatro contactos conecta el PN532 externo. Incluye Gerbers de cobre superior/inferior, máscaras y taladros; los renders muestran zonas de cobre y vías.
 
-## Arquitectura y decisiones
+La exportación para JLCPCB aún tiene selecciones de componentes pendientes. La PCB no se presenta como validada ni como pedido de fabricación confirmado. [Diseño y pendientes](docs/hardware-rev2.md) · [Archivos de hardware](hardware/rev2/README.md).
 
-| Nodo | Función | Interfaces principales |
-|---|---|---|
-| Transmisor portátil | Envía a dos destinos y recorre canales 1–11 | ESP-NOW |
-| Receptor de área | Evalúa alejamiento, modo paseo y condición crítica | RDM6300/UART, OLED/I²C, GPIO |
-| Receptor de salida | Evalúa aproximación, activa alarma y permite restablecimiento RFID | PN532/I²C, OLED/I²C, GPIO |
+## Firmware
 
-Los receptores actualizan un filtro EMA con **α = 0.20** al recibir tramas. En área, los umbrales **−66/−59 dBm** introducen histéresis; la condición crítica usa **−84 dBm**. En salida, la alarma se activa desde **−65 dBm** y el restablecimiento RFID de una alarma activa inicia una exclusión de **6 s**.
+| Nodo V1 | Implementación publicada |
+|---|---|
+| [Transmisor](firmware/transmitter/transmitter.ino) | Dos destinos ESP-NOW y barrido de canales 1–11 |
+| [Área](firmware/area_node/area_node.ino) | EMA α = 0.20, histéresis −66/−59 dBm, RFID UART y alarma crítica |
+| [Salida](firmware/exit_node/exit_node.ino) | Detección desde −65 dBm, alarma enclavada y restablecimiento PN532 |
 
-Los contadores actuales evalúan ciclos del programa, no necesariamente paquetes nuevos. La lectura RFID permite interacción local, pero el código no compara identificadores contra una lista de usuarios autorizados. [Funcionamiento exacto](docs/communication.md) · [Decisiones y compromisos](docs/design-decisions.md).
+Los sketches corresponden a **V1**, no a un port ya validado en XIAO. [Preparación del entorno](docs/getting-started.md) · [Revisión estática y límites](docs/firmware-review.md).
 
-## Resultados reportados
+## Decisiones de ingeniería
 
-| Indicador | Resultado de la residencia |
+| Restricción | Decisión y compromiso |
+|---|---|
+| Presupuesto limitado | Módulos comerciales y radio integrada; sin afirmar ahorros no medidos |
+| Variación de RSSI | EMA e histéresis; compromiso entre estabilidad y tiempo de respuesta |
+| Alertamiento local | Procesamiento en receptores; la telemetría es una función secundaria |
+| Integración del receptor REV 2.0 | PCB y sockets removibles; requiere comprobar montaje y correspondencia de pines |
+
+[Decisiones y evidencia](docs/design-decisions.md).
+
+## Resultados históricos — V1
+
+| Indicador | Reportado en la residencia |
 |---|---:|
-| Tiempo promedio de detección | 2 s |
-| Tiempo promedio de activación de alarma | 2.2 s |
+| Detección promedio | 2 s |
+| Activación de alarma promedio | 2.2 s |
 | Rango reportado de máxima distancia con RSSI estable | 11–17 m |
 | Falsas alarmas | 1 en 20 pruebas |
-| Autonomía con batería | 4.9 h |
+| Autonomía | 4.9 h |
 
-Fuente: informe final, **tabla 24, página 72**. Son resultados históricos bajo las condiciones del prototipo; no constituyen garantías ni una nueva validación del firmware publicado. No se dispone aquí de registros crudos para recalcular promedios o intervalos de confianza. [Metodología, condiciones y límites](docs/testing.md).
+Fuente: informe final, tabla 24, página impresa 72. Son resultados agregados históricos; no validan REV 2.0 ni equivalen a certificación médica. [Método y límites](docs/testing.md).
 
-## Del diseño a la integración
+![Integración física del prototipo V1](docs/images/report/prototype-integration.jpeg)
 
-| Carcasa CAD | Ensamble del prototipo |
-|---|---|
-| ![Base del nodo de salida](docs/images/report/cad-exit-base.jpeg) | ![Integración electrónica de los nodos](docs/images/report/prototype-integration.jpeg) |
+*Ensamble documentado durante la residencia. [Fotografías originales y galería](docs/evidence.md).*
 
-Figuras 17 y 28 del informe. La galería técnica incluye además telemetría y una vista del diseño PCB, identificada como referencia histórica: **los archivos de fabricación no están disponibles y la huella mostrada requiere conciliación con el C6 utilizado**. [Ver evidencia y procedencia](docs/evidence.md).
+## Documentación y estado
 
-## Explorar y reproducir
+- [Validación por revisión](docs/validation.md): evidencia disponible y pruebas pendientes.
+- [Hardware](hardware/README.md): V1 histórica y paquete REV 2.0.
+- [Firmware](firmware/README.md): nodos, compatibilidad y reproducción.
+- [Evidencia](docs/evidence.md): fotografías, CAD y renders con procedencia.
+- [Seguridad](SECURITY.md): configuración local y exposición histórica de credenciales.
 
-| Recurso | Contenido |
-|---|---|
-| [Firmware](firmware/) | Sketches independientes y plantillas de credenciales |
-| [Puesta en marcha](docs/getting-started.md) | Dependencias, configuración y comprobaciones de banco |
-| [Hardware](hardware/README.md) | Componentes, GPIO y alcance de la documentación electrónica |
-| [Revisión técnica](docs/firmware-review.md) | Diferencias entre informe y código; límites conocidos |
-| [Seguridad](SECURITY.md) | Gestión de credenciales y alcance del prototipo |
-
-Las versiones exactas del entorno original no quedaron fijadas. Esta revisión documental no incluye compilación ni pruebas físicas. Los detalles necesarios para repetirlas se explicitan en la guía de puesta en marcha.
+```text
+firmware/          Sketches V1 por nodo y configuración de ejemplo
+hardware/rev1/     Integración histórica y conexiones documentadas
+hardware/rev2/     Esquema, PCB, Gerbers y selección de componentes
+docs/              Arquitectura, decisiones, pruebas y evidencia
+```
 
 ## Autor
 
-**Luis Alejandro Pérez Sousa** · Ingeniería Mecatrónica, ITSC  
-Áreas de trabajo: firmware, sistemas embebidos, integración hardware–software e IoT.  
-[Perfil de GitHub](https://github.com/alx-sousa)
+**Luis Alejandro Pérez Sousa** — Ingeniería Mecatrónica, ITSC, México. Desarrollo de firmware, electrónica e integración hardware–software. [GitHub](https://github.com/alx-sousa).

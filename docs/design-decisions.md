@@ -21,3 +21,7 @@ Integración de firmware, buses de comunicación, procesamiento de señal, elect
 ## Alcance económico
 
 La documentación disponible no permite reconstruir una BOM cotizada por nodo con proveedores, cantidades y fechas. Por ello, el repositorio documenta el criterio de accesibilidad y la selección de componentes, sin inventar precios, retorno de inversión ni porcentajes de ahorro.
+
+## Evolución REV 2.0
+
+El receptor pasa a una carrier PCB con sockets removibles e interfaz de batería. Esta revisión busca compactar la integración y facilitar sustitución del controlador. Los archivos disponibles y compromisos pendientes están en [hardware REV 2.0](hardware-rev2.md); no hay mediciones nuevas de fiabilidad, consumo o costo total que permitan comparar ambas revisiones.

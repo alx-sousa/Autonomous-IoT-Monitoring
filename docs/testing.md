@@ -44,3 +44,7 @@ Esta lista es un protocolo propuesto, no pruebas ya ejecutadas:
 7. Publicar número de ensayos, tiempos individuales y criterio para clasificar falsas alarmas.
 
 Las [figuras de telemetría](evidence.md) ilustran la interfaz; no sustituyen un dataset experimental.
+
+## Alcance por revisión
+
+Todas las métricas anteriores pertenecen a V1. El estado de REV 2.0 y sus pruebas pendientes se mantienen en [validation.md](validation.md).

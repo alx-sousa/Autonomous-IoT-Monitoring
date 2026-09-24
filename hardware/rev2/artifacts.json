@@ -1,0 +1,42 @@
+[
+  {
+    "original_name": "3D_PCB1_2026-09-23 (1).png",
+    "path": "docs/images/rev2/pcb-perspective.png",
+    "sha256": "b0706d8abe466df3c9a368f9116eb09f7036ac30b93ac718180053d15a92348d"
+  },
+  {
+    "original_name": "3D_PCB1_2026-09-23.png",
+    "path": "docs/images/rev2/pcb-top.png",
+    "sha256": "d28bca9da6ce08d5d8163d740188f084af6a83d4414e454e3d093251b696d38f"
+  },
+  {
+    "original_name": "3D_PCB1_2026-09-23 (2).png",
+    "path": "docs/images/rev2/pcb-bottom.png",
+    "sha256": "fc3d23c8884176d5832f76bce93826705c8c798e551a9b2b49b28dd4e68765bd"
+  },
+  {
+    "original_name": "SCH_Schematic1_1-P1_2026-09-23.pdf",
+    "path": "hardware/rev2/schematic/schematic-2026-09-23.pdf",
+    "sha256": "3fe86771cac6160e9a2c5baf62b440fda98ab12b90677824506b09bf7e30686e"
+  },
+  {
+    "original_name": "PCB_PCB1_2026-09-23.pdf",
+    "path": "hardware/rev2/pcb/pcb-documentation-2026-09-23.pdf",
+    "sha256": "cc8c6e0720ce2102f646cddcc25087018aed7531bef7aae8bae3f5d4062c5d8b"
+  },
+  {
+    "original_name": "Gerber_PCB1_2026-09-23 (1).zip",
+    "path": "hardware/rev2/fabrication/gerber-2026-09-23.zip",
+    "sha256": "39af6f9bf650614247eb515dfeb56f1221c93a1b9fb8a341476352e755e1b3a7"
+  },
+  {
+    "original_name": "1041c5ec480e4710936a3672ef2af2be_1790213198000-JLCPCB Assembly Order.xls",
+    "path": "hardware/rev2/bom/jlcpcb-matching-2026-09-24.xlsx",
+    "sha256": "9954dbcb9e3a6f61b47844587a87b94fdf843a39c9117ed4af525dc840a76afd"
+  },
+  {
+    "original_name": "PDF_PCB XIAO MONITOREO_2026-09-23.zip",
+    "path": "hardware/rev2/schematic/project-pdf-export-2026-09-23.zip",
+    "sha256": "f689abf6de5e334108cb3ca729ca6bb90ac09298b76c128e3f41e572c042003f"
+  }
+]

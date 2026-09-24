@@ -33,3 +33,9 @@ Figuras 41 y 42, pp. 75 y 76. Ilustran visualización de RSSI y estado de alarma
 ## Fuente y selección
 
 *Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, informe de residencia profesional, Luis Alejandro Pérez Sousa, ITSC, portada junio de 2026. Se seleccionaron figuras técnicas del desarrollo y los resultados. No se publican los anexos completos, credenciales, documentos personales ni capturas de infraestructura interna.
+
+## Renders REV 2.0
+
+[Perspectiva](images/rev2/pcb-perspective.png) · [Superior](images/rev2/pcb-top.png) · [Inferior](images/rev2/pcb-bottom.png).
+
+Exportaciones EasyEDA suministradas por el autor, conservadas sin alterar su contenido. Muestran diseño CAD; no acreditan fabricación ni ensamble. XIAO y PN532 no aparecen montados. [Procedencia y hashes](../hardware/rev2/artifacts.json).
