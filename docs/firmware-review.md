@@ -1,43 +1,43 @@
-# Revisión del firmware publicado
+# Published firmware review
 
-Revisión estática de la V1 contrastada con el informe final. No incluye compilación, ejecución en hardware ni certificación. Las diferencias se documentan para mantener trazabilidad entre intención de diseño, implementación y resultados reportados.
+Static review of the V1 source code compared against the final residency report. This review does not include compilation, execution on hardware or certification. Differences are documented to preserve traceability between design intent, implementation and reported results.
 
-## Implementación confirmada
+## Confirmed implementation
 
-- Transmisor: dos destinos ESP-NOW, dos envíos por destino y canal, barrido 1–11.
-- Área: EMA 0.20, estados CERCA/LEJOS, histéresis, contador, condición crítica, parser RDM6300 y checksum.
-- Salida: EMA 0.20, contador, alarma enclavada, alternancia por `millis()` y exclusión de 6 s tras restablecimiento de alarma.
-- Receptores: OLED y propiedades de telemetría Arduino IoT Cloud.
+- Transmitter: two ESP-NOW destinations, two sends per destination/channel and channel sweep 1–11.
+- Area node: EMA 0.20, NEAR/FAR states, hysteresis, counter, critical condition, RDM6300 parser and checksum.
+- Exit node: EMA 0.20, counter, latched alarm, `millis()`-based output toggling and a 6 s exclusion after alarm reset.
+- Receivers: OLED output and Arduino IoT Cloud telemetry properties.
 
-## Diferencias relevantes
+## Relevant differences
 
-| Descripción del informe | Evidencia en el código publicado |
+| Report description | Evidence in published code |
 |---|---|
-| Cinco/diez muestras consecutivas | Contadores en `loop()`; pueden contar repetidamente el mismo RSSI |
-| Autorización por identidad RFID | Área valida formato/checksum; salida detecta tarjeta; no hay lista de UID autorizados |
-| Filtrado MAC bidireccional | El transmisor configura destinos; callbacks receptores no filtran origen |
-| Estado crítico de salida a −50 dBm | No existe ese umbral ni segunda etapa en `exit_node.ino` |
-| Alerta preventiva azul e intermitente en área | No está implementada como tal en el lazo publicado |
-| Wi-Fi activado solo para notificar eventos | Cloud se atiende en cada ciclo; no hay estrategia explícita de suspensión por eventos |
-| Suspensión física de alarmas al autorizar o regresar | Área no restablece explícitamente las salidas en todos esos caminos |
-| Operación completamente asíncrona | Hay `delay()` en transmisor y área; la alarma de salida sí se temporiza con `millis()` |
+| Five/ten consecutive samples | Counters advance in `loop()`; the same RSSI sample may be counted repeatedly |
+| RFID identity authorization | Area validates frame/checksum; exit detects a card; neither has an authorized UID list |
+| Bidirectional MAC filtering | Transmitter configures destinations; receiver callbacks do not filter source |
+| Exit critical state at −50 dBm | No such threshold or second stage exists in `exit_node.ino` |
+| Blue/intermittent preventive area alert | Not implemented as described in the published loop |
+| Wi-Fi enabled only for notification events | Cloud handling runs every cycle; no event-only radio-suspension strategy is explicit |
+| Physical alarm suspension after authorization/return | Area code does not explicitly reset outputs in every relevant path |
+| Fully asynchronous operation | Transmitter and area node use `delay()`; exit alarm timing uses `millis()` |
 
-## Límites técnicos a comprobar en banco
+## Technical items to verify on the bench
 
-1. **Antigüedad del RSSI:** no se registra timeout de tramas ni se inicializa el filtro con la primera muestra real.
-2. **Salidas del nodo de área:** revisar LED/buzzer al abandonar la condición crítica, activar modo paseo y retornar a CERCA.
-3. **PN532:** comprobar constructor de la biblioteca, pines auxiliares y cableado; `Wire.begin()` no valida por sí solo la inicialización completa del lector.
-4. **Concurrencia:** el callback actualiza RSSI compartido con `loop()` sin mecanismo explícito de sincronización.
-5. **Temporizadores:** `ahora > tiempoDesbloqueo` requiere revisar el comportamiento al desbordarse `millis()`.
-6. **Manejo de fallos:** algunas inicializaciones continúan después de un error o no comprueban retornos.
-7. **Enlace:** ESP-NOW se configura sin cifrado; no se verifica origen o carga útil en recepción.
+1. **RSSI age:** no frame timeout is recorded and the filter is not initialized from the first real sample.
+2. **Area outputs:** verify LED/buzzer behavior when leaving the critical condition, enabling walking mode and returning to NEAR.
+3. **PN532:** verify the library constructor, auxiliary pins and wiring; `Wire.begin()` alone does not establish complete reader initialization.
+4. **Concurrency:** the callback updates RSSI shared with `loop()` without explicit synchronization.
+5. **Timers:** `ahora > tiempoDesbloqueo` should be reviewed for `millis()` overflow behavior.
+6. **Failure handling:** some initialization paths continue after errors or do not check return values.
+7. **Link security:** ESP-NOW is configured without encryption, source verification or payload validation on reception.
 
-Estas observaciones no se presentan como fallos medidos durante la residencia: proceden de la lectura del código. Las pruebas históricas y sus límites están en [testing.md](testing.md).
+These items are code-review findings, not measured failures from the residency. Historical tests and their limitations are documented in [testing.md](testing.md).
 
-## Cambios de mantenimiento de esta revisión
+## Maintenance changes in the portfolio revision
 
-- Se consolidó el punto de entrada en `firmware/`, retirando tres copias redundantes de la raíz; dos contenían credenciales incrustadas.
-- Se restauró en ambos receptores la declaración `WiFiConnectionHandler ArduinoIoTPreferredConnection(SSID_WIFI, PASS_WIFI);`, presente en los originales pero ausente en los sketches organizados. Los valores permanecen en `secrets.h` local.
-- Se conservaron algoritmos, umbrales, GPIO y temporizaciones históricos. La restauración de la declaración no equivale a una compilación ni una validación física.
+- The public entry point was consolidated under `firmware/`, removing redundant root-level copies; two earlier copies had embedded credentials.
+- Both receivers retain `WiFiConnectionHandler ArduinoIoTPreferredConnection(SSID_WIFI, PASS_WIFI);`; credential values are loaded from the local `secrets.h`.
+- Historical algorithms, thresholds, GPIO assignments and timing were preserved. Documentation cleanup does not imply a successful rebuild or physical revalidation.
 
-El historial anterior sigue existiendo. Las credenciales previamente expuestas deben rotarse; véase [SECURITY.md](../SECURITY.md).
+Previously exposed credentials should be rotated even if history is later rewritten. See [SECURITY.md](../SECURITY.md).

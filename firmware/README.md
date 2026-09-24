@@ -1,17 +1,17 @@
 # Firmware
 
-Los tres sketches publicados corresponden a V1. No se incluye firmware validado para REV 2.0.
+The three published sketches correspond to V1. No validated REV 2.0 firmware is included yet.
 
-| Carpeta / sketch | Función | Hardware documentado |
+| Folder / sketch | Responsibility | Documented hardware |
 |---|---|---|
-| [transmitter](transmitter/transmitter.ino) | Emisión ESP-NOW a dos receptores | ESP32-C6 |
-| [area_node](area_node/area_node.ino) | RSSI, histéresis, modo paseo y alarma | ESP32-C6, RDM6300 UART, OLED y RGB |
-| [exit_node](exit_node/exit_node.ino) | Aproximación, alarma y restablecimiento RFID | ESP32-C6, PN532 I²C y OLED |
+| [transmitter](transmitter/transmitter.ino) | ESP-NOW transmission to two receivers | ESP32-C6 |
+| [area_node](area_node/area_node.ino) | RSSI, hysteresis, walking mode and local alarm | ESP32-C6, RDM6300 UART, OLED and RGB |
+| [exit_node](exit_node/exit_node.ino) | Approach detection, alarm and RFID reset | ESP32-C6, PN532 I²C and OLED |
 
-Se mantienen las rutas existentes y la coincidencia entre carpeta y nombre del `.ino`. Copiar `secrets.example.h` como `secrets.h` en cada receptor y configurar valores propios. No publicar ese archivo.
+Existing paths and Arduino folder/file naming are preserved. Copy `secrets.example.h` to `secrets.h` in each receiver directory and configure your own values. Never commit the local secret file.
 
-## Reproducción
+## Reproduction
 
-[Entorno y puesta en marcha](../docs/getting-started.md) · [Lógica implementada](../docs/communication.md) · [Revisión estática](../docs/firmware-review.md).
+[Environment and setup](../docs/getting-started.md) · [Implemented logic](../docs/communication.md) · [Static review](../docs/firmware-review.md).
 
-No hay versiones históricas fijadas del core y bibliotecas ni compilación repetida en esta actualización. El port a XIAO debe definir GPIO, dimensiones de OLED, polaridad de salidas, lector PN532 y estrategia de conectividad antes de probarse. Los resultados de V1 no se trasladan automáticamente al nuevo hardware.
+Original ESP32 core/library versions were not pinned and compilation was not repeated during the portfolio documentation update. A future XIAO port must explicitly define GPIO mapping, OLED dimensions, output polarity, PN532 interface and connectivity strategy before validation. V1 results do not automatically transfer to the new hardware.

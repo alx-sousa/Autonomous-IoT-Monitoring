@@ -1,56 +1,56 @@
 # Hardware REV 2.0
 
-Rediseño del receptor MONITOR IoT alrededor de una XIAO ESP32-S3 removible. Los archivos publicados documentan el diseño; no acreditan una placa fabricada o probada.
+Receiver redesign around a removable XIAO ESP32-S3. The published files document the design state; they do not establish that a board has been manufactured, assembled or electrically validated.
 
-## Bloques e interfaces
+## Blocks and interfaces
 
-| Elemento | Diseño documentado |
+| Element | Documented design |
 |---|---|
-| XIAO ESP32-S3 | Controlador previsto; sockets U5/U6 de siete contactos, USB accesible en borde |
-| OLED1 | HS91L02W2C01, interfaz SDA/SCL y alimentación 3V3; el reporte JLCPCB identifica 128×32 |
-| PN532 | Módulo externo previsto, conectado mediante U7 de cuatro contactos: GND, 3V3, SDA, SCL |
-| BUZZER1 / Q1 / D1 | Buzzer con etapa NPN BC547 y diodo 1N4148W |
-| U4 / R3–R5 | LED RGB con resistencias de 330 Ω |
-| SW1 | Pulsador de interacción local |
-| CN2 / U3 | Conector PH de dos contactos e interruptor SS12D00G4 en la interfaz de batería |
-| CN1 / CN3 | Contactos pogo BAT− / BAT+; dimensiones y compresión declaradas como revisadas por el autor |
-| C1 / C2 | Desacoplo de 100 nF y 10 µF |
+| XIAO ESP32-S3 | Intended controller; U5/U6 seven-contact sockets, USB accessible at board edge |
+| OLED1 | HS91L02W2C01, SDA/SCL and 3V3; JLCPCB matching report identifies 128×32 |
+| PN532 | External module through U7 four-contact header: GND, 3V3, SDA, SCL |
+| BUZZER1 / Q1 / D1 | Buzzer with BC547 NPN driver and 1N4148W diode |
+| U4 / R3–R5 | RGB LED with 330 Ω resistors |
+| SW1 | Local interaction pushbutton |
+| CN2 / U3 | Two-contact PH connector and SS12D00G4 switch in the battery interface |
+| CN1 / CN3 | BAT− / BAT+ pogo contacts; dimensions and compression reviewed by the author |
+| C1 / C2 | 100 nF and 10 µF decoupling |
 
-La ausencia de un modelo 3D no determina si el fabricante suministrará una pieza. Ese alcance depende de la selección BOM, compatibilidad, disponibilidad y servicio de ensamble.
+The absence of a 3D model does not determine whether a manufacturer can supply a component. That depends on BOM selection, footprint compatibility, availability and assembly service.
 
-## PCB y routing
+## PCB and routing
 
-Los Gerbers contienen cobre superior e inferior, máscaras, serigrafía y archivos de taladros PTH y vías. Los renders muestran rellenos de cobre y vías adicionales. La intención de diseño es usar GND en los planos y conectar ambas caras mediante stitching vias; la conectividad completa requiere contrastar el proyecto editable y el DRC de esta misma exportación.
+The Gerber package contains top/bottom copper, solder masks, silkscreen and PTH/via drill outputs. Renders show copper pours and additional stitching vias. The design intent is to use GND planes on both layers and connect them with stitching vias; final connectivity should still be checked against the editable project and DRC for the exact released revision.
 
-El criterio acordado de routing es 0.254 mm para señales y 0.5 mm para alimentación/batería. Es un criterio de diseño, no un cálculo documentado de corriente máxima. Debe contrastarse con las pistas reales y las reglas del fabricante. El espesor de cobre y el acabado deben quedar registrados en la orden definitiva.
+The agreed routing guideline is 0.254 mm for signals and 0.5 mm for power/battery nets. This is a design rule, not a documented maximum-current calculation. It must be compared with the real traces and manufacturer rules. Copper weight and finish should be recorded in the final order.
 
-![Cara superior de REV 2.0](images/rev2/pcb-top.png)
+![REV 2.0 top side](images/rev2/pcb-top.png)
 
-[Vista inferior](images/rev2/pcb-bottom.png) · [Paquete de archivos](../hardware/rev2/README.md).
+[Bottom view](images/rev2/pcb-bottom.png) · [Hardware package](../hardware/rev2/README.md).
 
-## Preparación de PCBA
+## PCBA preparation
 
-El reporte JLCPCB suministrado es un resultado de matching para cinco placas, no prueba de fabricación:
+The supplied JLCPCB file is a component-matching result for five boards, not proof of manufacturing:
 
-- U3: sin pieza seleccionada.
-- CN1/CN3: cantidad cero en el reporte; confirmar si serán suministro/montaje manual.
-- R2, R3–R5 y R6: coincidencias marcadas como no confirmadas.
-- BUZZER1: la referencia seleccionada y el nombre de huella no coinciden literalmente; comprobar dimensiones y pads con el datasheet antes de aceptar la sustitución.
-- No se incluye CPL/Pick and Place independiente. Su revisión debe comprobar cara, posición y rotación por designador.
-- XIAO y PN532: módulos previstos para instalación por el autor. Confirmar el alcance final del resto de componentes antes de publicar una BOM cerrada.
+- U3: no component selected.
+- CN1/CN3: quantity zero in the report; confirm whether they are manually supplied/assembled.
+- R2, R3–R5 and R6: matches are marked as unconfirmed.
+- BUZZER1: the selected part reference and footprint name do not literally match; verify dimensions and pads against the datasheet before accepting a substitution.
+- No independent CPL/Pick and Place file is included. Review must verify side, position and rotation by designator.
+- XIAO and PN532: intended for installation by the author. Confirm the final assembly scope for all remaining parts before publishing a closed BOM.
 
-Las cantidades de compra del reporte pueden incluir mínimos o excedentes; no deben interpretarse como cantidad por placa.
+Purchase quantities in the matching report may include MOQ or overage and should not be interpreted as quantity per PCB.
 
-## Conciliación antes de liberar
+## Reconciliation before release
 
-1. Unificar la identificación REV 2.0: el cajetín del esquema individual todavía dice V1.0.
-2. Verificar el mapeo U1–U5: U1 rotula D4/SDA, D5/SCL y D6/Bb, mientras U5 asigna sus contactos 5/6/7 a Bb/SDA/SCL. Resolver con numeración física de sockets y configuración de firmware; no afirmar equivalencia sin comprobarla.
-3. Conciliar OLED: V1 configura 128×64 en firmware y el matching REV 2.0 identifica 128×32.
-4. Completar selección de piezas, montaje manual, CPL y revisión del Gerber/NC Drill.
-5. Registrar DRC y pruebas correspondientes a esta revisión concreta.
+1. Harmonize REV 2.0 identification: the individual schematic title block still says V1.0.
+2. Verify U1–U5 mapping: U1 labels D4/SDA, D5/SCL and D6/Bb, while U5 maps contacts 5/6/7 to Bb/SDA/SCL. Resolve using physical socket numbering and firmware configuration before claiming equivalence.
+3. Reconcile OLED size: V1 firmware configures 128×64, while the REV 2.0 matching file identifies 128×32.
+4. Complete component selection, manual-assembly/DNP definition, CPL review and Gerber/NC Drill review.
+5. Record DRC and tests for this exact hardware revision.
 
-## Bring-up propuesto — no ejecutado
+## Proposed bring-up — not yet executed
 
-Comenzar con inspección de montaje, orientación y continuidad sin alimentación. Comprobar ausencia de cortos entre rieles y GND. Energizar con limitación de corriente y registrar tensiones/consumo. Probar XIAO, OLED, pulsador, RGB, buzzer y PN532 por separado antes de integrar comunicaciones. Evaluar batería/carga, reinicios y pérdida de enlace. Guardar revisión de PCB, firmware, instrumento, condiciones y resultado de cada prueba.
+Start with unpowered inspection of assembly, orientation and continuity. Check for shorts between rails and GND. Power the board with current limiting and record voltages/current. Test XIAO, OLED, pushbutton, RGB LED, buzzer and PN532 individually before integrating communications. Evaluate battery/charging behavior, resets and link loss. Record PCB revision, firmware commit, instruments, conditions and outcome for every test.
 
-[Registro de validación](validation.md). La carcasa y la validación mecánica completa se documentarán cuando existan planos y ensamble físico.
+See the [validation log](validation.md). Enclosure and full mechanical validation should be added when dimensioned files and a physical assembly exist.

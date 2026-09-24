@@ -1,49 +1,49 @@
-# Puesta en marcha de la V1
+# V1 setup
 
-El repositorio conserva el firmware del prototipo con una corrección de declaración de conexión Cloud. No hay un entorno de compilación fijado ni una validación de hardware repetida para esta revisión. Esta guía permite preparar una reproducción, no garantiza una carga inmediata en cualquier placa.
+The repository preserves the prototype firmware with local secret configuration. No fully pinned build environment or repeated hardware validation is available for this portfolio revision. This guide prepares a reproducible attempt; it does not guarantee immediate compilation on every board/core combination.
 
-## 1. Preparar el entorno
+## 1. Prepare the environment
 
-Usar Arduino IDE y soporte de placas ESP32 compatible con la placa ESP32-C6 concreta. Las versiones originales del core y bibliotecas no están registradas; anotar las versiones elegidas al compilar. El callback ESP-NOW usa la interfaz `esp_now_recv_info`; un error de firma requiere revisar la compatibilidad del core.
+Use Arduino IDE with ESP32 board support compatible with the specific ESP32-C6 board. Original core and library versions were not recorded, so document the versions used for any new build. The ESP-NOW callback uses the `esp_now_recv_info` interface; a signature error indicates that core compatibility should be checked.
 
-Bibliotecas utilizadas:
+Libraries and platform components used:
 
-- ArduinoIoTCloud y Arduino_ConnectionHandler.
-- Adafruit GFX Library y Adafruit SSD1306.
-- Adafruit PN532 para salida.
-- WiFi, ESP-NOW, Wire y HardwareSerial del entorno ESP32.
+- ArduinoIoTCloud and Arduino_ConnectionHandler.
+- Adafruit GFX Library and Adafruit SSD1306.
+- Adafruit PN532 for the exit node.
+- WiFi, ESP-NOW, Wire and HardwareSerial from the ESP32 environment.
 
-## 2. Elegir el sketch
+## 2. Select the sketch
 
-| Dispositivo | Archivo |
+| Device | File |
 |---|---|
-| Transmisor | `firmware/transmitter/transmitter.ino` |
-| Área | `firmware/area_node/area_node.ino` |
-| Salida | `firmware/exit_node/exit_node.ino` |
+| Transmitter | `firmware/transmitter/transmitter.ino` |
+| Area receiver | `firmware/area_node/area_node.ino` |
+| Exit receiver | `firmware/exit_node/exit_node.ino` |
 
-Abrir y compilar cada sketch por separado. Las carpetas tienen el mismo nombre que su archivo `.ino`.
+Open and compile each sketch separately. Each sketch folder matches the `.ino` file name.
 
-## 3. Configurar credenciales y destinos
+## 3. Configure credentials and destinations
 
-En cada receptor, copiar `secrets.example.h` como `secrets.h` en la misma carpeta. Completar SSID, contraseña y credenciales propias del dispositivo Arduino IoT Cloud. No reutilizar valores históricos del informe ni subir el archivo local: está excluido en `.gitignore`.
+For each receiver, copy `secrets.example.h` to `secrets.h` in the same folder. Fill in your own SSID, password and Arduino IoT Cloud device credentials. Do not reuse values from historical material and do not commit the local file; it is excluded through `.gitignore`.
 
-Crear la configuración Cloud correspondiente con las propiedades y tipos de `initProperties()`; consultar [communication.md](communication.md). La declaración del objeto de conexión está en el sketch y toma los valores del archivo local.
+Create the corresponding cloud configuration with the properties and types defined by `initProperties()`; see [communication.md](communication.md).
 
-En el transmisor, reemplazar `receptor1` y `receptor2` por las MAC de estación de los receptores utilizados. Las MAC publicadas son referencias del montaje original, no contraseñas. El barrido de canales no evita por sí solo pérdidas por coexistencia Wi-Fi/ESP-NOW.
+In the transmitter, replace `receptor1` and `receptor2` with the station MAC addresses of the receivers being used. Published MAC addresses are identifiers from the original prototype, not passwords. Channel sweeping does not by itself eliminate Wi-Fi/ESP-NOW coexistence losses.
 
-## 4. Verificar hardware y compilar
+## 4. Verify hardware and compile
 
-Revisar [hardware V1](../hardware/rev1/README.md): placa exacta, GPIO expuestos, tensiones, configuración PN532 y etapa de alimentación. Las figuras del informe no son esquemas de fabricación verificados.
+Review [V1 hardware](../hardware/rev1/README.md): exact board, available GPIOs, voltage levels, PN532 configuration and power stage. Report figures are not verified manufacturing schematics.
 
-Compilar los tres sketches y registrar core, bibliotecas, modelo de placa y resultados. No se incluye una afirmación de compilación exitosa en esta revisión porque no se ejecutó el toolchain ni se dispone de los dispositivos.
+Compile all three sketches and record ESP32 core version, library versions, board target and result. This repository does not claim a repeated successful build because the current portfolio revision did not execute the original toolchain on the original hardware.
 
-## 5. Comprobar en banco
+## 5. Bench checks
 
-1. Confirmar arranque, OLED, lectura RFID y salidas de cada receptor.
-2. Verificar recepción y RSSI con el transmisor cerca antes de calibrar.
-3. Repetir alejamiento/retorno y comprobar salidas físicas, especialmente en área.
-4. Comprobar alarma de salida, restablecimiento por tarjeta y rearme tras 6 s.
-5. Desconectar transmisor y Wi-Fi por separado; registrar diferencias entre estado lógico, salidas y telemetría.
-6. Registrar resultados con el protocolo propuesto en [testing.md](testing.md).
+1. Confirm boot, OLED, RFID reading and receiver outputs.
+2. Verify packet reception and RSSI with the transmitter nearby before calibration.
+3. Repeat departure/return behavior and inspect physical outputs, especially on the area node.
+4. Verify exit alarm, card reset and re-arm after 6 s.
+5. Disconnect the transmitter and Wi-Fi separately; record differences between logical state, physical outputs and telemetry.
+6. Record results using the protocol proposed in [testing.md](testing.md).
 
-No conectar esta reproducción a un flujo de atención clínica basándose únicamente en el repositorio; su alcance es experimental y sus límites técnicos están documentados.
+Do not connect this reproduction to a clinical-care workflow based only on the repository. Its scope is experimental and its technical limitations are documented.

@@ -1,21 +1,25 @@
-# Seguridad y configuración
+# Security and configuration
 
-## Credenciales locales
+## Local credentials
 
-Los receptores V1 leen sus credenciales desde `secrets.h`, creado a partir de `secrets.example.h` y excluido de Git. No publicar contraseñas, claves Cloud, datos de pacientes ni información de infraestructura interna en código, imágenes, PDFs o incidencias.
+The V1 receivers load credentials from `secrets.h`, created from `secrets.example.h` and excluded from Git. Do not publish Wi-Fi passwords, cloud keys, patient data or internal infrastructure information in source code, screenshots, PDFs or public issues.
 
-## Exposición histórica
+## Historical exposure
 
-Versiones anteriores incluían credenciales Wi-Fi y Arduino IoT Cloud incrustadas. Fueron retiradas de los archivos actuales, pero continúan en commits antiguos. La renovación del portafolio no elimina ese historial ni revoca las credenciales. Su propietario debe cambiar las contraseñas afectadas y regenerar o revocar las claves Cloud. No se ha confirmado su rotación.
+Earlier revisions contained embedded Wi-Fi and Arduino IoT Cloud credentials. They were removed from the current files, but references may remain reachable in historical commits or GitHub-side cached references. Repository cleanup does **not** revoke those credentials.
 
-La reescritura del historial se prepara por separado de este Pull Request. Debe coordinarse con ramas, tags y copias existentes, y puede requerir asistencia de GitHub para referencias o vistas almacenadas. No se publican los valores históricos en esta documentación.
+Any affected Wi-Fi passwords and Arduino IoT Cloud keys should be rotated or revoked independently of Git history cleanup. Rotation has not been verified by this repository.
 
-## Alcance del prototipo
+A complete purge of already published secrets can require history rewriting, cleanup of branches/tags/PR references and, in some cases, GitHub support for cached views or unreachable objects. Historical secret values are intentionally not reproduced in this documentation.
 
-V1 es experimental. El firmware publicado no incluye validación de UID autorizado, filtrado de MAC de origen en recepción, cifrado ESP-NOW ni timeout explícito de pérdida de tramas. [Revisión técnica](docs/firmware-review.md). REV 2.0 está en desarrollo: [estado de validación](docs/validation.md).
+## Prototype security scope
 
-Este documento trata de credenciales y límites de seguridad informática. No acredita seguridad funcional, certificación médica ni validación clínica.
+V1 is experimental. The published firmware does not implement an authorized RFID UID list, receiver-side source-MAC filtering, ESP-NOW encryption or an explicit packet-loss timeout. See the [firmware review](docs/firmware-review.md).
 
-## Reportar un problema
+REV 2.0 remains under development; see the [validation status](docs/validation.md).
 
-Para errores sin datos sensibles, abrir una incidencia indicando revisión, pasos de reproducción y comportamiento observado. No incluir secretos en incidencias públicas. No hay un canal privado de reporte documentado en este repositorio.
+This document covers credential handling and cybersecurity limitations only. It does not establish functional safety, medical certification or clinical validation.
+
+## Reporting an issue
+
+For non-sensitive defects, open a public issue and include the affected revision, reproduction steps and observed behavior. Do not include secrets or sensitive infrastructure data. No private security-reporting channel is currently documented in this repository.

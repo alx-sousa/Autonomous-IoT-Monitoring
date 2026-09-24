@@ -1,18 +1,18 @@
 # MONITOR IoT — Hardware REV 2.0
 
-Paquete de diseño del receptor proporcionado por el autor. Estado: preparación de fabricación; ensamble y bring-up pendientes de evidencia.
+Receiver design package supplied by the author. Status: fabrication preparation; assembly and bring-up remain pending evidence.
 
-| Entregable | Archivo | Alcance |
+| Deliverable | File | Scope |
 |---|---|---|
-| Esquemático | [PDF](schematic/schematic-2026-09-23.pdf) | Exportación individual; cajetín V1.0 pendiente de armonizar con REV 2.0 |
-| Exportación PDF del proyecto | [ZIP original](schematic/project-pdf-export-2026-09-23.zip) | Conservado por procedencia; no es proyecto editable |
-| PCB y lista de componentes | [PDF](pcb/pcb-documentation-2026-09-23.pdf) | Documentación de la placa |
-| Gerbers y NC Drill | [ZIP](fabrication/gerber-2026-09-23.zip) | Salida de fabricación, no liberación aprobada |
-| Selección JLCPCB | [XLSX](bom/jlcpcb-matching-2026-09-24.xlsx) | Reporte BOM Matching con pendientes |
-| Trazabilidad | [Manifiesto SHA-256](artifacts.json) | Nombres originales y hash de cada archivo |
+| Schematic | [PDF](schematic/schematic-2026-09-23.pdf) | Individual export; title block still says V1.0 and must be harmonized with REV 2.0 |
+| Project PDF export | [Original ZIP](schematic/project-pdf-export-2026-09-23.zip) | Preserved for provenance; not an editable project |
+| PCB and component list | [PDF](pcb/pcb-documentation-2026-09-23.pdf) | Board documentation export |
+| Gerbers and NC Drill | [ZIP](fabrication/gerber-2026-09-23.zip) | Fabrication output; not an approved production release |
+| JLCPCB matching | [XLSX](bom/jlcpcb-matching-2026-09-24.xlsx) | BOM Matching report with unresolved items |
+| Traceability | [SHA-256 manifest](artifacts.json) | Original names and hash of each supplied artifact |
 
-El archivo recibido con extensión `.xls` contiene un libro OOXML; se publica como `.xlsx` sin cambiar sus bytes. No es una BOM consolidada de compra ni comprobante de pago. Los dos contenedores de esquema se conservan como exportaciones recibidas, sin asumir identidad de revisión.
+The received file originally used an `.xls` extension but contains an OOXML workbook; it is published as `.xlsx` without changing its bytes. It is not a consolidated purchasing BOM or proof of payment. Both schematic containers are preserved as supplied exports without assuming they represent different revisions.
 
-Faltan: proyecto editable EasyEDA, CPL/Pick and Place, lista definitiva de ensamble manual/DNP y resultados físicos. La XIAO y el PN532 se prevén como módulos adquiridos e instalados por el autor. DNP significa no poblar; una pieza de montaje manual no debe confundirse con una pieza omitida del sistema.
+Still missing: editable EasyEDA project, CPL/Pick and Place, final manual-assembly/DNP list and physical test results. The XIAO and PN532 are intended as modules purchased and installed by the author. DNP means do not populate; a manually assembled part should not be confused with a component omitted from the system.
 
-[Descripción del circuito](../../docs/hardware-rev2.md) · [Validación](../../docs/validation.md).
+[Hardware design details](../../docs/hardware-rev2.md) · [Validation](../../docs/validation.md).

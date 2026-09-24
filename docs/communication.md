@@ -1,47 +1,49 @@
-# Comunicación y lógica implementada
+# Communication and implemented logic
 
-Esta descripción corresponde a los sketches de `firmware/`. Las cifras de evaluación histórica están en [pruebas](testing.md).
+This document describes the sketches published under `firmware/`. Historical evaluation figures are documented in [testing](testing.md).
 
-## ESP-NOW y filtrado
+## ESP-NOW and filtering
 
-El transmisor registra dos peers con MAC fija y `encrypt = false`. En cada canal envía dos veces a cada destino, con retardos de 15 y 65 ms, y avanza del canal 1 al 11. Este recorrido no implica confirmación de entrega ni sincronización garantizada.
+The transmitter registers two peers with fixed MAC addresses and `encrypt = false`. On each channel it sends twice to each destination, with 15 ms and 65 ms delays, then advances from channel 1 through 11. This sweep does not imply delivery acknowledgement or guaranteed synchronization.
 
-Los receptores extraen el RSSI en el callback y aplican:
+The receivers extract RSSI in the receive callback and apply:
 
-`filtrado = 0.20 * muestra + 0.80 * filtrado_anterior`
+`filtered = 0.20 * sample + 0.80 * previous_filtered`
 
-Los callbacks no comparan la MAC de origen con una lista ni validan el contenido del paquete. Tampoco registran un timeout de recepción. Si dejan de llegar tramas, permanece el último RSSI filtrado; una pérdida de enlace no produce por sí sola una alarma específica.
+The callbacks do not compare the source MAC against an allow-list and do not validate payload content. They also do not implement a receive timeout. If frames stop arriving, the last filtered RSSI value remains in memory; link loss alone does not trigger a dedicated alarm.
 
-## Nodo de área
+## Area node
 
-| Elemento | Comportamiento del código |
+| Element | Code behavior |
 |---|---|
-| Inicio | Estado CERCA; RSSI filtrado −40 dBm |
-| Entrada a LEJOS | RSSI ≤ −66 dBm durante cinco evaluaciones de `loop()` |
-| Regreso a CERCA | RSSI ≥ −59 dBm; desactiva modo paseo |
-| Condición crítica | LEJOS, sin modo paseo y RSSI ≤ −84 dBm |
-| RDM6300 | UART 9600 baud, trama de 12 caracteres y checksum XOR entre delimitadores |
-| Interacción RFID | Conmuta modo paseo tras intervalo mínimo de 1500 ms |
+| Startup | NEAR state; filtered RSSI −40 dBm |
+| Enter FAR | RSSI ≤ −66 dBm for five `loop()` evaluations |
+| Return to NEAR | RSSI ≥ −59 dBm; walking mode is disabled |
+| Critical condition | FAR, walking mode disabled and RSSI ≤ −84 dBm |
+| RDM6300 | UART 9600 baud, 12-character frame and XOR checksum between delimiters |
+| RFID interaction | Toggles walking mode after a minimum 1500 ms interval |
 
-Solo CERCA y LEJOS pertenecen al `enum`. CRÍTICO es una condición lógica; modo paseo es un booleano. No existe comparación del identificador leído contra una lista autorizada. Las cinco evaluaciones pueden reutilizar una misma muestra RSSI.
+Only NEAR and FAR belong to the `enum`. CRITICAL is a logical condition, while walking mode is a boolean. The reader output is not compared against an authorized identifier list. The five evaluations may reuse the same RSSI sample.
 
-La condición crítica acciona LED rojo y buzzer, pero el bloque actual no restablece explícitamente ambas salidas en todos los caminos al volver a CERCA o activar modo paseo. Este comportamiento requiere comprobación en banco antes de atribuir silencio físico garantizado a esas transiciones.
+The critical condition drives the red LED and buzzer, but the current control block does not explicitly reset both outputs in every path when returning to NEAR or enabling walking mode. This requires bench verification before claiming guaranteed physical silence on those transitions.
 
-## Nodo de salida
+## Exit node
 
-| Elemento | Comportamiento del código |
+| Element | Code behavior |
 |---|---|
-| Inicio | RSSI filtrado −84 dBm; alarma desactivada |
-| Activación | RSSI ≥ −65 dBm durante diez evaluaciones, sin bloqueo ni alarma previa |
-| Alarma | Permanece activa hasta restablecimiento RFID; salidas alternan cada 150 ms |
-| Lectura PN532 | Detecta tarjeta ISO14443A; no compara UID autorizado |
-| Restablecimiento | Con alarma activa y cumplido el intervalo RFID, apaga alarma, reinicia contador y RSSI |
-| Exclusión | Inhibe disparo RSSI durante 6000 ms después del restablecimiento; rearme automático |
+| Startup | Filtered RSSI −84 dBm; alarm disabled |
+| Trigger | RSSI ≥ −65 dBm for ten evaluations, with no lockout and no previous alarm |
+| Alarm | Remains active until RFID reset; outputs toggle every 150 ms |
+| PN532 read | Detects an ISO14443A card; no authorized UID comparison |
+| Reset | With an active alarm and valid RFID interval, disables alarm and resets counter/RSSI |
+| Exclusion | Suppresses RSSI triggering for 6000 ms after reset; automatic re-arm |
 
-La exclusión no se activa por toda lectura: depende de que exista una alarma activa. Los diez conteos corresponden a ciclos, no necesariamente a diez tramas independientes. No existe en este sketch una segunda etapa de alarma a −50 dBm.
+The exclusion period is not activated by every card read; an active alarm is required. The ten counts represent loop cycles, not necessarily ten independent received frames. No second alarm stage at −50 dBm exists in this sketch.
 
-## Telemetría
+## Telemetry
 
-Área publica `rssiArea`, `estadoPaciente`, `alarmaCritica`, `modoPaseoCloud` y `pacienteLejos`. Salida publica `rssiPuerta`, `alarmaPuerta` y `estadoPuerta`. Se registran como propiedades de lectura con intervalo de un segundo. El código no demuestra Wi-Fi activado exclusivamente por eventos ni una estrategia explícita de suspensión de la radio.
+The area node publishes `rssiArea`, `estadoPaciente`, `alarmaCritica`, `modoPaseoCloud` and `pacienteLejos`. The exit node publishes `rssiPuerta`, `alarmaPuerta` and `estadoPuerta`. They are registered as read-only properties with a one-second interval.
 
-Los umbrales son parámetros de la V1. El RSSI cambia con orientación, obstáculos y entorno; no se convierte en distancia ni se usa Bluetooth para la detección en estos sketches.
+The code does not demonstrate event-only Wi-Fi activation or an explicit radio-suspension strategy.
+
+These thresholds belong to V1. RSSI changes with orientation, obstacles and environment; it is not converted into exact distance, and Bluetooth is not used for detection in these sketches.
