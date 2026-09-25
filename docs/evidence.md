@@ -4,7 +4,7 @@ This repository separates **portfolio-facing visuals** from **historical develop
 
 The main README intentionally uses the REV 2.0 PCB render rather than the internal V1 prototyping-board photograph. This keeps the landing page aligned with the current engineering revision while preserving older evidence here for traceability.
 
-The four original photographs under `docs/images/` are preserved with their original names and bytes. The six images under `docs/images/report/` were extracted from the author's final residency report without redrawing them. Page references use the printed page numbering.
+The four original photographs under `docs/images/` are preserved with their original names and bytes. The six images under `docs/images/report/` were extracted from the author's final V1 technical report without redrawing them. Page references use the printed page numbering.
 
 ## Mechanical design
 
@@ -52,7 +52,7 @@ The original camera files are preserved under `docs/images/` for provenance. The
 
 ## Source and selection
 
-*Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, professional residency report, Luis Alejandro Pérez Sousa, ITSC, cover dated June 2026. Technical figures related to development and results were selected for this portfolio. Full appendices, credentials, personal documents and internal-infrastructure screenshots are not published.
+*Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, final V1 technical report, Luis Alejandro Pérez Sousa, ITSC, cover dated June 2026. Technical figures related to development and results were selected for this portfolio. Full appendices, credentials, personal documents and internal-infrastructure screenshots are not published.
 
 ## REV 2.0 renders
 
