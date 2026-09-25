@@ -1,6 +1,6 @@
 # Published firmware review
 
-Static review of the V1 source code compared against the final residency report. This review does not include compilation, execution on hardware or certification. Differences are documented to preserve traceability between design intent, implementation and reported results.
+Static review of the V1 source code compared against the final V1 technical report. This review does not include compilation, execution on hardware or certification. Differences are documented to preserve traceability between design intent, implementation and reported results.
 
 ## Confirmed implementation
 
@@ -32,7 +32,7 @@ Static review of the V1 source code compared against the final residency report.
 6. **Failure handling:** some initialization paths continue after errors or do not check return values.
 7. **Link security:** ESP-NOW is configured without encryption, source verification or payload validation on reception.
 
-These items are code-review findings, not measured failures from the residency. Historical tests and their limitations are documented in [testing.md](testing.md).
+These items are code-review findings, not measured failures from the delivered V1 prototype. Historical tests and their limitations are documented in [testing.md](testing.md).
 
 ## Maintenance changes in the portfolio revision
 
