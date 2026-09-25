@@ -1,6 +1,6 @@
 # V1 objectives, implementation and evidence
 
-Objective source: final residency report, §1.3, printed pages 12–13. Page references use the report's printed numbering rather than PDF viewer index. Visual evidence comes from the same report; implementation evidence is in `firmware/`.
+Objective source: final V1 technical report, §1.3, printed pages 12–13. Page references use the report's printed numbering rather than PDF viewer index. Visual evidence comes from the same report; implementation evidence is in `firmware/`.
 
 | Objective | Available evidence | Confirmed scope |
 |---|---|---|
@@ -17,7 +17,7 @@ A three-node prototype was developed to connect wireless proximity and RFID inte
 
 ## Reference documentation
 
-Luis Alejandro Pérez Sousa, *Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, professional residency report, Mechatronics Engineering, Instituto Tecnológico Superior de Comalcalco, cover dated June 2026.
+Luis Alejandro Pérez Sousa, *Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, final V1 technical report, Instituto Tecnológico Superior de Comalcalco, cover dated June 2026.
 
 The report was used for this technical summary and figure selection. It is not distributed in full because appendices include sensitive configuration. Differences between report claims and published source are documented in the [firmware review](firmware-review.md).
 
