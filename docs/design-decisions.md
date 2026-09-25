@@ -2,7 +2,7 @@
 
 ## Project delivery context
 
-V1 was developed as a team-funded engineering prototype under a constrained budget. **Luis Alejandro Pérez Sousa led the project team**, coordinating technical integration, task execution, testing and documentation across the residency effort. The team completed the V1 prototype, experimental evaluation and final residency deliverables.
+V1 was developed as a team-funded engineering prototype in response to a technical request from the hospital's DTI department. **Luis Alejandro Pérez Sousa led the project team**, coordinating technical integration, task execution, testing and documentation. The team completed the V1 prototype, experimentally evaluated its operation and delivered the system to the hospital.
 
 The available documentation does not provide a complete audited cost ledger, so the repository does not invent savings percentages, ROI or procurement claims. Team funding is documented here as project context, not as proof of a quantified economic advantage.
 
