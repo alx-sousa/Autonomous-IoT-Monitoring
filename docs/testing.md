@@ -1,6 +1,6 @@
 # Experimental evaluation and results
 
-Source: final residency report by Luis Alejandro Pérez Sousa, chapter 4. The figures below were reported during the residency; this repository update is not a new experimental campaign.
+Source: final V1 technical report by Luis Alejandro Pérez Sousa, chapter 4. The figures below correspond to the original V1 evaluation; this repository update is not a new experimental campaign.
 
 ## Published metrics
 
