@@ -4,7 +4,7 @@ This matrix separates historical evidence, document inspection and tests that ar
 
 | Revision / activity | Status | Evidence or pending work |
 |---|---|---|
-| V1 physical integration | Documented | [Evidence gallery](evidence.md) and residency report |
+| V1 physical integration | Documented | [Evidence gallery](evidence.md) and V1 technical report |
 | V1 functional evaluation | Historical results reported | [Results and method](testing.md); no raw dataset published |
 | V1 source review | Static review documented | [Findings](firmware-review.md) |
 | V1 build of the published source | Not repeated in this portfolio revision | Pin ESP32 core, libraries and board target; record build |
