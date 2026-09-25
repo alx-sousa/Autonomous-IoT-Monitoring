@@ -4,11 +4,11 @@
 
 [English](README.md) · [Hardware REV 2.0](docs/hardware-rev2.md) · [Firmware](firmware/README.md) · [Resultados y validación](docs/validation.md)
 
-Sistema inalámbrico de monitoreo de proximidad y alarmas locales desarrollado durante una residencia profesional en el Hospital General Dr. Desiderio G. Rosado Carbajal, Comalcalco, México.
+Sistema inalámbrico de monitoreo de proximidad y alarmas locales desarrollado a partir de una solicitud técnica del departamento de DTI del Hospital General Dr. Desiderio G. Rosado Carbajal, Comalcalco, México.
 
 **Líder del proyecto y colaborador en sistemas embebidos/hardware:** **Luis Alejandro Pérez Sousa**.
 
-**V1:** prototipo financiado por el equipo, construido y evaluado durante la residencia. **REV 2.0:** rediseño posterior del receptor iniciado a partir de una solicitud de mejora, con XIAO ESP32-S3 removible y PCB propia de dos capas. Los archivos de fabricación están disponibles; el ensamble, bring-up y validación física siguen pendientes.
+**V1:** prototipo funcional desarrollado, probado y entregado al hospital por el equipo del proyecto. **REV 2.0:** rediseño independiente posterior a la entrega, mantenido como evolución técnica propia e informado por solicitudes posteriores de mejora, con XIAO ESP32-S3 removible y PCB propia de dos capas. Los archivos de fabricación están disponibles; el ensamble, bring-up y validación física siguen pendientes.
 
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Render de la PCB MONITOR IoT REV 2.0, con OLED, buzzer, RGB y sockets removibles"></p>
 
@@ -16,9 +16,9 @@ Sistema inalámbrico de monitoreo de proximidad y alarmas locales desarrollado d
 
 ## Evolución del proyecto y liderazgo
 
-V1 se desarrolló con un presupuesto limitado y los gastos del prototipo fueron cubiertos por el equipo. Lideré la coordinación de tareas, la integración del sistema embebido, las pruebas y la documentación técnica. El equipo completó el prototipo V1, su evaluación experimental y los entregables de la residencia.
+El departamento de DTI del hospital solicitó un dispositivo funcional de monitoreo con conectividad inalámbrica y alarmas locales. Coordiné al equipo durante la ejecución de tareas, integración del sistema embebido, pruebas y documentación técnica. El equipo completó el prototipo V1, evaluó su funcionamiento y entregó el sistema al hospital.
 
-REV 2.0 responde a una **solicitud posterior de mejora**. El rediseño busca reducir cableado punto a punto, mejorar mantenibilidad, compactar el receptor y generar un paquete de fabricación más limpio. Es una evolución de ingeniería del concepto V1; no se presenta como hardware ya fabricado o validado.
+Después de la entrega de V1 continué el proyecto mediante actualizaciones de ingeniería independientes. REV 2.0 incorpora una **solicitud posterior de mejora** y busca reducir cableado punto a punto, mejorar mantenibilidad, compactar el receptor y generar un paquete de fabricación más limpio. Es una evolución de ingeniería del prototipo V1 entregado; no se presenta como hardware ya fabricado o validado.
 
 ## Mi aportación de ingeniería
 
@@ -74,7 +74,7 @@ Los sketches corresponden a **V1**. Los comentarios del código se mantienen en 
 
 ## Resultados históricos — V1
 
-| Indicador | Reportado en la residencia |
+| Indicador | Resultado del informe de validación V1 |
 |---|---:|
 | Detección promedio | 2 s |
 | Activación de alarma promedio | 2.2 s |
@@ -82,7 +82,7 @@ Los sketches corresponden a **V1**. Los comentarios del código se mantienen en 
 | Falsas alarmas | 1 en 20 pruebas |
 | Autonomía | 4.9 h |
 
-Fuente: informe final, tabla 24, página impresa 72. Son resultados agregados históricos; no validan REV 2.0 ni equivalen a certificación médica. [Método y límites](docs/testing.md).
+Fuente: informe técnico final de V1, tabla 24, página impresa 72. Son resultados agregados históricos; no validan REV 2.0 ni equivalen a certificación médica. [Método y límites](docs/testing.md).
 
 Las fotografías históricas de V1 y figuras del informe se conservan en la [galería de evidencia](docs/evidence.md) para trazabilidad. Las imágenes internas con placa de prototipado no se usan como imagen principal del portafolio; esta página prioriza el trabajo actual de REV 2.0.
 
