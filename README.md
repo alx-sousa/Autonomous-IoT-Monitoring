@@ -4,11 +4,11 @@
 
 [Español](README.es.md) · [Hardware REV 2.0](docs/hardware-rev2.md) · [Firmware](firmware/README.md) · [Validation](docs/validation.md)
 
-Wireless proximity monitoring and local alarm system developed during an engineering residency at Hospital General Dr. Desiderio G. Rosado Carbajal in Comalcalco, Mexico.
+Wireless proximity monitoring and local alarm system developed in response to a technical request from the DTI department of Hospital General Dr. Desiderio G. Rosado Carbajal in Comalcalco, Mexico.
 
 **Project lead and embedded/hardware contributor:** **Luis Alejandro Pérez Sousa**.
 
-**V1:** team-funded prototype built and evaluated during the residency. **REV 2.0:** follow-up receiver redesign initiated after a request for improvement, using a removable XIAO ESP32-S3 and a custom two-layer PCB. Fabrication outputs are available; assembly, bring-up and physical validation remain pending.
+**V1:** functional prototype developed, tested and delivered to the hospital by the project team. **REV 2.0:** independent follow-up receiver redesign maintained after project delivery and informed by later improvement requests, using a removable XIAO ESP32-S3 and a custom two-layer PCB. Fabrication outputs are available; assembly, bring-up and physical validation remain pending.
 
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="MONITOR IoT REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
 
@@ -16,9 +16,9 @@ Wireless proximity monitoring and local alarm system developed during an enginee
 
 ## Project evolution and leadership
 
-V1 was developed under a constrained budget and the project team covered the prototype expenses. I led the team through task coordination, embedded-system integration, testing and technical documentation. The team completed the V1 prototype, experimental evaluation and residency deliverables.
+The hospital's DTI department requested a functional monitoring device with wireless connectivity and local alarms. I coordinated the project team through task execution, embedded-system integration, testing and technical documentation. The team completed the V1 prototype, evaluated its operation and delivered the system to the hospital.
 
-REV 2.0 is a response to a **follow-up improvement request** after V1. The redesign focuses on reducing point-to-point wiring, improving maintainability, making the receiver more compact and producing a cleaner fabrication package. It is an engineering evolution of the evaluated V1 prototype, not a claim that the new hardware has already been fabricated or validated.
+After V1 delivery, I continued the project through independent engineering updates. REV 2.0 incorporates a **follow-up improvement request** and focuses on reducing point-to-point wiring, improving maintainability, making the receiver more compact and producing a cleaner fabrication package. It is an engineering evolution of the delivered V1 prototype, not a claim that the new hardware has already been fabricated or validated.
 
 ## My engineering contribution
 
@@ -74,7 +74,7 @@ These sketches target **V1**. Their comments are written for engineering readabi
 
 ## Historical results — V1
 
-| Metric | Residency report result |
+| Metric | V1 validation report result |
 |---|---:|
 | Mean detection time | 2 s |
 | Mean alarm activation time | 2.2 s |
@@ -82,7 +82,7 @@ These sketches target **V1**. Their comments are written for engineering readabi
 | False alarms | 1 in 20 trials |
 | Battery runtime | 4.9 h |
 
-Source: final residency report, table 24, printed page 72. These are historical aggregate results from V1; they do not validate REV 2.0 and do not constitute medical certification. [Methods and limitations](docs/testing.md).
+Source: final V1 technical report, table 24, printed page 72. These are historical aggregate results from V1; they do not validate REV 2.0 and do not constitute medical certification. [Methods and limitations](docs/testing.md).
 
 Historical V1 photographs and report figures remain available in the [evidence gallery](docs/evidence.md) for traceability. Internal prototyping-board photographs are intentionally not used as the main portfolio image; this landing page emphasizes the current REV 2.0 engineering work.
 
