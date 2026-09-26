@@ -1,4 +1,4 @@
-# MONITOR IoT
+# Autonomous IoT Monitoring
 
 **Embedded Systems · IoT · PCB · Hardware/Firmware Integration**
 
@@ -10,9 +10,17 @@ Sistema inalámbrico de monitoreo de proximidad y alarmas locales desarrollado a
 
 **V1:** prototipo funcional desarrollado, probado y entregado al hospital por el equipo del proyecto. **REV 2.0:** rediseño independiente posterior a la entrega, mantenido como evolución técnica propia e informado por solicitudes posteriores de mejora, con XIAO ESP32-S3 removible y PCB propia de dos capas. Los archivos de fabricación están disponibles; el ensamble, bring-up y validación física siguen pendientes.
 
-<p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Render de la PCB MONITOR IoT REV 2.0, con OLED, buzzer, RGB y sockets removibles"></p>
+<p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Render de la PCB Autonomous IoT Monitoring REV 2.0, con OLED, buzzer, RGB y sockets removibles"></p>
 
 *Diseño de PCB REV 2.0. Render de EasyEDA; la XIAO y el módulo PN532 externo no aparecen montados. No es una fotografía de una placa fabricada.*
+
+### Integración mecánica REV 2.0 — Fusion 360
+
+REV 2.0 ya pasó del layout de PCB a la integración mecánica. Ensamblé la placa con modelos 3D de referencia en **Fusion 360** para revisar ajuste, mantenibilidad e interfaces con la carcasa antes de fabricar.
+
+La **XIAO ESP32-S3** y el módulo **PN532 RFID externo** se mantienen removibles mediante headers hembra en lugar de soldarse permanentemente. Esto facilita sustitución, reutilización y depuración durante el desarrollo. El ensamble también permite revisar acceso al USB-C de la XIAO, despeje de la antena, posición del PN532 y relación entre PCB y carcasa.
+
+Este ensamble CAD es una verificación mecánica de diseño; no demuestra ajuste físico ni validación eléctrica. Las tolerancias reales, ensamble y bring-up siguen pendientes. [Notas de integración mecánica](docs/hardware-rev2.md#fusion-360-mechanical-assembly).
 
 ## Evolución del proyecto y liderazgo
 
