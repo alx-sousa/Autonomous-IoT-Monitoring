@@ -20,6 +20,10 @@ REV 2.0 has moved from PCB layout into mechanical integration. I assembled the b
 
 The **XIAO ESP32-S3** and external **PN532 RFID module** remain removable through female headers rather than being permanently soldered. This supports replacement, reuse and easier debugging during development. The assembly is also being used to verify XIAO USB-C access, antenna clearance, PN532 placement and the relationship between the PCB and enclosure.
 
+<p align="center"><img src="https://raw.githubusercontent.com/alx-sousa/PCB-Hardware-Portfolio/main/assets/projects/autonomous-iot-monitoring-rev2/fusion360-rev2-assembly.png" width="640" alt="Autonomous IoT Monitoring REV 2.0 mechanical assembly in Fusion 360"></p>
+
+*Fusion 360 assembly used to review module placement, serviceability and enclosure integration before fabrication.*
+
 This CAD assembly is a mechanical design check, not proof of physical fit or electrical validation. Physical tolerances, assembly and bring-up remain pending. [Mechanical integration notes](docs/hardware-rev2.md#fusion-360-mechanical-assembly). · [PCB & hardware portfolio](https://github.com/alx-sousa/PCB-Hardware-Portfolio).
 
 ## Project evolution and leadership
