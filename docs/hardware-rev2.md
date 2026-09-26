@@ -40,6 +40,8 @@ Key design decisions represented in the assembly:
 - **Board-to-enclosure relationship:** the assembly is used to review component height, connector access, OLED/buzzer/indicator placement and enclosure clearances before manufacturing.
 - **Reference-model discipline:** a visually correct 3D model is not automatically dimensionally authoritative; critical dimensions still need to be reconciled with datasheets and manufacturer drawings.
 
+![REV 2.0 Fusion 360 mechanical assembly](https://raw.githubusercontent.com/alx-sousa/PCB-Hardware-Portfolio/main/assets/projects/autonomous-iot-monitoring-rev2/fusion360-rev2-assembly.png)
+
 Current status: PCB schematic/layout and DRC are complete, the Fusion 360 mechanical assembly has been developed, and enclosure CAD work is ongoing. Fabrication, physical fit checks and electrical bring-up remain pending.
 
 ## PCBA preparation
