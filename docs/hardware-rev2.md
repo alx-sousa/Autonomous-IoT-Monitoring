@@ -28,6 +28,20 @@ The agreed routing guideline is 0.254 mm for signals and 0.5 mm for power/batter
 
 [Bottom view](images/rev2/pcb-bottom.png) · [Hardware package](../hardware/rev2/README.md).
 
+## Fusion 360 mechanical assembly
+
+A Fusion 360 assembly has been created to evaluate the REV 2.0 board as part of the complete receiver rather than as an isolated PCB. External 3D reference models are used for spatial verification and should be checked against manufacturer drawings before final mechanical release.
+
+Key design decisions represented in the assembly:
+
+- **XIAO ESP32-S3 on female headers:** the controller remains removable for replacement, reuse, firmware/debug access and future revisions instead of being permanently soldered to the carrier PCB.
+- **External PN532 on a removable four-contact interface:** the RFID module is intentionally not fixed permanently to the PCB, allowing its mechanical position to be adjusted and the module to be replaced independently.
+- **USB-C and antenna access:** the XIAO position must keep the USB-C connector reachable and avoid obstructing the integrated antenna region.
+- **Board-to-enclosure relationship:** the assembly is used to review component height, connector access, OLED/buzzer/indicator placement and enclosure clearances before manufacturing.
+- **Reference-model discipline:** a visually correct 3D model is not automatically dimensionally authoritative; critical dimensions still need to be reconciled with datasheets and manufacturer drawings.
+
+Current status: PCB schematic/layout and DRC are complete, the Fusion 360 mechanical assembly has been developed, and enclosure CAD work is ongoing. Fabrication, physical fit checks and electrical bring-up remain pending.
+
 ## PCBA preparation
 
 The supplied JLCPCB file is a component-matching result for five boards, not proof of manufacturing:
