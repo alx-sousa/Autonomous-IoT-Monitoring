@@ -1,4 +1,4 @@
-# MONITOR IoT
+# Autonomous IoT Monitoring
 
 **Embedded Systems · IoT · PCB Design · Hardware/Firmware Integration**
 
@@ -10,9 +10,17 @@ Wireless proximity monitoring and local alarm system developed in response to a 
 
 **V1:** functional prototype developed, tested and delivered to the hospital by the project team. **REV 2.0:** independent follow-up receiver redesign maintained after project delivery and informed by later improvement requests, using a removable XIAO ESP32-S3 and a custom two-layer PCB. Fabrication outputs are available; assembly, bring-up and physical validation remain pending.
 
-<p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="MONITOR IoT REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
+<p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Autonomous IoT Monitoring REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
 
 *REV 2.0 EasyEDA render. The XIAO and external PN532 module are not shown installed. This is not a photograph of manufactured hardware.*
+
+### REV 2.0 mechanical integration — Fusion 360
+
+REV 2.0 has moved from PCB layout into mechanical integration. I assembled the board with 3D reference models in **Fusion 360** to review fit, serviceability and enclosure interfaces before fabrication.
+
+The **XIAO ESP32-S3** and external **PN532 RFID module** remain removable through female headers rather than being permanently soldered. This supports replacement, reuse and easier debugging during development. The assembly is also being used to verify XIAO USB-C access, antenna clearance, PN532 placement and the relationship between the PCB and enclosure.
+
+This CAD assembly is a mechanical design check, not proof of physical fit or electrical validation. Physical tolerances, assembly and bring-up remain pending. [Mechanical integration notes](docs/hardware-rev2.md#fusion-360-mechanical-assembly).
 
 ## Project evolution and leadership
 
