@@ -54,6 +54,12 @@ The original camera files are preserved under `docs/images/` for provenance. The
 
 *Sistema de monitoreo de presencia y alarma local en camilla hospitalaria*, final V1 technical report, Luis Alejandro Pérez Sousa, ITSC, cover dated June 2026. Technical figures related to development and results were selected for this portfolio. Full appendices, credentials, personal documents and internal-infrastructure screenshots are not published.
 
+## REV 2.0 mechanical assembly
+
+Fusion 360 is being used to assemble the REV 2.0 PCB with the removable XIAO ESP32-S3, external PN532 interface and enclosure references. The purpose of this evidence is to document mechanical-integration decisions before fabrication: module removability, connector access, antenna clearance, component height and enclosure fit.
+
+The 3D assembly does not replace datasheet verification or physical tolerance testing. It represents the current CAD integration state; fabrication, real assembly and bring-up remain pending.
+
 ## REV 2.0 renders
 
 [Perspective](images/rev2/pcb-perspective.png) · [Top](images/rev2/pcb-top.png) · [Bottom](images/rev2/pcb-bottom.png).
