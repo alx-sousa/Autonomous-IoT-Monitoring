@@ -20,6 +20,10 @@ REV 2.0 ya pasó del layout de PCB a la integración mecánica. Ensamblé la pla
 
 La **XIAO ESP32-S3** y el módulo **PN532 RFID externo** se mantienen removibles mediante headers hembra en lugar de soldarse permanentemente. Esto facilita sustitución, reutilización y depuración durante el desarrollo. El ensamble también permite revisar acceso al USB-C de la XIAO, despeje de la antena, posición del PN532 y relación entre PCB y carcasa.
 
+<p align="center"><img src="https://raw.githubusercontent.com/alx-sousa/PCB-Hardware-Portfolio/main/assets/projects/autonomous-iot-monitoring-rev2/fusion360-rev2-assembly.png" width="640" alt="Ensamble mecánico REV 2.0 en Fusion 360"></p>
+
+*Ensamble en Fusion 360 utilizado para revisar colocación de módulos, mantenibilidad e integración con la carcasa antes de fabricar.*
+
 Este ensamble CAD es una verificación mecánica de diseño; no demuestra ajuste físico ni validación eléctrica. Las tolerancias reales, ensamble y bring-up siguen pendientes. [Notas de integración mecánica](docs/hardware-rev2.md#fusion-360-mechanical-assembly).
 
 ## Evolución del proyecto y liderazgo
