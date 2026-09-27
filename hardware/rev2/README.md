@@ -19,6 +19,6 @@ Still missing: editable EasyEDA project, CPL/Pick and Place, final manual-assemb
 
 A Fusion 360 assembly was used to verify the intended relationship between the PCB, removable XIAO ESP32-S3, external PN532 interface and enclosure before fabrication. Female headers keep the XIAO and PN532 removable for serviceability, reuse and debugging. Physical fit and electrical validation are still pending.
 
-![Final enclosure CAD](../../docs/images/rev2/rev2-final-enclosure-cad.jpg)
+![Final enclosure CAD](../../docs/images/rev2/rev2-final-enclosure-cad.png)
 
 [Hardware design details](../../docs/hardware-rev2.md) · [Validation](../../docs/validation.md).
