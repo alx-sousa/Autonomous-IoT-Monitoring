@@ -8,7 +8,7 @@ Wireless proximity monitoring and local alarm system developed in response to a 
 
 **Project lead and embedded/hardware contributor:** **Luis Alejandro Pérez Sousa**.
 
-**V1:** functional prototype developed, tested and delivered to the hospital by the project team. **REV 2.0:** independent follow-up receiver redesign maintained after project delivery and informed by later improvement requests, using a removable XIAO ESP32-S3 and a custom two-layer PCB. Fabrication outputs are available; assembly, bring-up and physical validation remain pending.
+**V1:** functional prototype developed, tested and delivered to the hospital by the project team. **REV 2.0:** independent follow-up receiver redesign maintained after project delivery and informed by later improvement requests, using a removable XIAO ESP32-S3 and a custom two-layer PCB. Fabrication outputs and the REV 2.0 enclosure CAD are available; physical assembly, bring-up and fit validation remain pending.
 
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Autonomous IoT Monitoring REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
 
@@ -16,13 +16,21 @@ Wireless proximity monitoring and local alarm system developed in response to a 
 
 ### REV 2.0 mechanical integration — Fusion 360
 
-REV 2.0 has moved from PCB layout into mechanical integration. I assembled the board with 3D reference models in **Fusion 360** to review fit, serviceability and enclosure interfaces before fabrication.
+REV 2.0 progressed from PCB layout through mechanical integration in **Fusion 360**. The PCB, removable modules and enclosure were assembled in CAD to review fit, serviceability and enclosure interfaces before fabrication.
 
 The **XIAO ESP32-S3** and external **PN532 RFID module** remain removable through female headers rather than being permanently soldered. This supports replacement, reuse and easier debugging during development. The assembly is also being used to verify XIAO USB-C access, antenna clearance, PN532 placement and the relationship between the PCB and enclosure.
 
 <p align="center"><img src="https://raw.githubusercontent.com/alx-sousa/PCB-Hardware-Portfolio/main/assets/projects/autonomous-iot-monitoring-rev2/fusion360-rev2-assembly.png" width="640" alt="Autonomous IoT Monitoring REV 2.0 mechanical assembly in Fusion 360"></p>
 
 *Fusion 360 assembly used to review module placement, serviceability and enclosure integration before fabrication.*
+
+### REV 2.0 enclosure CAD — completed
+
+The enclosure CAD for REV 2.0 is now complete at the design stage. The final Fusion 360 assembly places the carrier PCB, removable **XIAO ESP32-S3**, external **PN532** module and enclosure geometry together to check the intended internal arrangement and access before manufacturing.
+
+<p align="center"><img src="docs/images/rev2/rev2-final-enclosure-cad.jpg" width="640" alt="Final Autonomous IoT Monitoring REV 2.0 enclosure CAD in Fusion 360"></p>
+
+*Final REV 2.0 enclosure CAD view. This closes the mechanical CAD stage; physical fit, fabrication and electrical bring-up still require real-hardware validation.*
 
 This CAD assembly is a mechanical design check, not proof of physical fit or electrical validation. Physical tolerances, assembly and bring-up remain pending. [Mechanical integration notes](docs/hardware-rev2.md#fusion-360-mechanical-assembly). · [PCB & hardware portfolio](https://github.com/alx-sousa/PCB-Hardware-Portfolio).
 
