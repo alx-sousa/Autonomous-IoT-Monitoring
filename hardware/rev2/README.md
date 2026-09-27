@@ -1,6 +1,6 @@
 # Autonomous IoT Monitoring — Hardware REV 2.0
 
-Receiver design package supplied by the author. Status: PCB fabrication preparation with Fusion 360 mechanical integration in progress; physical assembly and bring-up remain pending evidence.
+Receiver design package supplied by the author. Status: PCB fabrication preparation and REV 2.0 enclosure CAD complete at the design stage; physical assembly, fit validation and bring-up remain pending evidence.
 
 | Deliverable | File | Scope |
 |---|---|---|
@@ -17,6 +17,8 @@ Still missing: editable EasyEDA project, CPL/Pick and Place, final manual-assemb
 
 ## Mechanical integration
 
-A Fusion 360 assembly is being used to verify the relationship between the PCB, removable XIAO ESP32-S3, external PN532 interface and enclosure before fabrication. Female headers keep the XIAO and PN532 removable for serviceability, reuse and debugging. Physical fit and electrical validation are still pending.
+A Fusion 360 assembly was used to verify the intended relationship between the PCB, removable XIAO ESP32-S3, external PN532 interface and enclosure before fabrication. Female headers keep the XIAO and PN532 removable for serviceability, reuse and debugging. Physical fit and electrical validation are still pending.
+
+![Final enclosure CAD](../../docs/images/rev2/rev2-final-enclosure-cad.jpg)
 
 [Hardware design details](../../docs/hardware-rev2.md) · [Validation](../../docs/validation.md).
