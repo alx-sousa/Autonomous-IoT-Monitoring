@@ -28,7 +28,7 @@ La **XIAO ESP32-S3** y el módulo **PN532 RFID externo** se mantienen removibles
 
 El diseño CAD de la carcasa para REV 2.0 quedó completado a nivel de diseño. El ensamble final en Fusion 360 integra la PCB carrier, la **XIAO ESP32-S3 removible**, el módulo **PN532** externo y la geometría de la carcasa para revisar la distribución interna y los accesos previstos antes de fabricar.
 
-<p align="center"><img src="docs/images/rev2/rev2-final-enclosure-cad.jpg" width="640" alt="CAD final de la carcasa Autonomous IoT Monitoring REV 2.0 en Fusion 360"></p>
+<p align="center"><img src="docs/images/rev2/rev2-final-enclosure-cad.png" width="640" alt="CAD final de la carcasa Autonomous IoT Monitoring REV 2.0 en Fusion 360"></p>
 
 *Vista final del CAD de carcasa REV 2.0. Con esto se cierra la etapa de CAD mecánico; el ajuste físico, fabricación y bring-up eléctrico todavía requieren validación con hardware real.*
 
