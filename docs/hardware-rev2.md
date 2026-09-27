@@ -42,7 +42,15 @@ Key design decisions represented in the assembly:
 
 ![REV 2.0 Fusion 360 mechanical assembly](https://raw.githubusercontent.com/alx-sousa/PCB-Hardware-Portfolio/main/assets/projects/autonomous-iot-monitoring-rev2/fusion360-rev2-assembly.png)
 
-Current status: PCB schematic/layout and DRC are complete, the Fusion 360 mechanical assembly has been developed, and enclosure CAD work is ongoing. Fabrication, physical fit checks and electrical bring-up remain pending.
+Current status: PCB schematic/layout and DRC are complete, the Fusion 360 mechanical assembly is documented, and the REV 2.0 enclosure CAD is complete at the design stage. Fabrication, physical fit checks and electrical bring-up remain pending.
+
+## Final REV 2.0 enclosure CAD
+
+The completed enclosure CAD integrates the carrier PCB, removable XIAO ESP32-S3, external PN532 module, base geometry and top cover in the same Fusion 360 assembly. The model is used to define the intended internal arrangement and verify design-level access and clearances before fabrication.
+
+![Final REV 2.0 enclosure CAD](images/rev2/rev2-final-enclosure-cad.jpg)
+
+This image documents completion of the **mechanical CAD stage only**. It does not establish manufactured-part tolerances, physical fit, thermal behavior, enclosure durability or electrical validation.
 
 ## PCBA preparation
 
