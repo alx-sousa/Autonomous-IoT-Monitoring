@@ -56,9 +56,15 @@ The original camera files are preserved under `docs/images/` for provenance. The
 
 ## REV 2.0 mechanical assembly
 
-Fusion 360 is being used to assemble the REV 2.0 PCB with the removable XIAO ESP32-S3, external PN532 interface and enclosure references. The purpose of this evidence is to document mechanical-integration decisions before fabrication: module removability, connector access, antenna clearance, component height and enclosure fit.
+Fusion 360 was used to assemble the REV 2.0 PCB with the removable XIAO ESP32-S3, external PN532 interface and enclosure geometry. The purpose of this evidence is to document mechanical-integration decisions before fabrication: module removability, connector access, antenna clearance, component height and enclosure fit.
 
-The 3D assembly does not replace datasheet verification or physical tolerance testing. It represents the current CAD integration state; fabrication, real assembly and bring-up remain pending.
+The 3D assembly does not replace datasheet verification or physical tolerance testing. The enclosure CAD is complete at the design stage; fabrication, real assembly, fit verification and bring-up remain pending.
+
+### Final enclosure CAD
+
+![Final REV 2.0 enclosure CAD](images/rev2/rev2-final-enclosure-cad.jpg)
+
+Fusion 360 view showing the intended relationship between the enclosure base/top, carrier PCB with XIAO ESP32-S3, and external PN532 module. This is CAD evidence, not a photograph of manufactured hardware.
 
 ## REV 2.0 renders
 
