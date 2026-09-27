@@ -62,7 +62,7 @@ The 3D assembly does not replace datasheet verification or physical tolerance te
 
 ### Final enclosure CAD
 
-![Final REV 2.0 enclosure CAD](images/rev2/rev2-final-enclosure-cad.jpg)
+![Final REV 2.0 enclosure CAD](images/rev2/rev2-final-enclosure-cad.png)
 
 Fusion 360 view showing the intended relationship between the enclosure base/top, carrier PCB with XIAO ESP32-S3, and external PN532 module. This is CAD evidence, not a photograph of manufactured hardware.
 
