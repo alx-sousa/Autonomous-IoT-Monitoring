@@ -48,7 +48,7 @@ Current status: PCB schematic/layout and DRC are complete, the Fusion 360 mechan
 
 The completed enclosure CAD integrates the carrier PCB, removable XIAO ESP32-S3, external PN532 module, base geometry and top cover in the same Fusion 360 assembly. The model is used to define the intended internal arrangement and verify design-level access and clearances before fabrication.
 
-![Final REV 2.0 enclosure CAD](images/rev2/rev2-final-enclosure-cad.jpg)
+![Final REV 2.0 enclosure CAD](images/rev2/rev2-final-enclosure-cad.png)
 
 This image documents completion of the **mechanical CAD stage only**. It does not establish manufactured-part tolerances, physical fit, thermal behavior, enclosure durability or electrical validation.
 
