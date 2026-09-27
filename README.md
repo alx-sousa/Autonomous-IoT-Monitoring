@@ -28,7 +28,7 @@ The **XIAO ESP32-S3** and external **PN532 RFID module** remain removable throug
 
 The enclosure CAD for REV 2.0 is now complete at the design stage. The final Fusion 360 assembly places the carrier PCB, removable **XIAO ESP32-S3**, external **PN532** module and enclosure geometry together to check the intended internal arrangement and access before manufacturing.
 
-<p align="center"><img src="docs/images/rev2/rev2-final-enclosure-cad.jpg" width="640" alt="Final Autonomous IoT Monitoring REV 2.0 enclosure CAD in Fusion 360"></p>
+<p align="center"><img src="docs/images/rev2/rev2-final-enclosure-cad.png" width="640" alt="Final Autonomous IoT Monitoring REV 2.0 enclosure CAD in Fusion 360"></p>
 
 *Final REV 2.0 enclosure CAD view. This closes the mechanical CAD stage; physical fit, fabrication and electrical bring-up still require real-hardware validation.*
 
