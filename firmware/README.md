@@ -1,17 +1,32 @@
-# Firmware
+# Firmware architecture
 
-The three published sketches correspond to V1. No validated REV 2.0 firmware is included yet.
+The V1 firmware is documented publicly at **block level**. The complete source implementation is intentionally not distributed in this repository.
 
-| Folder / sketch | Responsibility | Documented hardware |
-|---|---|---|
-| [transmitter](transmitter/transmitter.ino) | ESP-NOW transmission to two receivers | ESP32-C6 |
-| [area_node](area_node/area_node.ino) | RSSI, hysteresis, walking mode and local alarm | ESP32-C6, RDM6300 UART, OLED and RGB |
-| [exit_node](exit_node/exit_node.ino) | Approach detection, alarm and RFID reset | ESP32-C6, PN532 I²C and OLED |
+## System split
 
-Existing paths and Arduino folder/file naming are preserved. Copy `secrets.example.h` to `secrets.h` in each receiver directory and configure your own values. Never commit the local secret file.
+```mermaid
+flowchart LR
+    H[Hospital platform / database] -->|Patient registration and association| T[Wearable transmitter]
+    T -->|ESP-NOW| A[Area receiver]
+    T -->|ESP-NOW| E[Exit receiver]
+    A --> LA[Local alarm + RFID interaction]
+    E --> LE[Local alarm + RFID interaction]
+    A -. Telemetry .-> C[Arduino IoT Cloud]
+    E -. Telemetry .-> C
+```
 
-## Reproduction
+The wearable communicates with each receiver **independently**. The area and exit receivers do not exchange data and do not synchronize state with each other.
 
-[Environment and setup](../docs/getting-started.md) · [Implemented logic](../docs/communication.md) · [Static review](../docs/firmware-review.md).
+## Public node documentation
 
-Original ESP32 core/library versions were not pinned and compilation was not repeated during the portfolio documentation update. A future XIAO port must explicitly define GPIO mapping, OLED dimensions, output polarity, PN532 interface and connectivity strategy before validation. V1 results do not automatically transfer to the new hardware.
+| Node | Public logic |
+|---|---|
+| [Wearable transmitter](transmitter/README.md) | Patient interface, wireless transmission and independent receiver links |
+| [Area receiver](area_node/README.md) | Signal processing, state evaluation, local alarm, RFID interaction and telemetry |
+| [Exit receiver](exit_node/README.md) | Approach evaluation, local alarm, RFID interaction, telemetry and re-arm |
+
+## Source availability
+
+The public portfolio intentionally omits buildable firmware, GPIO assignments, device identifiers, exact thresholds, timing constants and implementation-specific control parameters. The complete V1 firmware is maintained privately.
+
+This documentation is intended to show the embedded-system architecture, responsibility split and control flow without publishing the full implementation.

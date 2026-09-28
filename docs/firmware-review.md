@@ -1,43 +1,30 @@
-# Published firmware review
+# Firmware architecture review
 
-Static review of the V1 source code compared against the final V1 technical report. This review does not include compilation, execution on hardware or certification. Differences are documented to preserve traceability between design intent, implementation and reported results.
+This public document summarizes the engineering structure of the delivered V1 firmware without reproducing the source implementation.
 
-## Confirmed implementation
+## Confirmed architectural elements
 
-- Transmitter: two ESP-NOW destinations, two sends per destination/channel and channel sweep 1–11.
-- Area node: EMA 0.20, NEAR/FAR states, hysteresis, counter, critical condition, RDM6300 parser and checksum.
-- Exit node: EMA 0.20, counter, latched alarm, `millis()`-based output toggling and a 6 s exclusion after alarm reset.
-- Receivers: OLED output and Arduino IoT Cloud telemetry properties.
+- One wearable transmitter and two independent receiver nodes.
+- ESP-NOW communication from the wearable to each receiver.
+- RSSI-based proximity evaluation with signal conditioning and state stabilization.
+- Receiver-side local decision making and alarms.
+- RFID interaction on the receiver workflows.
+- OLED/visual/acoustic local feedback.
+- Arduino IoT Cloud as a telemetry layer rather than the primary decision path.
 
-## Relevant differences
+## Public scope
 
-| Report description | Evidence in published code |
-|---|---|
-| Five/ten consecutive samples | Counters advance in `loop()`; the same RSSI sample may be counted repeatedly |
-| RFID identity authorization | Area validates frame/checksum; exit detects a card; neither has an authorized UID list |
-| Bidirectional MAC filtering | Transmitter configures destinations; receiver callbacks do not filter source |
-| Exit critical state at −50 dBm | No such threshold or second stage exists in `exit_node.ino` |
-| Blue/intermittent preventive area alert | Not implemented as described in the published loop |
-| Wi-Fi enabled only for notification events | Cloud handling runs every cycle; no event-only radio-suspension strategy is explicit |
-| Physical alarm suspension after authorization/return | Area code does not explicitly reset outputs in every relevant path |
-| Fully asynchronous operation | Transmitter and area node use `delay()`; exit alarm timing uses `millis()` |
+The portfolio intentionally does not publish:
 
-## Technical items to verify on the bench
+- complete C++/Arduino source;
+- receiver MAC addresses or device identifiers;
+- exact GPIO maps;
+- RSSI thresholds, filter coefficients or timing constants;
+- implementation-specific recovery, retry or channel-management sequences;
+- cloud credentials or internal infrastructure configuration.
 
-1. **RSSI age:** no frame timeout is recorded and the filter is not initialized from the first real sample.
-2. **Area outputs:** verify LED/buzzer behavior when leaving the critical condition, enabling walking mode and returning to NEAR.
-3. **PN532:** verify the library constructor, auxiliary pins and wiring; `Wire.begin()` alone does not establish complete reader initialization.
-4. **Concurrency:** the callback updates RSSI shared with `loop()` without explicit synchronization.
-5. **Timers:** `ahora > tiempoDesbloqueo` should be reviewed for `millis()` overflow behavior.
-6. **Failure handling:** some initialization paths continue after errors or do not check return values.
-7. **Link security:** ESP-NOW is configured without encryption, source verification or payload validation on reception.
+## Engineering traceability
 
-These items are code-review findings, not measured failures from the delivered V1 prototype. Historical tests and their limitations are documented in [testing.md](testing.md).
+The original V1 system was functionally evaluated and delivered. Public documentation preserves the architecture, responsibilities, validation results and design decisions while the complete firmware implementation remains private.
 
-## Maintenance changes in the portfolio revision
-
-- The public entry point was consolidated under `firmware/`, removing redundant root-level copies; two earlier copies had embedded credentials.
-- Both receivers retain `WiFiConnectionHandler ArduinoIoTPreferredConnection(SSID_WIFI, PASS_WIFI);`; credential values are loaded from the local `secrets.h`.
-- Historical algorithms, thresholds, GPIO assignments and timing were preserved. Documentation cleanup does not imply a successful rebuild or physical revalidation.
-
-Previously exposed credentials should be rotated even if history is later rewritten. See [SECURITY.md](../SECURITY.md).
+REV 2.0 changes the receiver hardware platform toward a removable XIAO ESP32-S3 and custom PCB. Firmware porting for that hardware is tracked separately from the delivered V1 implementation.

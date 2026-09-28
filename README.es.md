@@ -73,15 +73,17 @@ Carrier PCB para **XIAO ESP32-S3 removible**, OLED I²C, LED RGB, buzzer con BC5
 
 La exportación para JLCPCB aún tiene selecciones de componentes pendientes. El paquete de diseño REV 2.0 está completo para la etapa actual y preparado para la siguiente fase de fabricación y bring-up. [Diseño y pendientes](docs/hardware-rev2.md) · [Archivos de hardware](hardware/rev2/README.md).
 
-## Firmware
+## Arquitectura de firmware
 
-| Nodo V1 | Implementación publicada |
+El repositorio público documenta el firmware mediante **lógica de bloques** en lugar de distribuir la implementación completa. Así se mantiene visible el razonamiento de ingeniería sin publicar detalles reproducibles como mapas GPIO, direcciones MAC, umbrales, constantes de tiempo o parámetros internos de control.
+
+| Nodo V1 | Documentación pública del firmware |
 |---|---|
-| [Transmisor](firmware/transmitter/transmitter.ino) | Dos destinos ESP-NOW y barrido de canales 1–11 |
-| [Área](firmware/area_node/area_node.ino) | EMA α = 0.20, histéresis −66/−59 dBm, RFID UART y alarma crítica |
-| [Salida](firmware/exit_node/exit_node.ino) | Detección desde −65 dBm, alarma enclavada y restablecimiento PN532 |
+| [Transmisor wearable](firmware/transmitter/README.md) | Interfaz del paciente, transmisión inalámbrica y enlaces independientes con ambos receptores |
+| [Receptor de área](firmware/area_node/README.md) | Procesamiento RSSI, evaluación local de estado, interacción RFID, alarma local y telemetría |
+| [Receptor de salida](firmware/exit_node/README.md) | Evaluación de aproximación, alarma local, interacción RFID, telemetría y rearme |
 
-Los sketches corresponden a **V1**. Los comentarios del código se mantienen en inglés para facilitar revisión técnica; la lógica histórica y los mensajes visibles al operador se preservan sin cambios. Aún no existe un port validado para XIAO ESP32-S3. [Preparación del entorno](docs/getting-started.md) · [Revisión estática](docs/firmware-review.md).
+La implementación completa del firmware V1 se mantiene de forma privada. [Resumen de firmware](firmware/README.md) · [Arquitectura de comunicación](docs/communication.md).
 
 ## Decisiones de ingeniería
 
@@ -112,12 +114,12 @@ Las fotografías históricas de V1 y figuras del informe se conservan en la [gal
 
 - [Validación por revisión](docs/validation.md): evidencia disponible y pruebas pendientes.
 - [Hardware](hardware/README.md): V1 histórica y paquete REV 2.0.
-- [Firmware](firmware/README.md): nodos, compatibilidad y reproducción.
+- [Firmware](firmware/README.md): responsabilidades y lógica pública por bloques.
 - [Evidencia](docs/evidence.md): fotografías, CAD y renders con procedencia.
 - [Seguridad](SECURITY.md): configuración local y exposición histórica de credenciales.
 
 ```text
-firmware/          Sketches V1 por nodo y configuración de ejemplo
+firmware/          Arquitectura pública de firmware por lógica de bloques
 hardware/rev1/     Integración histórica y conexiones documentadas
 hardware/rev2/     Esquema, PCB, Gerbers y selección de componentes
 docs/              Arquitectura, decisiones, pruebas y evidencia

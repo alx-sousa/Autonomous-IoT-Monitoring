@@ -1,49 +1,36 @@
-# Communication and implemented logic
+# Communication architecture
 
-This document describes the sketches published under `firmware/`. Historical evaluation figures are documented in [testing](testing.md).
+This document describes the public, block-level communication model of V1. Buildable firmware and implementation-specific constants are not distributed in the public repository.
 
-## ESP-NOW and filtering
+## Data flow
 
-The transmitter registers two peers with fixed MAC addresses and `encrypt = false`. On each channel it sends twice to each destination, with 15 ms and 65 ms delays, then advances from channel 1 through 11. This sweep does not imply delivery acknowledgement or guaranteed synchronization.
+```mermaid
+flowchart TD
+    H[Hospital platform / database] -->|Register patient and associate wearable| T[Wearable transmitter · ESP32-C6]
+    T -->|ESP-NOW · independent link| A[Area receiver]
+    T -->|ESP-NOW · independent link| E[Exit receiver]
+    A --> A1[Local RSSI processing and state decision]
+    E --> E1[Local RSSI processing and state decision]
+    A1 --> A2[Local alarm + RFID interaction]
+    E1 --> E2[Local alarm + RFID interaction]
+    A -. Operational telemetry .-> C[Arduino IoT Cloud]
+    E -. Operational telemetry .-> C
+```
 
-The receivers extract RSSI in the receive callback and apply:
+## Wireless topology
 
-`filtered = 0.20 * sample + 0.80 * previous_filtered`
+The wearable is the common transmitter. It communicates separately with the area receiver and the exit receiver. The two receivers **do not exchange data, synchronize state or depend on each other** for their local decisions.
 
-The callbacks do not compare the source MAC against an allow-list and do not validate payload content. They also do not implement a receive timeout. If frames stop arriving, the last filtered RSSI value remains in memory; link loss alone does not trigger a dedicated alarm.
+Each receiver evaluates the signal locally and applies its own state logic. The area node is responsible for detecting departure from its monitored zone, while the exit node is responsible for detecting approach to the exit.
 
-## Area node
+## Local control
 
-| Element | Code behavior |
-|---|---|
-| Startup | NEAR state; filtered RSSI −40 dBm |
-| Enter FAR | RSSI ≤ −66 dBm for five `loop()` evaluations |
-| Return to NEAR | RSSI ≥ −59 dBm; walking mode is disabled |
-| Critical condition | FAR, walking mode disabled and RSSI ≤ −84 dBm |
-| RDM6300 | UART 9600 baud, 12-character frame and XOR checksum between delimiters |
-| RFID interaction | Toggles walking mode after a minimum 1500 ms interval |
+RSSI is used as the proximity input and is conditioned before state evaluation. Hysteresis/confirmation logic is used to reduce unstable transitions caused by radio fluctuations. Exact coefficients, thresholds, timing parameters and internal implementation details are intentionally omitted from the public portfolio.
 
-Only NEAR and FAR belong to the `enum`. CRITICAL is a logical condition, while walking mode is a boolean. The reader output is not compared against an authorized identifier list. The five evaluations may reuse the same RSSI sample.
+RFID is an interaction input for the local workflows; it is not the proximity sensor.
 
-The critical condition drives the red LED and buzzer, but the current control block does not explicitly reset both outputs in every path when returning to NEAR or enabling walking mode. This requires bench verification before claiming guaranteed physical silence on those transitions.
+## Cloud and hospital platform
 
-## Exit node
+The hospital platform/database is used to register and associate patient information with the wearable interface. Arduino IoT Cloud was used as a separate telemetry layer for receiver-state visibility.
 
-| Element | Code behavior |
-|---|---|
-| Startup | Filtered RSSI −84 dBm; alarm disabled |
-| Trigger | RSSI ≥ −65 dBm for ten evaluations, with no lockout and no previous alarm |
-| Alarm | Remains active until RFID reset; outputs toggle every 150 ms |
-| PN532 read | Detects an ISO14443A card; no authorized UID comparison |
-| Reset | With an active alarm and valid RFID interval, disables alarm and resets counter/RSSI |
-| Exclusion | Suppresses RSSI triggering for 6000 ms after reset; automatic re-arm |
-
-The exclusion period is not activated by every card read; an active alarm is required. The ten counts represent loop cycles, not necessarily ten independent received frames. No second alarm stage at −50 dBm exists in this sketch.
-
-## Telemetry
-
-The area node publishes `rssiArea`, `estadoPaciente`, `alarmaCritica`, `modoPaseoCloud` and `pacienteLejos`. The exit node publishes `rssiPuerta`, `alarmaPuerta` and `estadoPuerta`. They are registered as read-only properties with a one-second interval.
-
-The code does not demonstrate event-only Wi-Fi activation or an explicit radio-suspension strategy.
-
-These thresholds belong to V1. RSSI changes with orientation, obstacles and environment; it is not converted into exact distance, and Bluetooth is not used for detection in these sketches.
+Local alarm decisions remain receiver-side rather than depending on cloud availability.

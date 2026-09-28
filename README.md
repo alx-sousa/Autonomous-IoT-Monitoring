@@ -73,15 +73,17 @@ Carrier PCB for a **removable XIAO ESP32-S3**, I²C OLED, RGB LED, BC547-driven 
 
 The JLCPCB component-matching export still contains unresolved selections. The REV 2.0 design package is complete for the current design stage and prepared for the next fabrication and bring-up phase. [Design and pending checks](docs/hardware-rev2.md) · [Hardware files](hardware/rev2/README.md).
 
-## Firmware
+## Firmware architecture
 
-| V1 node | Published implementation |
+The public repository documents the firmware as **block-level architecture** rather than distributing the complete implementation. This keeps the engineering flow reviewable while omitting reproducible source details such as GPIO maps, MAC addresses, thresholds, timing constants and internal control parameters.
+
+| V1 node | Public firmware documentation |
 |---|---|
-| [Transmitter](firmware/transmitter/transmitter.ino) | Two ESP-NOW destinations and channel sweep 1–11 |
-| [Area receiver](firmware/area_node/area_node.ino) | EMA α = 0.20, −66/−59 dBm hysteresis, UART RFID and critical alarm logic |
-| [Exit receiver](firmware/exit_node/exit_node.ino) | Approach detection from −65 dBm, latched alarm and PN532 reset |
+| [Wearable transmitter](firmware/transmitter/README.md) | Patient interface, wireless transmission and independent links to both receivers |
+| [Area receiver](firmware/area_node/README.md) | RSSI processing, local state evaluation, RFID interaction, local alarm and telemetry |
+| [Exit receiver](firmware/exit_node/README.md) | Approach evaluation, local alarm, RFID interaction, telemetry and re-arm flow |
 
-These sketches target **V1**. Their comments are written for engineering readability, while the historical control logic and operator-facing messages remain unchanged. A tested XIAO ESP32-S3 port is not included yet. [Environment setup](docs/getting-started.md) · [Static firmware review](docs/firmware-review.md).
+The complete V1 firmware implementation is maintained privately. [Firmware overview](firmware/README.md) · [Communication architecture](docs/communication.md).
 
 ## Engineering decisions
 
@@ -111,7 +113,7 @@ Historical V1 photographs and report figures remain available in the [evidence g
 ## Repository map
 
 ```text
-firmware/          V1 sketches by node and example secret configuration
+firmware/          Public block-level firmware architecture by node
 hardware/rev1/     Historical V1 integration and documented interfaces
 hardware/rev2/     REV 2.0 schematic, PCB, Gerbers and component matching
 docs/              Architecture, decisions, testing, validation and evidence
@@ -119,7 +121,7 @@ docs/              Architecture, decisions, testing, validation and evidence
 
 - [Validation by revision](docs/validation.md): evidence available and tests still pending.
 - [Hardware overview](hardware/README.md): V1 history and REV 2.0 deliverables.
-- [Firmware overview](firmware/README.md): node responsibilities and reproduction notes.
+- [Firmware overview](firmware/README.md): node responsibilities and public block-level logic.
 - [Security](SECURITY.md): local secret handling and historical credential exposure.
 
 ## Author
