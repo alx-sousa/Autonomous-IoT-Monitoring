@@ -10,6 +10,12 @@ Sistema inalámbrico de monitoreo de proximidad y alarmas locales desarrollado a
 
 **V1:** prototipo funcional desarrollado, probado y entregado al hospital por el equipo del proyecto. **REV 2.0:** rediseño independiente posterior a la entrega, mantenido como evolución técnica propia e informado por solicitudes posteriores de mejora, con XIAO ESP32-S3 removible y PCB propia de dos capas. Los archivos de fabricación y el CAD de la carcasa REV 2.0 están disponibles; el ensamble físico, bring-up y validación de ajuste siguen pendientes.
 
+### Transmisor wearable — interfaz del paciente
+
+El transmisor wearable es una parte principal del sistema, no solo un dispositivo de comunicación inalámbrica. Se integró una interfaz en el reloj para visualizar la información del paciente asociada al dispositivo una vez que el personal de enfermería registra al paciente en la base de datos del sistema. A partir de ahí, el wearable funciona como transmisor del lado del paciente mientras los nodos receptores realizan el monitoreo de proximidad y la lógica de alarmas locales.
+
+La interfaz se documenta como parte del sistema funcional V1; el repositorio no publica registros de pacientes ni contenido sensible de la base de datos.
+
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Render de la PCB Autonomous IoT Monitoring REV 2.0, con OLED, buzzer, RGB y sockets removibles"></p>
 
 *Diseño de PCB REV 2.0. Render de EasyEDA; la XIAO y el módulo PN532 externo no aparecen montados. No es una fotografía de una placa fabricada.*
