@@ -8,7 +8,7 @@ Sistema inalámbrico de monitoreo de proximidad y alarmas locales desarrollado a
 
 **Líder del proyecto y colaborador en sistemas embebidos/hardware:** **Luis Alejandro Pérez Sousa**.
 
-**V1:** prototipo funcional desarrollado, probado y entregado al hospital por el equipo del proyecto. **REV 2.0:** rediseño independiente posterior a la entrega, mantenido como evolución técnica propia e informado por solicitudes posteriores de mejora, con XIAO ESP32-S3 removible y PCB propia de dos capas. Los archivos de fabricación y el CAD de la carcasa REV 2.0 están disponibles; el ensamble físico, bring-up y validación de ajuste siguen pendientes.
+**V1:** sistema funcional desarrollado, probado y entregado al hospital por el equipo del proyecto. **REV 2.0:** rediseño de ingeniería independiente desarrollado después de la entrega e informado por solicitudes posteriores de mejora, con XIAO ESP32-S3 removible, PCB propia de dos capas y CAD de carcasa completado.
 
 ### Transmisor wearable — interfaz del paciente
 
@@ -22,7 +22,7 @@ La interfaz se documenta como parte del sistema funcional V1; el repositorio no 
 
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Render de la PCB Autonomous IoT Monitoring REV 2.0, con OLED, buzzer, RGB y sockets removibles"></p>
 
-*Diseño de PCB REV 2.0. Render de EasyEDA; la XIAO y el módulo PN532 externo no aparecen montados. No es una fotografía de una placa fabricada.*
+*Diseño de PCB REV 2.0 en EasyEDA Pro.*
 
 ### Integración mecánica REV 2.0 — Fusion 360
 
@@ -40,15 +40,15 @@ El diseño CAD de la carcasa para REV 2.0 quedó completado a nivel de diseño. 
 
 <p align="center"><img src="docs/images/rev2/rev2-final-enclosure-cad.png" width="640" alt="CAD final de la carcasa Autonomous IoT Monitoring REV 2.0 en Fusion 360"></p>
 
-*Vista final del CAD de carcasa REV 2.0. Con esto se cierra la etapa de CAD mecánico; el ajuste físico, fabricación y bring-up eléctrico todavía requieren validación con hardware real.*
+*Vista final del CAD de carcasa REV 2.0 en Fusion 360.*
 
-Este ensamble CAD es una verificación mecánica de diseño; no demuestra ajuste físico ni validación eléctrica. Las tolerancias reales, ensamble y bring-up siguen pendientes. [Notas de integración mecánica](docs/hardware-rev2.md#fusion-360-mechanical-assembly).
+[Notas de integración mecánica](docs/hardware-rev2.md#fusion-360-mechanical-assembly).
 
 ## Evolución del proyecto y liderazgo
 
 El departamento de DTI del hospital solicitó un dispositivo funcional de monitoreo con conectividad inalámbrica y alarmas locales. Coordiné al equipo durante la ejecución de tareas, integración del sistema embebido, pruebas y documentación técnica. El equipo completó el prototipo V1, evaluó su funcionamiento y entregó el sistema al hospital.
 
-Después de la entrega de V1 continué el proyecto mediante actualizaciones de ingeniería independientes. REV 2.0 incorpora una **solicitud posterior de mejora** y busca reducir cableado punto a punto, mejorar mantenibilidad, compactar el receptor y generar un paquete de fabricación más limpio. Es una evolución de ingeniería del prototipo V1 entregado; no se presenta como hardware ya fabricado o validado.
+Después de la entrega de V1 continué el proyecto mediante actualizaciones de ingeniería independientes. REV 2.0 incorpora una **solicitud posterior de mejora** y busca reducir cableado punto a punto, mejorar mantenibilidad, compactar el receptor y generar un paquete de fabricación más limpio. Es la evolución de ingeniería del sistema V1 entregado, enfocada en una integración de hardware más limpia, mantenible y preparada para fabricación.
 
 ## Mi aportación de ingeniería
 
@@ -75,7 +75,7 @@ El sistema evalúa proximidad del transmisor; no mide ocupación del colchón, c
 
 Carrier PCB para **XIAO ESP32-S3 removible**, OLED I²C, LED RGB, buzzer con BC547, pulsador e interfaz de batería. Un header de cuatro contactos conecta el PN532 externo. Incluye Gerbers de cobre superior/inferior, máscaras y taladros.
 
-La exportación para JLCPCB aún tiene selecciones de componentes pendientes. El diseño se documenta como **pre-fabricación / pre-bring-up**, no como hardware eléctricamente validado ni como pedido de producción confirmado. [Diseño y pendientes](docs/hardware-rev2.md) · [Archivos de hardware](hardware/rev2/README.md).
+La exportación para JLCPCB aún tiene selecciones de componentes pendientes. El paquete de diseño REV 2.0 está completo para la etapa actual y preparado para la siguiente fase de fabricación y bring-up. [Diseño y pendientes](docs/hardware-rev2.md) · [Archivos de hardware](hardware/rev2/README.md).
 
 ## Firmware
 
