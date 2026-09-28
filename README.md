@@ -12,13 +12,11 @@ Wireless proximity monitoring and local alarm system developed in response to a 
 
 ### Wearable transmitter — patient interface
 
-The wearable transmitter is a primary part of the system, not only a wireless beacon. A user interface was integrated into the watch so that the patient information associated with the device can be viewed after nursing staff registers the patient in the system database. The wearable then operates as the patient-side transmitter while the receiver nodes handle proximity monitoring and local alarm logic.
+The wearable transmitter combines the patient-side radio link with an integrated interface. After nursing staff registers a patient in the hospital platform/database, the associated information can be displayed directly on the watch while the device communicates with the receiver nodes for proximity monitoring and local alerting.
 
 <p align="center"><img src="docs/images/wearable-transmitter-v1.jpg" width="420" alt="V1 wearable transmitter with integrated patient interface"></p>
 
-*V1 wearable transmitter with integrated patient interface. The screen presents the information associated with the registered patient while the device operates as the patient-side transmitter.*
-
-This interface is presented as part of the functional V1 system; the repository does not publish patient records or sensitive database contents.
+*V1 wearable transmitter with integrated patient interface.*
 
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Autonomous IoT Monitoring REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
 
@@ -26,9 +24,7 @@ This interface is presented as part of the functional V1 system; the repository 
 
 ### REV 2.0 mechanical integration — Fusion 360
 
-REV 2.0 progressed from PCB layout through mechanical integration in **Fusion 360**. The PCB, removable modules and enclosure were assembled in CAD to review fit, serviceability and enclosure interfaces before fabrication.
-
-The **XIAO ESP32-S3** and external **PN532 RFID module** remain removable through female headers rather than being permanently soldered. This supports replacement, reuse and easier debugging during development. The assembly is also being used to verify XIAO USB-C access, antenna clearance, PN532 placement and the relationship between the PCB and enclosure.
+REV 2.0 progressed from PCB layout into mechanical integration in **Fusion 360**, bringing the carrier PCB, removable modules and enclosure into the same assembly. The **XIAO ESP32-S3** and external **PN532 RFID module** remain removable through female headers to support serviceability, reuse and debugging while preserving USB-C access, antenna clearance and enclosure fit.
 
 <p align="center"><img src="https://raw.githubusercontent.com/alx-sousa/PCB-Hardware-Portfolio/main/assets/projects/autonomous-iot-monitoring-rev2/fusion360-rev2-assembly.png" width="640" alt="Autonomous IoT Monitoring REV 2.0 mechanical assembly in Fusion 360"></p>
 
@@ -36,7 +32,7 @@ The **XIAO ESP32-S3** and external **PN532 RFID module** remain removable throug
 
 ### REV 2.0 enclosure CAD — completed
 
-The enclosure CAD for REV 2.0 is now complete at the design stage. The final Fusion 360 assembly places the carrier PCB, removable **XIAO ESP32-S3**, external **PN532** module and enclosure geometry together to check the intended internal arrangement and access before manufacturing.
+The final enclosure CAD consolidates the carrier PCB, removable **XIAO ESP32-S3**, external **PN532** module and enclosure geometry into the completed REV 2.0 mechanical design.
 
 <p align="center"><img src="docs/images/rev2/rev2-final-enclosure-cad.png" width="640" alt="Final Autonomous IoT Monitoring REV 2.0 enclosure CAD in Fusion 360"></p>
 
@@ -46,20 +42,20 @@ The enclosure CAD for REV 2.0 is now complete at the design stage. The final Fus
 
 ## Project evolution and leadership
 
-The hospital's DTI department requested a functional monitoring device with wireless connectivity and local alarms. I coordinated the project team through task execution, embedded-system integration, testing and technical documentation. The team completed the V1 prototype, evaluated its operation and delivered the system to the hospital.
+The hospital's DTI department requested a monitoring device with wireless connectivity and local alarms. I coordinated the team through embedded-system integration, testing and technical documentation until V1 was evaluated and delivered.
 
-After V1 delivery, I continued the project through independent engineering updates. REV 2.0 incorporates a **follow-up improvement request** and focuses on reducing point-to-point wiring, improving maintainability, making the receiver more compact and producing a cleaner fabrication package. It is the engineering evolution of the delivered V1 system, focused on cleaner hardware integration, maintainability and manufacturability.
+After delivery, I continued the project independently through REV 2.0, incorporating a **follow-up improvement request** focused on reducing point-to-point wiring, improving maintainability, compacting the receiver and preparing a cleaner fabrication package.
 
 ## My engineering contribution
 
 - Led project coordination and technical integration across firmware, electronics, enclosure work and validation activities.
 - Developed C++ firmware for three ESP32-C6 nodes, ESP-NOW communication and RSSI processing with EMA filtering and hysteresis.
 - Integrated RFID over UART/I²C, OLED interfaces, indicators and local alarms; Arduino IoT Cloud telemetry was used in V1.
-- Designed electronics in EasyEDA and contributed to V1 enclosure development in SolidWorks.
-- Evolved the receiver toward a compact two-layer PCB with removable controller, battery interface and fabrication documentation.
+- Designed electronics in EasyEDA Pro and contributed to V1 enclosure development in SolidWorks.
+- Developed REV 2.0 mechanical integration and enclosure CAD in Fusion 360 around the custom two-layer PCB, removable controller and battery interface.
 - Reviewed the published implementation to separate measured V1 results, source-code behavior and pending REV 2.0 verification.
 
-**Technologies:** C++/Arduino, ESP32-C6, XIAO ESP32-S3, ESP-NOW, I²C, UART, GPIO, EasyEDA Pro, SolidWorks and Arduino IoT Cloud. [Requirements and evidence](docs/requirements.md).
+**Technologies:** C++/Arduino, ESP32-C6, XIAO ESP32-S3, ESP-NOW, I²C, UART, GPIO, EasyEDA Pro, Fusion 360, SolidWorks and Arduino IoT Cloud. [Requirements and evidence](docs/requirements.md).
 
 ## System architecture — V1
 
