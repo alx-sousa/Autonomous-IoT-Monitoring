@@ -63,17 +63,13 @@ After V1 delivery, I continued the project through independent engineering updat
 
 ## System architecture — V1
 
-```mermaid
-flowchart TD
-    T["Wearable transmitter · ESP32-C6"] -->|ESP-NOW| A["Area receiver"]
-    T -->|ESP-NOW| S["Exit receiver"]
-    A --> L["Local alarms and RFID interaction"]
-    S --> L
-    A -. Wi-Fi telemetry .-> C["Arduino IoT Cloud"]
-    S -. Wi-Fi telemetry .-> C
-```
+<p align="center"><img src="docs/images/architecture/system-architecture-v1-en.png" width="900" alt="V1 system architecture: hospital platform, ESP32-C6 wearable transmitter, independent area and exit receivers, local RFID alarms and Arduino IoT Cloud telemetry"></p>
 
-The area receiver detects departure and uses an RDM6300 reader. The exit receiver detects approach and uses a PN532. Decisions are executed locally on the receivers. The system monitors transmitter proximity; it does **not** measure mattress occupancy, detect falls or estimate exact distance. [Architecture](docs/architecture.md) · [Communications](docs/communication.md).
+V1 uses an **ESP32-C6 wearable transmitter** with an integrated patient interface. Patient information is registered through the hospital platform/database and associated with the wearable, where it can be displayed locally.
+
+The wearable communicates **independently** with the area receiver and exit receiver through ESP-NOW. The receiver nodes do **not** exchange data or synchronize with each other. Each node evaluates the transmitter locally: the area receiver detects departure from the monitored zone, while the exit receiver detects approach to the exit. When its condition is met, the corresponding node activates its own local audible/visual alarm and RFID interaction. Arduino IoT Cloud was used as a separate telemetry layer.
+
+The system monitors transmitter proximity; it does **not** measure mattress occupancy, detect falls or estimate exact distance. [Architecture](docs/architecture.md) · [Communications](docs/communication.md).
 
 ## Hardware REV 2.0
 
