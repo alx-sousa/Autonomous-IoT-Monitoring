@@ -10,6 +10,12 @@ Wireless proximity monitoring and local alarm system developed in response to a 
 
 **V1:** functional prototype developed, tested and delivered to the hospital by the project team. **REV 2.0:** independent follow-up receiver redesign maintained after project delivery and informed by later improvement requests, using a removable XIAO ESP32-S3 and a custom two-layer PCB. Fabrication outputs and the REV 2.0 enclosure CAD are available; physical assembly, bring-up and fit validation remain pending.
 
+### Wearable transmitter — patient interface
+
+The wearable transmitter is a primary part of the system, not only a wireless beacon. A user interface was integrated into the watch so that the patient information associated with the device can be viewed after nursing staff registers the patient in the system database. The wearable then operates as the patient-side transmitter while the receiver nodes handle proximity monitoring and local alarm logic.
+
+This interface is presented as part of the functional V1 system; the repository does not publish patient records or sensitive database contents.
+
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Autonomous IoT Monitoring REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
 
 *REV 2.0 EasyEDA render. The XIAO and external PN532 module are not shown installed. This is not a photograph of manufactured hardware.*
