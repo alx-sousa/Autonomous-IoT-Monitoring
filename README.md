@@ -14,6 +14,10 @@ Wireless proximity monitoring and local alarm system developed in response to a 
 
 The wearable transmitter is a primary part of the system, not only a wireless beacon. A user interface was integrated into the watch so that the patient information associated with the device can be viewed after nursing staff registers the patient in the system database. The wearable then operates as the patient-side transmitter while the receiver nodes handle proximity monitoring and local alarm logic.
 
+<p align="center"><img src="docs/images/wearable-transmitter-v1.jpg" width="420" alt="V1 wearable transmitter with integrated patient interface"></p>
+
+*V1 wearable transmitter with integrated patient interface. The screen presents the information associated with the registered patient while the device operates as the patient-side transmitter.*
+
 This interface is presented as part of the functional V1 system; the repository does not publish patient records or sensitive database contents.
 
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Autonomous IoT Monitoring REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
