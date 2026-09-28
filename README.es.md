@@ -63,17 +63,13 @@ Después de la entrega de V1 continué el proyecto mediante actualizaciones de i
 
 ## Arquitectura del sistema — V1
 
-```mermaid
-flowchart TD
-    T["Transmisor portátil · ESP32-C6"] -->|ESP-NOW| A["Receptor de área"]
-    T -->|ESP-NOW| S["Receptor de salida"]
-    A --> L["Alertas locales e interacción RFID"]
-    S --> L
-    A -. Telemetría Wi-Fi .-> C["Arduino IoT Cloud"]
-    S -. Telemetría Wi-Fi .-> C
-```
+<p align="center"><img src="docs/images/architecture/system-architecture-v1-es.png" width="900" alt="Arquitectura V1: plataforma del hospital, transmisor wearable ESP32-C6, receptores independientes de área y salida, alarmas locales con RFID y telemetría en Arduino IoT Cloud"></p>
 
-El receptor de área detecta alejamiento e integra RDM6300; el de salida detecta aproximación e integra PN532. La decisión se ejecuta localmente. El sistema evalúa proximidad del transmisor: no mide ocupación del colchón, caídas ni distancia exacta. [Arquitectura](docs/architecture.md) · [Comunicaciones](docs/communication.md).
+V1 utiliza un **transmisor wearable ESP32-C6** con interfaz integrada para el paciente. La información se registra desde la plataforma/base de datos del hospital y se asocia al wearable, donde puede mostrarse localmente.
+
+El wearable se comunica de forma **independiente** con el receptor de área y el receptor de salida mediante ESP-NOW. Los receptores **no intercambian datos ni se sincronizan entre sí**. Cada nodo evalúa localmente la señal del transmisor: el receptor de área detecta la salida de la zona monitoreada y el receptor de salida detecta la aproximación a la salida. Cuando se cumple su condición, el nodo correspondiente activa su propia alarma local visual/sonora y la interacción RFID. Arduino IoT Cloud se utilizó como una capa separada de telemetría.
+
+El sistema evalúa proximidad del transmisor; no mide ocupación del colchón, caídas ni distancia exacta. [Arquitectura](docs/architecture.md) · [Comunicaciones](docs/communication.md).
 
 ## Hardware REV 2.0
 
