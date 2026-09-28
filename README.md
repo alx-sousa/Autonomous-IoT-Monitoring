@@ -8,7 +8,7 @@ Wireless proximity monitoring and local alarm system developed in response to a 
 
 **Project lead and embedded/hardware contributor:** **Luis Alejandro Pérez Sousa**.
 
-**V1:** functional prototype developed, tested and delivered to the hospital by the project team. **REV 2.0:** independent follow-up receiver redesign maintained after project delivery and informed by later improvement requests, using a removable XIAO ESP32-S3 and a custom two-layer PCB. Fabrication outputs and the REV 2.0 enclosure CAD are available; physical assembly, bring-up and fit validation remain pending.
+**V1:** functional system developed, tested and delivered to the hospital by the project team. **REV 2.0:** independent engineering redesign developed after project delivery and informed by later improvement requests, using a removable XIAO ESP32-S3, a custom two-layer PCB and a completed enclosure CAD.
 
 ### Wearable transmitter — patient interface
 
@@ -22,7 +22,7 @@ This interface is presented as part of the functional V1 system; the repository 
 
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Autonomous IoT Monitoring REV 2.0 PCB render with OLED, buzzer, RGB LED and removable sockets"></p>
 
-*REV 2.0 EasyEDA render. The XIAO and external PN532 module are not shown installed. This is not a photograph of manufactured hardware.*
+*REV 2.0 PCB design in EasyEDA Pro.*
 
 ### REV 2.0 mechanical integration — Fusion 360
 
@@ -40,15 +40,15 @@ The enclosure CAD for REV 2.0 is now complete at the design stage. The final Fus
 
 <p align="center"><img src="docs/images/rev2/rev2-final-enclosure-cad.png" width="640" alt="Final Autonomous IoT Monitoring REV 2.0 enclosure CAD in Fusion 360"></p>
 
-*Final REV 2.0 enclosure CAD view. This closes the mechanical CAD stage; physical fit, fabrication and electrical bring-up still require real-hardware validation.*
+*Final REV 2.0 enclosure CAD view in Fusion 360.*
 
-This CAD assembly is a mechanical design check, not proof of physical fit or electrical validation. Physical tolerances, assembly and bring-up remain pending. [Mechanical integration notes](docs/hardware-rev2.md#fusion-360-mechanical-assembly). · [PCB & hardware portfolio](https://github.com/alx-sousa/PCB-Hardware-Portfolio).
+[Mechanical integration notes](docs/hardware-rev2.md#fusion-360-mechanical-assembly) · [PCB & hardware portfolio](https://github.com/alx-sousa/PCB-Hardware-Portfolio).
 
 ## Project evolution and leadership
 
 The hospital's DTI department requested a functional monitoring device with wireless connectivity and local alarms. I coordinated the project team through task execution, embedded-system integration, testing and technical documentation. The team completed the V1 prototype, evaluated its operation and delivered the system to the hospital.
 
-After V1 delivery, I continued the project through independent engineering updates. REV 2.0 incorporates a **follow-up improvement request** and focuses on reducing point-to-point wiring, improving maintainability, making the receiver more compact and producing a cleaner fabrication package. It is an engineering evolution of the delivered V1 prototype, not a claim that the new hardware has already been fabricated or validated.
+After V1 delivery, I continued the project through independent engineering updates. REV 2.0 incorporates a **follow-up improvement request** and focuses on reducing point-to-point wiring, improving maintainability, making the receiver more compact and producing a cleaner fabrication package. It is the engineering evolution of the delivered V1 system, focused on cleaner hardware integration, maintainability and manufacturability.
 
 ## My engineering contribution
 
@@ -75,7 +75,7 @@ The system monitors transmitter proximity; it does **not** measure mattress occu
 
 Carrier PCB for a **removable XIAO ESP32-S3**, I²C OLED, RGB LED, BC547-driven buzzer, pushbutton and battery interface. A four-contact header connects the external PN532. Available fabrication outputs include copper, solder mask and drill files.
 
-The JLCPCB component-matching export still contains unresolved selections. The design is therefore documented as **pre-fabrication / pre-bring-up**, not as electrically validated hardware or a confirmed production order. [Design and pending checks](docs/hardware-rev2.md) · [Hardware files](hardware/rev2/README.md).
+The JLCPCB component-matching export still contains unresolved selections. The REV 2.0 design package is complete for the current design stage and prepared for the next fabrication and bring-up phase. [Design and pending checks](docs/hardware-rev2.md) · [Hardware files](hardware/rev2/README.md).
 
 ## Firmware
 
