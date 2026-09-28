@@ -14,6 +14,10 @@ Sistema inalámbrico de monitoreo de proximidad y alarmas locales desarrollado a
 
 El transmisor wearable es una parte principal del sistema, no solo un dispositivo de comunicación inalámbrica. Se integró una interfaz en el reloj para visualizar la información del paciente asociada al dispositivo una vez que el personal de enfermería registra al paciente en la base de datos del sistema. A partir de ahí, el wearable funciona como transmisor del lado del paciente mientras los nodos receptores realizan el monitoreo de proximidad y la lógica de alarmas locales.
 
+<p align="center"><img src="docs/images/wearable-transmitter-v1.jpg" width="420" alt="Transmisor wearable V1 con interfaz integrada del paciente"></p>
+
+*Transmisor wearable V1 con interfaz integrada del paciente. La pantalla presenta la información asociada al paciente registrado mientras el dispositivo funciona como transmisor del lado del paciente.*
+
 La interfaz se documenta como parte del sistema funcional V1; el repositorio no publica registros de pacientes ni contenido sensible de la base de datos.
 
 <p align="center"><img src="docs/images/rev2/pcb-perspective.png" width="560" alt="Render de la PCB Autonomous IoT Monitoring REV 2.0, con OLED, buzzer, RGB y sockets removibles"></p>
