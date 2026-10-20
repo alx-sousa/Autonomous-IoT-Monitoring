@@ -2,7 +2,9 @@
 
 ## Public source scope
 
-The public repository documents firmware architecture and block logic, but does not distribute the complete V1 firmware implementation. Do not publish Wi-Fi passwords, cloud keys, patient data, device credentials or internal infrastructure information in source files, screenshots, PDFs or public issues.
+The repository includes **sanitized historical V1 firmware snapshots** for portfolio review. They preserve representative application logic while excluding deployment-specific configuration and unique device identifiers.
+
+Do not publish private network configuration, cloud secrets, patient data, internal infrastructure information or other deployment data that does not need to be public.
 
 ## Historical exposure
 
@@ -14,7 +16,9 @@ Historical secret values are intentionally not reproduced in this documentation.
 
 ## Current portfolio boundary
 
-The public version omits buildable firmware, exact device identifiers, GPIO maps, control thresholds and timing constants. Architectural behavior and validation results remain documented for technical review.
+The public source under `firmware/public/v1/` uses neutral placeholder configuration instead of the original deployment values.
+
+The source is provided as engineering evidence, not as a deployment package.
 
 ## Reporting an issue
 
