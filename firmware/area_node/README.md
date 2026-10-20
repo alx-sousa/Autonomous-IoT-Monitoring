@@ -26,4 +26,4 @@ flowchart TD
 - Process RFID interaction for the area workflow.
 - Publish operational telemetry to Arduino IoT Cloud.
 
-Exact thresholds, filter coefficients, GPIO assignments, timers and source code are intentionally not published.
+A sanitized historical V1 source snapshot is available at [public/v1/area_receiver/area_receiver.ino](../public/v1/area_receiver/area_receiver.ino). Deployment-specific configuration is excluded from the public version.
