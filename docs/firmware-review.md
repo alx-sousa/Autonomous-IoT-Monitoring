@@ -1,30 +1,28 @@
-# Firmware architecture review
+# Firmware review — V1
 
-This public document summarizes the engineering structure of the delivered V1 firmware without reproducing the source implementation.
+This section connects the published V1 firmware snapshots with an engineering review of the implementation.
 
-## Confirmed architectural elements
+The review is **static**: it is based on the source currently published in this repository. The code was not recompiled, flashed or physically revalidated as part of this documentation pass.
 
-- One wearable transmitter and two independent receiver nodes.
-- ESP-NOW communication from the wearable to each receiver.
-- RSSI-based proximity evaluation with signal conditioning and state stabilization.
-- Receiver-side local decision making and alarms.
-- RFID interaction on the receiver workflows.
-- OLED/visual/acoustic local feedback.
-- Arduino IoT Cloud as a telemetry layer rather than the primary decision path.
+## Detailed review
 
-## Public scope
+- [V1 firmware technical review](firmware-review/v1-review.md) — system-level strengths, findings, future architecture and test ideas.
+- [Wearable transmitter flow](firmware-review/transmitter-flow.md) — channel sweep, peer updates, transmission bursts and timing implications.
+- [Area receiver state machine](firmware-review/area-state-machine.md) — EMA filtering, hysteresis, CERCA/LEJOS behavior, critical alarm and RFID walk mode.
+- [Exit receiver state machine](firmware-review/exit-state-machine.md) — approach confirmation, latched alarm, PN532 reset and timed re-arm.
 
-The portfolio intentionally does not publish:
+## Reviewed public source
 
-- complete C++/Arduino source;
-- receiver MAC addresses or device identifiers;
-- exact GPIO maps;
-- RSSI thresholds, filter coefficients or timing constants;
-- implementation-specific recovery, retry or channel-management sequences;
-- cloud credentials or internal infrastructure configuration.
+- [Wearable transmitter](../firmware/public/v1/transmitter/transmitter.ino)
+- [Area receiver](../firmware/public/v1/area_receiver/area_receiver.ino)
+- [Exit receiver](../firmware/public/v1/exit_receiver/exit_receiver.ino)
 
-## Engineering traceability
+## What this review is for
 
-The original V1 system was functionally evaluated and delivered. Public documentation preserves the architecture, responsibilities, validation results and design decisions while the complete firmware implementation remains private.
+The goal is to preserve the V1 implementation honestly while showing the ability to evaluate it critically.
 
-REV 2.0 changes the receiver hardware platform toward a removable XIAO ESP32-S3 and custom PCB. Firmware porting for that hardware is tracked separately from the delivered V1 implementation.
+The delivered prototype is not retroactively rewritten as if it had been developed with a production firmware architecture. Instead, the review distinguishes:
+
+**what V1 actually implemented → what worked as a prototype → what should be improved in a future revision.**
+
+REV 2.0 hardware development is tracked separately. Firmware porting and physical validation for that hardware remain pending.
