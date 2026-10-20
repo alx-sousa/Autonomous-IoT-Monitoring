@@ -24,4 +24,4 @@ flowchart TD
 - Communicate independently with the area and exit receivers.
 - Avoid receiver-to-receiver coordination; each receiver evaluates the wearable locally.
 
-Implementation-specific values, MAC addresses, channel-management details, timing constants and source code are intentionally not published.
+A sanitized historical V1 source snapshot is available at [public/v1/transmitter/transmitter.ino](../public/v1/transmitter/transmitter.ino). Real deployment-specific peer identifiers are not published.
