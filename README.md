@@ -83,7 +83,7 @@ The public repository documents the firmware through **block-level architecture*
 | [Area receiver](firmware/area_node/README.md) | RSSI processing, local state evaluation, RFID interaction, local alarm and telemetry |
 | [Exit receiver](firmware/exit_node/README.md) | Approach evaluation, local alarm, RFID interaction, telemetry and re-arm flow |
 
-**Code evidence:** [sanitized V1 firmware snapshots](firmware/public/v1/README.md). The original deployment configuration remains private. [Firmware overview](firmware/README.md) · [Communication architecture](docs/communication.md).
+**Code evidence:** [sanitized V1 firmware snapshots](firmware/public/v1/README.md) · [V1 firmware technical review](docs/firmware-review/v1-review.md). The original deployment configuration remains private. [Firmware overview](firmware/README.md) · [Communication architecture](docs/communication.md).
 
 ## Engineering decisions
 
