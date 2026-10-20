@@ -1,6 +1,9 @@
 # Firmware architecture
 
-The V1 firmware is documented publicly at **block level**. The complete source implementation is intentionally not distributed in this repository.
+The V1 firmware is documented at two levels:
+
+1. **block-level architecture** for the complete system responsibility split; and
+2. **sanitized historical source snapshots** that allow reviewers to inspect representative C++/Arduino implementation without exposing deployment-specific configuration.
 
 ## System split
 
@@ -19,14 +22,18 @@ The wearable communicates with each receiver **independently**. The area and exi
 
 ## Public node documentation
 
-| Node | Public logic |
-|---|---|
-| [Wearable transmitter](transmitter/README.md) | Patient interface, wireless transmission and independent receiver links |
-| [Area receiver](area_node/README.md) | Signal processing, state evaluation, local alarm, RFID interaction and telemetry |
-| [Exit receiver](exit_node/README.md) | Approach evaluation, local alarm, RFID interaction, telemetry and re-arm |
+| Node | Architecture | Sanitized source |
+|---|---|---|
+| Wearable transmitter | [Logic](transmitter/README.md) | [V1 snapshot](public/v1/transmitter/transmitter.ino) |
+| Area receiver | [Logic](area_node/README.md) | [V1 snapshot](public/v1/area_receiver/area_receiver.ino) |
+| Exit receiver | [Logic](exit_node/README.md) | [V1 snapshot](public/v1/exit_receiver/exit_receiver.ino) |
 
-## Source availability
+## Source availability and boundary
 
-The public portfolio intentionally omits buildable firmware, GPIO assignments, device identifiers, exact thresholds, timing constants and implementation-specific control parameters. The complete V1 firmware is maintained privately.
+The public snapshots preserve the V1 prototype's main control flow, including ESP-NOW communication, RSSI filtering, state evaluation, RFID interaction, local alarms and Arduino IoT Cloud telemetry.
 
-This documentation is intended to show the embedded-system architecture, responsibility split and control flow without publishing the full implementation.
+Deployment credentials and unique device identifiers are excluded from the public files. The original deployment configuration remains private.
+
+These files are historical engineering evidence. They are not presented as production firmware, medical-device software or a reproducible deployment package.
+
+See [public V1 firmware notes](public/v1/README.md) for limitations and review items.
