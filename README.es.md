@@ -75,7 +75,7 @@ La exportación para JLCPCB aún tiene selecciones de componentes pendientes. El
 
 ## Arquitectura de firmware
 
-El repositorio público documenta el firmware mediante **lógica de bloques** en lugar de distribuir la implementación completa. Así se mantiene visible el razonamiento de ingeniería sin publicar detalles reproducibles como mapas GPIO, direcciones MAC, umbrales, constantes de tiempo o parámetros internos de control.
+El repositorio público documenta el firmware mediante **lógica de bloques** y ahora también incluye **snapshots sanitizados del firmware histórico V1** para revisión técnica. Estos archivos conservan flujo representativo en C++/Arduino y excluyen la configuración específica del despliegue y los identificadores únicos de los dispositivos.
 
 | Nodo V1 | Documentación pública del firmware |
 |---|---|
@@ -83,7 +83,7 @@ El repositorio público documenta el firmware mediante **lógica de bloques** en
 | [Receptor de área](firmware/area_node/README.md) | Procesamiento RSSI, evaluación local de estado, interacción RFID, alarma local y telemetría |
 | [Receptor de salida](firmware/exit_node/README.md) | Evaluación de aproximación, alarma local, interacción RFID, telemetría y rearme |
 
-La implementación completa del firmware V1 se mantiene de forma privada. [Resumen de firmware](firmware/README.md) · [Arquitectura de comunicación](docs/communication.md).
+**Evidencia de código:** [snapshots sanitizados del firmware V1](firmware/public/v1/README.md). La configuración original del despliegue se mantiene privada. [Resumen de firmware](firmware/README.md) · [Arquitectura de comunicación](docs/communication.md).
 
 ## Decisiones de ingeniería
 
@@ -119,7 +119,7 @@ Las fotografías históricas de V1 y figuras del informe se conservan en la [gal
 - [Seguridad](SECURITY.md): configuración local y exposición histórica de credenciales.
 
 ```text
-firmware/          Arquitectura pública de firmware por lógica de bloques
+firmware/          Arquitectura por bloques + snapshots sanitizados del firmware V1
 hardware/rev1/     Integración histórica y conexiones documentadas
 hardware/rev2/     Esquema, PCB, Gerbers y selección de componentes
 docs/              Arquitectura, decisiones, pruebas y evidencia
