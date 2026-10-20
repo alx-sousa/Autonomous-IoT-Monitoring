@@ -83,7 +83,7 @@ El repositorio público documenta el firmware mediante **lógica de bloques** y 
 | [Receptor de área](firmware/area_node/README.md) | Procesamiento RSSI, evaluación local de estado, interacción RFID, alarma local y telemetría |
 | [Receptor de salida](firmware/exit_node/README.md) | Evaluación de aproximación, alarma local, interacción RFID, telemetría y rearme |
 
-**Evidencia de código:** [snapshots sanitizados del firmware V1](firmware/public/v1/README.md). La configuración original del despliegue se mantiene privada. [Resumen de firmware](firmware/README.md) · [Arquitectura de comunicación](docs/communication.md).
+**Evidencia de código:** [snapshots sanitizados del firmware V1](firmware/public/v1/README.md) · [revisión técnica del firmware V1](docs/firmware-review/v1-review.md). La configuración original del despliegue se mantiene privada. [Resumen de firmware](firmware/README.md) · [Arquitectura de comunicación](docs/communication.md).
 
 ## Decisiones de ingeniería
 
