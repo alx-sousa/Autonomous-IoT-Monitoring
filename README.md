@@ -8,7 +8,7 @@ Wireless proximity monitoring and local alarm system developed in response to a 
 
 **Project lead and embedded/hardware contributor:** **Luis Alejandro Pérez Sousa**.
 
-**V1:** functional system developed, tested and delivered to the hospital by the project team. **REV 2.0:** independent engineering redesign developed after project delivery and informed by later improvement requests, using a removable XIAO ESP32-S3, a custom two-layer PCB and a completed enclosure CAD.
+**V1:** functional system developed, tested and delivered to the hospital by the project team. **REV 2.0:** independent engineering redesign developed after project delivery and informed by later improvement requests, using a removable XIAO ESP32-S3, a custom two-layer PCB and a completed enclosure CAD. **REV 2.0 fabrication, firmware porting and physical validation remain pending; component matching must be closed before assembly.**
 
 ### Wearable transmitter — patient interface
 
@@ -108,7 +108,7 @@ The complete V1 firmware implementation is maintained privately. [Firmware overv
 
 Source: final V1 technical report, table 24, printed page 72. These are historical aggregate results from V1; they do not validate REV 2.0 and do not constitute medical certification. [Methods and limitations](docs/testing.md).
 
-Historical V1 photographs and report figures remain available in the [evidence gallery](docs/evidence.md) for traceability. Internal prototyping-board photographs are intentionally not used as the main portfolio image; this landing page emphasizes the current REV 2.0 engineering work.
+Historical V1 photographs and report figures remain available in the [evidence gallery](docs/evidence.md) for traceability.
 
 ## Repository map
 
