@@ -8,7 +8,7 @@ Sistema inalámbrico de monitoreo de proximidad y alarmas locales desarrollado a
 
 **Líder del proyecto y colaborador en sistemas embebidos/hardware:** **Luis Alejandro Pérez Sousa**.
 
-**V1:** sistema funcional desarrollado, probado y entregado al hospital por el equipo del proyecto. **REV 2.0:** rediseño de ingeniería independiente desarrollado después de la entrega e informado por solicitudes posteriores de mejora, con XIAO ESP32-S3 removible, PCB propia de dos capas y CAD de carcasa completado.
+**V1:** sistema funcional desarrollado, probado y entregado al hospital por el equipo del proyecto. **REV 2.0:** rediseño de ingeniería independiente desarrollado después de la entrega e informado por solicitudes posteriores de mejora, con XIAO ESP32-S3 removible, PCB propia de dos capas y CAD de carcasa completado. **La fabricación, el port de firmware y la validación física de REV 2.0 siguen pendientes; la selección de componentes debe cerrarse antes del ensamble.**
 
 ### Transmisor wearable — interfaz del paciente
 
@@ -108,7 +108,7 @@ La implementación completa del firmware V1 se mantiene de forma privada. [Resum
 
 Fuente: informe técnico final de V1, tabla 24, página impresa 72. Son resultados agregados históricos; no validan REV 2.0 ni equivalen a certificación médica. [Método y límites](docs/testing.md).
 
-Las fotografías históricas de V1 y figuras del informe se conservan en la [galería de evidencia](docs/evidence.md) para trazabilidad. Las imágenes internas con placa de prototipado no se usan como imagen principal del portafolio; esta página prioriza el trabajo actual de REV 2.0.
+Las fotografías históricas de V1 y figuras del informe se conservan en la [galería de evidencia](docs/evidence.md) para trazabilidad.
 
 ## Documentación y estado
 
