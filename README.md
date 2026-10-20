@@ -75,7 +75,7 @@ The JLCPCB component-matching export still contains unresolved selections. The R
 
 ## Firmware architecture
 
-The public repository documents the firmware as **block-level architecture** rather than distributing the complete implementation. This keeps the engineering flow reviewable while omitting reproducible source details such as GPIO maps, MAC addresses, thresholds, timing constants and internal control parameters.
+The public repository documents the firmware through **block-level architecture** and also includes **sanitized historical V1 source snapshots** for technical review. The snapshots preserve representative C++/Arduino control flow while excluding deployment-specific configuration and unique device identifiers.
 
 | V1 node | Public firmware documentation |
 |---|---|
@@ -83,7 +83,7 @@ The public repository documents the firmware as **block-level architecture** rat
 | [Area receiver](firmware/area_node/README.md) | RSSI processing, local state evaluation, RFID interaction, local alarm and telemetry |
 | [Exit receiver](firmware/exit_node/README.md) | Approach evaluation, local alarm, RFID interaction, telemetry and re-arm flow |
 
-The complete V1 firmware implementation is maintained privately. [Firmware overview](firmware/README.md) · [Communication architecture](docs/communication.md).
+**Code evidence:** [sanitized V1 firmware snapshots](firmware/public/v1/README.md). The original deployment configuration remains private. [Firmware overview](firmware/README.md) · [Communication architecture](docs/communication.md).
 
 ## Engineering decisions
 
@@ -113,7 +113,7 @@ Historical V1 photographs and report figures remain available in the [evidence g
 ## Repository map
 
 ```text
-firmware/          Public block-level firmware architecture by node
+firmware/          Block-level architecture + sanitized V1 source snapshots
 hardware/rev1/     Historical V1 integration and documented interfaces
 hardware/rev2/     REV 2.0 schematic, PCB, Gerbers and component matching
 docs/              Architecture, decisions, testing, validation and evidence
