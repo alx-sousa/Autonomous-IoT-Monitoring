@@ -7,7 +7,7 @@ This matrix separates historical evidence, document inspection and tests that ar
 | V1 physical integration | Documented | [Evidence gallery](evidence.md) and V1 technical report |
 | V1 functional evaluation | Historical results reported | [Results and method](testing.md); no raw dataset published |
 | V1 source review | Static review documented | [Findings](firmware-review.md) |
-| V1 private firmware build | Historical implementation retained privately | Public repository exposes block-level firmware architecture and static-review findings; no reproducible public build is currently provided |
+| V1 firmware source review | Sanitized historical snapshots published | Public source permits implementation review; deployment configuration is excluded and no reproducible build has been recorded yet |
 | REV 2.0 schematic, layout and renders | Files available | [Inventory](../hardware/rev2/README.md) |
 | REV 2.0 Gerber/Drill export | Available | Does not equal approved DFM |
 | REV 2.0 PCBA component selection | Incomplete | U3 unresolved, pogo quantity zero and several matches unconfirmed |
