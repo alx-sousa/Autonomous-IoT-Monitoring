@@ -37,3 +37,14 @@ Deployment credentials and unique device identifiers are excluded from the publi
 These files are historical engineering evidence. They are not presented as production firmware, medical-device software or a reproducible deployment package.
 
 See [public V1 firmware notes](public/v1/README.md) for limitations and review items.
+
+## Technical review
+
+The published V1 source is accompanied by a static engineering review:
+
+- [System-level V1 firmware review](../docs/firmware-review/v1-review.md)
+- [Transmitter flow review](../docs/firmware-review/transmitter-flow.md)
+- [Area receiver state-machine review](../docs/firmware-review/area-state-machine.md)
+- [Exit receiver state-machine review](../docs/firmware-review/exit-state-machine.md)
+
+The review documents strengths, implementation trade-offs and concrete improvement opportunities without rewriting the historical V1 source.
